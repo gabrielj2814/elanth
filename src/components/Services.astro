@@ -1,6 +1,5 @@
 ---
 import Icon from './Icon.astro';
-import Barcode from './Barcode.astro';
 
 const services = [
   {
@@ -52,10 +51,10 @@ const services = [
 
 const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
 ---
-<section id="servicios" class="relative bg-ice text-ink" data-services>
+<section id="servicios" class="circuit-grid relative bg-ice text-ink" data-services>
   <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
     <div class="max-w-[52rem]">
-      <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy">Una sola orden para vender en línea, completa.</h2>
+      <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy">Tus ventas en linea, de principio a fin.</h2>
       <p class="mt-6 max-w-[40rem] text-lg leading-relaxed text-muted">
         E-Commerce 360° es nuestra solución llave en mano: no solo creamos tu tienda, centralizamos y automatizamos
         todos tus canales de venta para que tus ingresos crezcan sin que crezca tu carga operativa.
@@ -126,55 +125,51 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
         </figure>
       </div>
 
-      <!-- Orden de servicio -->
+      <!-- Orden de servicio: módulos conectados a un bus -->
       <div class="lg:col-span-7">
-        <div class="paper paper-torn mx-auto max-w-[44rem] px-5 py-10 sm:px-10 sm:py-12">
-          <div class="flex items-start justify-between gap-4 font-mono text-xs text-muted [font-stretch:82%]">
-            <div>
-              <p class="font-sans text-xl font-[800] tracking-[-0.01em] text-navy [font-stretch:118%] sm:text-2xl">Orden de servicio</p>
-              <p class="mt-1">E-Commerce 360° · Llave en mano</p>
-            </div>
-            <p class="shrink-0 text-right">Fase actual<br />Elanth</p>
+        <div class="board">
+          <div class="bus-node bus-head">
+            <span class="pad" aria-hidden="true"></span>
+            <span class="ic-chip ic-chip-dark">E360</span>
+            <span>
+              <span class="block text-xl font-[800] tracking-[-0.01em] text-paper [font-stretch:116%]">Orden de servicio</span>
+              <span class="mt-0.5 block text-[0.8125rem] text-fog">E-Commerce 360° · Llave en mano</span>
+            </span>
           </div>
-          <div class="mt-6 grid grid-cols-[3.25rem_1fr] gap-x-3 font-mono text-[0.6875rem] text-muted [font-stretch:82%] sm:grid-cols-[3.75rem_1fr] sm:gap-x-5">
-            <span>Cód.</span><span>Servicio</span>
-          </div>
-          <div class="tear-line mt-2 text-ink"></div>
 
-          <ul class="divide-y divide-dashed divide-ink/20">
-            {services.map((s) => (
-              <li>
-                <button
-                  type="button"
-                  class="service grid w-full grid-cols-[3.25rem_1fr] gap-x-3 py-7 text-left sm:grid-cols-[3.75rem_1fr] sm:gap-x-5"
-                  data-service={s.id}
-                  data-nodes={s.nodes}
-                  aria-describedby={`parte-${s.id}`}
-                >
-                  <span class="service-code code mt-0.5 justify-self-start">{s.code}</span>
-                  <span class="min-w-0">
-                    <span class="block text-xl font-[760] tracking-[-0.01em] text-navy [font-stretch:110%] sm:text-[1.375rem]">{s.title}</span>
-                    <span class="mt-2 block text-[0.9875rem] leading-relaxed text-ink/85">{s.body}</span>
-                    <span class="mt-3 flex items-start gap-2 font-mono text-xs leading-relaxed text-blue-ink [font-stretch:85%]">
-                      <Icon name="arrow" class="mt-[0.2em] size-3.5 shrink-0" />
-                      {s.result}
-                    </span>
-                    <span id={`parte-${s.id}`} class="mt-2 block font-mono text-[0.6875rem] text-muted [font-stretch:85%] lg:sr-only">
-                      En la hoja de ruta: {s.part}
-                    </span>
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          <div class="tear-line text-ink"></div>
-          <div class="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div class="font-mono text-xs leading-relaxed text-muted [font-stretch:85%]">
-              <p class="tabular flex justify-between gap-8"><span>Tu parte</span><span class="text-navy">recibir y despachar</span></p>
-              <p class="tabular flex justify-between gap-8"><span>Nuestra parte</span><span class="text-navy">todo lo demás</span></p>
+          {services.map((s) => (
+            <div class="bus-node bus-mod">
+              <span class="pad" aria-hidden="true"></span>
+              <button
+                type="button"
+                class="service module w-full text-left"
+                data-service={s.id}
+                data-nodes={s.nodes}
+                aria-describedby={`parte-${s.id}`}
+              >
+                <span class="flex items-center gap-3.5">
+                  <span class="ic-chip">{s.code}</span>
+                  <span class="text-[1.1875rem] leading-tight font-[760] tracking-[-0.01em] text-navy [font-stretch:110%]">{s.title}</span>
+                </span>
+                <span class="mt-3 block text-[0.9875rem] leading-relaxed text-ink/85">{s.body}</span>
+                <span class="mt-3 flex items-start gap-2 text-[0.9375rem] font-semibold text-blue-ink">
+                  <Icon name="arrow" class="mt-[0.2em] size-4 shrink-0" />
+                  {s.result}
+                </span>
+                <span id={`parte-${s.id}`} class="mt-2 block font-mono text-[0.6875rem] text-muted [font-stretch:85%] lg:sr-only">
+                  En la hoja de ruta: {s.part}
+                </span>
+              </button>
             </div>
-            <Barcode value="E-COMMERCE-360" class="h-9 w-40 text-ink" />
+          ))}
+
+          <div class="bus-node bus-term">
+            <span class="pad" aria-hidden="true"></span>
+            <span class="ic-chip ic-chip-you">TÚ</span>
+            <span>
+              <span class="block font-bold text-navy [font-stretch:106%]">Tu almacén</span>
+              <span class="mt-0.5 block text-sm text-muted">Recibes el pedido y despachas. Nosotros, todo lo demás.</span>
+            </span>
           </div>
         </div>
       </div>
@@ -284,8 +279,90 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
   .flow [data-node='equipo'].lit { box-shadow: 0 0 0 2px var(--color-teal); }
   .slip { transition: box-shadow 350ms; }
 
-  .service.active .service-code,
-  .service:hover .service-code { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-paper); }
+  /* Orden de servicio: cada servicio es un módulo conectado al bus */
+  .board {
+    --g: 2rem;
+    --bx: 0.75rem;
+    --line: rgb(23 105 143 / 0.45);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-left: var(--g);
+  }
+  .bus-node { --ty: 50%; position: relative; }
+  .bus-mod { --ty: 2.125rem; }
+  /* Pista desde el bus hasta el módulo */
+  .bus-node::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--ty) - 1px);
+    left: calc(var(--bx) - var(--g));
+    width: calc(var(--g) - var(--bx));
+    height: 2px;
+    background: var(--line);
+    transition: background-color 300ms;
+  }
+  /* Tramo del bus */
+  .bus-node::after {
+    content: '';
+    position: absolute;
+    top: -0.75rem;
+    bottom: 0;
+    left: calc(var(--bx) - var(--g) - 1px);
+    width: 2px;
+    background: var(--line);
+  }
+  .bus-node:first-child::after { top: var(--ty); }
+  .bus-node:last-child::after { bottom: auto; height: calc(var(--ty) + 0.75rem); }
+  .pad {
+    position: absolute;
+    z-index: 1;
+    top: calc(var(--ty) - 6px);
+    left: calc(var(--bx) - var(--g) - 6px);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--color-blue-ink);
+    background: var(--color-ice);
+    transition: background-color 300ms, border-color 300ms;
+  }
+  .bus-node:has(.active)::before { background: var(--color-navy); }
+  .bus-node:has(.active) .pad { background: var(--color-navy); border-color: var(--color-navy); }
+
+  .bus-head {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.125rem;
+    border-radius: 10px;
+    background: var(--color-navy);
+  }
+  .module {
+    display: block;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid rgb(11 31 51 / 0.14);
+    background: #fff;
+    transition: border-color 300ms, box-shadow 300ms;
+  }
+  .module:hover,
+  .module.active { border-color: var(--color-navy); box-shadow: 0 12px 24px -16px rgb(11 31 51 / 0.45); }
+  .bus-term {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.125rem;
+    border-radius: 10px;
+    border: 1.5px dashed rgb(11 31 51 / 0.35);
+    background: rgb(255 255 255 / 0.5);
+  }
+  @media (min-width: 640px) {
+    .board { --g: 3rem; --bx: 1rem; }
+    .bus-mod { --ty: 2.25rem; }
+    .module { padding: 1.375rem 1.5rem; }
+  }
   @media (hover: hover) and (min-width: 1024px) {
     .service { cursor: pointer; }
   }

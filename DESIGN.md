@@ -146,7 +146,8 @@ The ground is dark and dominant. Navy (`navy`) owns the hero, the "llave en mano
 Density is deliberate and calm: large sections (96px to 128px vertical), a 12-column grid inside a 90rem container, and paper documents that hold most of the detail so the navy ground can stay quiet. Motion is mechanical and purposeful: paper feeds, codes light, counters roll. All of it collapses under reduced motion.
 
 **Key Characteristics:**
-- Navy and ice grounds; thermal paper documents carry the content.
+- Navy and ice grounds; thermal paper documents carry the content of the hero, the route slip and the ledger.
+- A second, technical voice taken from the logo's circuit: modules on a bus, IC chip codes and a faint 32px grid carry the service order, the ecosystem hub and the contact form.
 - Torn edges, dashed tear lines, barcodes and boxed print codes as native ornament.
 - Wide heavy Archivo display; condensed mono reserved for printed data.
 - A single teal light per view: the call to action, the printer LED, focus and the lit flow code.
@@ -212,7 +213,7 @@ A cold, ink-and-paper palette on deep navy, with one lit teal and one amber for 
 
 A 12-column grid inside a 90rem container, with gutters of 16px, 32px from 640px, and 48px from 1024px. Sections breathe at 96px vertical, 128px from 640px. Two-part sections split asymmetrically: 7/5 in the hero (copy, then printer), 5/7 in services (sticky route slip, then service order) and contact (sticky steps, then form), 4/1/7 in the ledger (client copy, perforation, Elanth copy). Below 1024px everything stacks in reading order and the printer drops under the call to action at full width.
 
-Paper documents are capped at 42 to 44rem and padded generously (20px to 40px horizontal, 40px to 48px vertical). Sticky columns pin at 7rem from the top. Anchors scroll smoothly with a 5rem offset for the fixed nav.
+Paper documents are capped at 42 to 44rem and padded generously (20px to 40px horizontal, 40px to 48px vertical). Sticky columns pin at 7rem from the top. Anchors scroll smoothly with an offset equal to the fixed nav height (3.5rem, 4rem from 640px), so each section starts flush under it.
 
 ## Elevation & Depth
 
@@ -250,7 +251,7 @@ Lit, confident, and singular.
 - **Choice pill:** 44px tall, 999px radius, white with a 22% ink border; selected fills navy with paper text.
 
 ### Cards / Containers
-There are no cards. Containers are paper documents.
+Two kinds of containers. Paper documents (below) for the hero tickets, the route slip and the ledger; circuit modules (white, 10px radius, 1px ink border at 14%, joined by traces) for the service order and the ecosystem hub. A module never stands alone on the ground: it is always wired to a bus or a hub.
 - **Corner Style:** square, with torn edges.
 - **Background:** `paper` (the one in-service roadmap ticket prints on white).
 - **Shadow Strategy:** paper drop-shadows (see Elevation & Depth).
@@ -262,18 +263,28 @@ There are no cards. Containers are paper documents.
 - **Focus:** border turns `teal-ink` with a 3px teal ring at 28%.
 - **Error:** red border with a soft coral ring and a red helper line under the field; form-level errors appear as a tinted coral alert.
 - **Optional group:** a dashed 25% ink border on ice, introduced by a scissors cut line, so optional details read as a detachable part of the order.
+- **On the contact module (dark):** fields sit on `navy-deep` with a 1px sky border at 25%, 6px radius and paper text; labels in paper, "(opcional)" in fog. Focus turns the border teal with a 3px teal ring at 25%; errors use a coral border and a light coral helper line. The optional group is a dashed sky box at 30% with a mono "OPCIONAL" label sitting on its border.
+
+### Contact Module
+The form is a dark circuit module: `#0f2840` fill, 1px sky border at 22%, 12px radius, rows of sky pins along its top and bottom edges, and a header with the ASR chip and "Solicitud de asesoría". Beside it, the three steps are mono numerals in rounded-square pads joined by a sky trace at 30%.
 
 ### Navigation
-Fixed, transparent over the hero, logo left, three fog links (14px, 500) that turn paper on hover, and the ghost CTA at right ("Asesoría gratis" on mobile). After 24px of scroll it turns 92% navy with a 10px backdrop blur and a hairline shadow. Links hide below 768px. 64px tall, 80px from 640px.
+Fixed, transparent over the hero, logo left (44px, 56px from 640px), four fog links (Servicios, Llave en mano, Ecosistema, Contacto) (14px, 500) that turn paper on hover, and the ghost CTA at right ("Asesoría gratis" on mobile). After 24px of scroll it turns 92% navy with a 10px backdrop blur and a hairline shadow. Links hide below 768px. 56px tall, 64px from 640px.
 
 ### Order Ticket (signature)
 The thermal ticket that prints from the comandera: channel name in Archivo 780 at 112% width, tabular time at right, order number, a tear line, the quantity and product line with SKU and total, a second tear line, then a `blue-ink` "stock sincronizado" status with a check glyph and a deterministic barcode. Bottom edge torn. New tickets feed down out of the slot over 1400ms, after which the stock rail below cycles each channel through an amber sync glyph to a check and rolls the count.
 
-### Route Slip and Service Order (signature)
-Services are a paper "hoja de ruta" keyed by print codes, beside a paper service order whose rows each carry the same code. Focusing, hovering or scrolling a service dims every other node to 35% and lights the nodes it governs (their codes turn teal); clicking pins it. The client's own part is torn off below a scissors line as a separate stub.
+### Route Slip and Service Bus (signature)
+Services are a paper "hoja de ruta" keyed by print codes, beside a service order drawn as a circuit: a navy header module ("Orden de servicio", E360 chip), one white module per service (10px radius, 1px ink border at 14%) and a dashed "TÚ · Tu almacén" socket at the end, all hanging from a vertical `blue-ink` bus at 45% through short traces and 12px solder pads. Each service carries its code as an IC chip. Focusing, hovering or scrolling a service dims every other node of the slip to 35% and lights the nodes it governs (their codes turn teal); the active module takes a navy border and its trace and pad turn navy. Clicking pins it. The client's own part of the slip is torn off below a scissors line as a separate stub.
 
-### Two-Copy Ledger and Pending Rail (signature)
-The turnkey split is two torn copies of one order: a narrow, slightly tilted client copy and a wide Elanth copy, divided by a dotted perforation. The roadmap is a slate rail with metal clips, each department a paper ticket hanging at a different drop, marked "En servicio" (check glyph, navy) or "En preparación" (dashed clock glyph, `amber-ink`).
+### IC Chip
+The circuit's code stamp: navy fill, `sky` mono text (600, 82% width, 0.06em), 3px radius, 26px tall, with rows of 2px pins drawn above and below. On navy surfaces it sits on `navy-deep` with a 1px sky outline at 35% (`ic-chip-dark`). The client's own part is an empty socket: transparent with a 1.5px navy outline and no pins (`ic-chip-you`).
+
+### Two-Copy Ledger (signature)
+The turnkey split is two torn copies of one order: a narrow, slightly tilted client copy and a wide Elanth copy, divided by a dotted perforation.
+
+### Ecosystem Hub (signature)
+The roadmap is a hub diagram: a white core module with the Elanth mark ("Elanth · HUB TECNOLÓGICO", 2px navy border) in a 16rem center column, two department modules on each side, joined by rails and traces. The department in service (E-Commerce 360°) connects with a solid `blue-ink` trace where a sky highlight flows toward the core; departments in preparation connect with dashed `amber-ink` traces. Each module shows its IC chip, a mono status ("En servicio" with check glyph in navy, "En preparación" with dashed clock in `amber-ink`), name and description. Below 1024px the core sits on top and the modules hang from a vertical bus.
 
 ## Do's and Don'ts
 
@@ -290,7 +301,7 @@ The turnkey split is two torn copies of one order: a narrow, slightly tilted cli
 ### Don't:
 - **Don't** use teal for headlines, icons at rest, section backgrounds or decorative accents.
 - **Don't** set persuasive copy, headings or form labels in mono.
-- **Don't** stand content on the ground as rounded, bordered cards or icon-card grids; content lives on paper.
+- **Don't** stand content on the ground as loose rounded cards or icon-card grids; content lives on paper, or on circuit modules wired to a bus or hub.
 - **Don't** give section grounds or text shadows; only paper, hardware, the lit button and the scrolled nav cast.
 - **Don't** signal sync, pending or availability by color alone.
 - **Don't** use amber for anything available today.

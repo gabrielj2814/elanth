@@ -1,14 +1,18 @@
 ---
 import Icon from './Icon.astro';
+import { asset } from '../config';
 
-const upcoming = [
-  { name: 'Elanth Code', body: 'Desarrollo avanzado de software, integraciones complejas y aplicaciones a la medida.' },
-  { name: 'Elanth Media', body: 'Producción de contenido, diseño, branding y estrategias de comunicación visual.' },
-  { name: 'Elanth Games', body: 'Experiencias interactivas y proyectos orientados a la industria de los videojuegos.' },
-  { name: 'Elanth Industry', body: 'Desarrollo de software y soluciones avanzadas para la industria.' },
+// Departamentos alrededor del hub: dos a la izquierda y dos a la derecha.
+const depts = [
+  { pos: 'l1', code: 'E360', name: 'E-Commerce 360°', body: 'Tiendas, omnicanalidad, B2B, gestión delegada y marketing.', live: true },
+  { pos: 'l2', code: 'CODE', name: 'Elanth Code', body: 'Desarrollo avanzado de software, integraciones complejas y aplicaciones a la medida.' },
+  { pos: 'r1', code: 'MEDIA', name: 'Elanth Media', body: 'Producción de contenido, diseño, branding y estrategias de comunicación visual.' },
+  { pos: 'r2', code: 'IND', name: 'Elanth Industry', body: 'Desarrollo de software y soluciones avanzadas para la industria.' },
 ];
+const left = depts.filter((d) => d.pos.startsWith('l'));
+const right = depts.filter((d) => d.pos.startsWith('r'));
 ---
-<section id="ecosistema" class="bg-ice text-ink">
+<section id="ecosistema" class="circuit-grid bg-ice text-ink">
   <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
     <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
       <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy lg:col-span-7">
@@ -20,64 +24,172 @@ const upcoming = [
       </p>
     </div>
 
-    <!-- Riel de pedidos -->
-    <div class="relative mt-16 lg:mt-24">
-      <div class="rail absolute inset-x-0 top-0 hidden h-3 rounded-full lg:block" aria-hidden="true"></div>
-      <ol class="grid gap-5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-4 lg:pt-1.5">
-        <li class="hang">
-          <article class="ticket-v paper paper-torn-bottom h-full bg-white px-5 pt-6 pb-8">
-            <h3 class="text-xl font-[800] text-navy [font-stretch:114%]">E-Commerce 360°</h3>
-            <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink/85">
-              Tiendas, omnicanalidad, B2B, gestión delegada y marketing.
-            </p>
-            <div class="tear-line mt-5 text-ink"></div>
-            <p class="mt-3 flex items-center justify-between gap-2 font-mono text-[0.6875rem] text-navy [font-stretch:82%]">
-              <span>Estado</span>
-              <span class="flex items-center gap-1.5 font-semibold"><Icon name="check" class="size-3.5" />En servicio</span>
-            </p>
-            <a href="#asesoria" class="mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-blue-ink underline decoration-blue-ink/40 underline-offset-4 hover:decoration-blue-ink">
-              Pedir asesoría <Icon name="arrow" class="size-4" />
-            </a>
-          </article>
-        </li>
-        {upcoming.map((u, i) => (
-          <li class="hang" style={`--drop:${[1.5, 0.5, 2.25, 1][i]}rem`}>
-            <article class="ticket-v paper paper-torn-bottom relative h-full overflow-hidden px-5 pt-6 pb-8">
-              <h3 class="text-xl font-[800] text-navy [font-stretch:114%]">{u.name}</h3>
-              <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink/75">{u.body}</p>
-              <div class="tear-line mt-4 text-ink"></div>
-              <p class="mt-3 flex items-center justify-between gap-2 font-mono text-[0.6875rem] text-muted [font-stretch:82%]">
-                <span>Estado</span>
-                <span class="flex items-center gap-1.5 text-amber-ink"><Icon name="clock" class="size-3.5" />En preparación</span>
-              </p>
+    <!-- Hub: Elanth al centro, cada departamento conectado por una pista -->
+    <div class="hub">
+      {[left, right].map((side) =>
+        side.map((d) => (
+          <div class:list={['cell', `cell-${d.pos}`, { live: d.live }]}>
+            <article class="dept">
+              <div class="flex items-center justify-between gap-3">
+                <span class="ic-chip">{d.code}</span>
+                {d.live ? (
+                  <span class="status flex items-center gap-1.5 text-navy"><Icon name="check" class="size-3.5" />En servicio</span>
+                ) : (
+                  <span class="status flex items-center gap-1.5 text-amber-ink"><Icon name="clock" class="size-3.5" />En preparación</span>
+                )}
+              </div>
+              <h3 class="mt-[1.125rem] text-[1.375rem] font-[800] tracking-[-0.01em] text-navy [font-stretch:114%]">{d.name}</h3>
+              <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink/80">{d.body}</p>
+              {d.live && (
+                <a href="#asesoria" class="mt-1.5 inline-flex min-h-11 items-center gap-1.5 text-[0.9375rem] font-semibold text-blue-ink underline decoration-blue-ink/40 underline-offset-4 hover:decoration-blue-ink">
+                  Pedir asesoría <Icon name="arrow" class="size-4" />
+                </a>
+              )}
             </article>
-          </li>
-        ))}
-      </ol>
+          </div>
+        ))
+      )}
+
+      <div class="center">
+        <span class="rail rail-l1 flow-v" aria-hidden="true"></span>
+        <span class="rail rail-l2" aria-hidden="true"></span>
+        <span class="rail rail-r1" aria-hidden="true"></span>
+        <span class="rail rail-r2" aria-hidden="true"></span>
+        <span class="stub stub-l flow-h" aria-hidden="true"></span>
+        <span class="stub stub-r" aria-hidden="true"></span>
+        <div class="core">
+          <img src={asset('brand/elanth-mark.svg')} alt="" width="1940" height="1110" loading="lazy" />
+          <span>
+            <span class="block text-[1.375rem] leading-tight font-[820] tracking-[-0.02em] text-navy [font-stretch:118%]">Elanth</span>
+            <span class="block font-mono text-[0.6875rem] tracking-[0.04em] text-muted [font-stretch:82%]">HUB TECNOLÓGICO</span>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .rail {
-    background: linear-gradient(to bottom, #50667e, var(--color-slate));
-    box-shadow: 0 6px 10px -6px rgb(11 31 51 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.25);
+  .hub {
+    --live: var(--color-blue-ink);
+    --wait: var(--color-amber-ink);
+    --dash-h: linear-gradient(to right, var(--wait) 50%, transparent 50%) 0 0 / 8px 2px;
+    --dash-v: linear-gradient(to bottom, var(--wait) 50%, transparent 50%) 0 0 / 2px 8px;
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 4rem;
   }
+
+  /* Móvil: el hub arriba y los departamentos colgando de un bus vertical */
+  .cell { position: relative; display: flex; align-items: center; padding-left: 2rem; }
+  .cell::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: -0.75rem;
+    bottom: 0;
+    width: 2px;
+    background: var(--dash-v);
+  }
+  .cell::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    width: 20px;
+    height: 2px;
+    background: var(--dash-h);
+  }
+  .cell.live::before,
+  .cell.live::after { background: var(--live); }
+  .cell-r2::before { bottom: 50%; }
+  .center { order: -1; }
+  .rail,
+  .stub { display: none; }
+
+  .core {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.125rem;
+    border-radius: 14px;
+    border: 2px solid var(--color-navy);
+    background: #fff;
+    box-shadow: 0 16px 32px -20px rgb(11 31 51 / 0.5);
+  }
+  .core img { width: 4rem; height: auto; }
+
+  .dept {
+    width: 100%;
+    padding: 1.375rem;
+    border-radius: 10px;
+    border: 1px solid rgb(11 31 51 / 0.14);
+    background: #fff;
+  }
+  .cell.live .dept { border: 1.5px solid var(--color-navy); box-shadow: 0 14px 28px -18px rgb(11 31 51 / 0.5); }
+  .status {
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: 0.6875rem;
+    font-weight: 600;
+  }
+
+  /* Escritorio: dos departamentos a cada lado y el hub al centro */
   @media (min-width: 1024px) {
-    .hang { position: relative; padding-top: calc(1.25rem + var(--drop, 0rem)); }
-    .hang::before {
-      content: '';
+    .hub {
+      grid-template-columns: 1fr 16rem 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.5rem 0;
+      margin-top: 5.5rem;
+    }
+    .cell { padding-left: 0; }
+    .cell::before { display: none; }
+    .cell-l1 { grid-column: 1; grid-row: 1; padding-right: 2.5rem; }
+    .cell-l2 { grid-column: 1; grid-row: 2; padding-right: 2.5rem; }
+    .cell-r1 { grid-column: 3; grid-row: 1; padding-left: 2.5rem; }
+    .cell-r2 { grid-column: 3; grid-row: 2; padding-left: 2.5rem; }
+    .cell-l1::after,
+    .cell-l2::after { left: auto; right: 0; width: 2.5rem; }
+    .cell-r1::after,
+    .cell-r2::after { left: 0; width: 2.5rem; }
+
+    .center { order: 0; position: relative; grid-column: 2; grid-row: 1 / span 2; }
+    .rail,
+    .stub { display: block; position: absolute; }
+    .rail { width: 2px; background: var(--dash-v); }
+    /* Los rieles van del centro de cada fila al centro del hub */
+    .rail-l1 { left: 0; top: calc((100% - 1.5rem) / 4); bottom: 50%; }
+    .rail-l2 { left: 0; top: 50%; bottom: calc((100% - 1.5rem) / 4); }
+    .rail-r1 { right: 0; top: calc((100% - 1.5rem) / 4); bottom: 50%; }
+    .rail-r2 { right: 0; top: 50%; bottom: calc((100% - 1.5rem) / 4); }
+    .stub { top: calc(50% - 1px); width: 2.5rem; height: 2px; }
+    .stub-l { left: 0; }
+    .stub-r { right: 0; background: var(--dash-h); }
+
+    .core {
       position: absolute;
-      top: 0;
+      top: 50%;
       left: 50%;
-      translate: -50% 0;
-      width: 0.875rem;
-      height: calc(1.6rem + var(--drop, 0rem));
-      border-radius: 3px;
-      background: linear-gradient(to right, #8aa0b6, #c9d6e2 45%, #6f859c);
-      box-shadow: 0 2px 3px rgb(11 31 51 / 0.3);
-      z-index: 2;
+      translate: -50% -50%;
+      flex-direction: column;
+      gap: 0.625rem;
+      width: 11rem;
+      padding: 1.375rem 1rem;
+      text-align: center;
+    }
+    .core img { width: 5.25rem; }
+
+    /* La conexión en servicio fluye hacia el hub */
+    .flow-h,
+    .cell-l1.live::after {
+      background: linear-gradient(90deg, var(--live) 0 40%, var(--color-sky) 50%, var(--live) 60% 100%) 0 0 / 300% 100%;
+      animation: flow-h 2.4s linear infinite;
+    }
+    .flow-v {
+      background: linear-gradient(180deg, var(--live) 0 40%, var(--color-sky) 50%, var(--live) 60% 100%) 0 0 / 100% 300%;
+      animation: flow-v 2.4s linear infinite;
     }
   }
-  .ticket-v { filter: drop-shadow(0 12px 16px rgb(11 31 51 / 0.14)) drop-shadow(0 1px 2px rgb(11 31 51 / 0.18)); }
+  @keyframes flow-h { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+  @keyframes flow-v { from { background-position: 0 100%; } to { background-position: 0 0%; } }
 </style>

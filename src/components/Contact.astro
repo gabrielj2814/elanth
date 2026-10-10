@@ -1,6 +1,5 @@
 ---
 import Icon from './Icon.astro';
-import Barcode from './Barcode.astro';
 import { contact } from '../config';
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
@@ -22,7 +21,7 @@ const required = [
   { id: 'correo', label: 'Correo electrónico', type: 'email', autocomplete: 'email', placeholder: 'nombre@empresa.com', error: 'Escribe un correo válido, por ejemplo nombre@empresa.com.' },
 ];
 ---
-<section id="asesoria" class="relative overflow-hidden bg-navy">
+<section id="asesoria" class="circuit-grid-dark relative overflow-hidden bg-navy">
   <div class="mx-auto grid max-w-[90rem] gap-14 px-4 py-24 sm:px-8 sm:py-32 lg:grid-cols-12 lg:gap-10 lg:px-12">
     <div class="lg:col-span-5">
       <div class="lg:sticky lg:top-28">
@@ -35,10 +34,10 @@ const required = [
         </p>
 
         <h3 class="mt-14 text-xl font-bold text-paper [font-stretch:108%]">Qué pasa después</h3>
-        <ol class="mt-5 space-y-6">
+        <ol class="mt-6">
           {steps.map((s, i) => (
-            <li class="grid grid-cols-[2.25rem_1fr] gap-4">
-              <span class="tabular grid size-9 place-items-center rounded-full border border-sky/40 text-sm font-semibold text-sky">{i + 1}</span>
+            <li class="step relative grid grid-cols-[2.25rem_1fr] gap-4 pb-7 last:pb-0">
+              <span class="step-pad tabular grid size-9 place-items-center rounded-lg font-mono text-[0.8125rem] font-semibold text-sky [font-stretch:82%]">{i + 1}</span>
               <span>
                 <span class="block font-semibold text-paper [font-stretch:104%]">{s.title}</span>
                 <span class="mt-1 block text-fog">{s.body}</span>
@@ -50,109 +49,103 @@ const required = [
     </div>
 
     <div class="lg:col-span-7">
-      <div class="paper paper-torn mx-auto max-w-[42rem] px-5 py-10 sm:px-10 sm:py-12" data-contact>
+      <div class="module mx-auto max-w-[42rem]" data-contact>
         <form action={endpoint || undefined} method="post" novalidate data-endpoint={endpoint} data-whatsapp={whatsappHref} data-email={contact.email} data-form>
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <p class="font-sans text-xl font-[800] tracking-[-0.01em] text-navy [font-stretch:118%] sm:text-2xl">Orden de asesoría</p>
-              <p class="mt-1 font-mono text-xs text-muted [font-stretch:85%]">Asesoría y demo · Sin costo</p>
-            </div>
-            <Barcode value="ASESORIA" class="mt-1 h-7 w-24 shrink-0 text-ink" />
-          </div>
-          <div class="tear-line mt-6 text-ink"></div>
-
-          <fieldset class="mt-7">
-            <legend class="text-base font-bold text-navy [font-stretch:106%]">Tus datos de contacto</legend>
-            <div class="mt-5 grid gap-5 sm:grid-cols-2">
-              {required.map((f) => (
-                <div class="field">
-                  <label for={f.id}>{f.label}</label>
-                  <input
-                    id={f.id}
-                    name={f.id}
-                    type={f.type}
-                    autocomplete={f.autocomplete}
-                    placeholder={f.placeholder || undefined}
-                    required
-                    aria-describedby={`${f.id}-error`}
-                    data-error={f.error}
-                  />
-                  <p id={`${f.id}-error`} class="error" hidden></p>
-                </div>
-              ))}
-            </div>
-          </fieldset>
-
-          <!-- Corte: lo opcional -->
-          <div class="relative mt-10 mb-8 flex items-center gap-3 text-ink" aria-hidden="true">
-            <div class="tear-line flex-1"></div>
-            <svg class="size-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.6 7.6 20 18M8.6 16.4 20 6"/></svg>
+          <div class="module-head flex items-center gap-3.5 px-5 py-[1.375rem] sm:px-8 sm:py-6">
+            <span class="ic-chip ic-chip-dark">ASR</span>
+            <span>
+              <span class="block text-xl font-[800] tracking-[-0.01em] text-paper [font-stretch:116%]">Solicitud de asesoría</span>
+              <span class="mt-0.5 block text-[0.8125rem] text-fog">Asesoría y demo · Sin costo</span>
+            </span>
           </div>
 
-          <fieldset class="optional rounded-md border border-dashed border-ink/25 bg-ice p-4 sm:p-6">
-            <legend class="float-left w-full">
-              <span class="block text-lg font-bold text-navy [font-stretch:106%]">Opcional: cuéntanos de tu negocio</span>
-              <span class="mt-1 block text-sm leading-relaxed font-normal text-muted">
+          <div class="px-5 pt-[1.625rem] pb-8 sm:px-8 sm:pt-[1.875rem] sm:pb-9">
+            <fieldset>
+              <legend class="text-base font-bold text-paper [font-stretch:106%]">Tus datos de contacto</legend>
+              <div class="mt-5 grid gap-5 sm:grid-cols-2">
+                {required.map((f) => (
+                  <div class="field">
+                    <label for={f.id}>{f.label}</label>
+                    <input
+                      id={f.id}
+                      name={f.id}
+                      type={f.type}
+                      autocomplete={f.autocomplete}
+                      placeholder={f.placeholder || undefined}
+                      required
+                      aria-describedby={`${f.id}-error`}
+                      data-error={f.error}
+                    />
+                    <p id={`${f.id}-error`} class="error" hidden></p>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+
+            <fieldset class="optional mt-[1.875rem] rounded-lg px-4 pt-1.5 pb-5 sm:px-[1.375rem] sm:pb-6">
+              <legend class="px-2 font-mono text-[0.6875rem] font-semibold tracking-[0.06em] text-sky [font-stretch:82%]">OPCIONAL</legend>
+              <p class="text-sm leading-relaxed text-fog">
+                <span class="mb-0.5 block text-[1.0625rem] font-bold text-paper [font-stretch:106%]">Cuéntanos de tu negocio</span>
                 Puedes dejar esta parte en blanco. Si la llenas, llegamos a la conversación con la tarea adelantada.
-              </span>
-            </legend>
-            <div class="clear-both grid gap-5 pt-5">
-              <div class="field">
-                <label for="rubro">¿A qué se dedica tu empresa? <span class="opt">(opcional)</span></label>
-                <input id="rubro" name="rubro" type="text" placeholder="Ej.: distribución de material eléctrico" />
-              </div>
-              <div class="field">
-                <span class="field-label" id="vende-label">¿Ya vendes por internet? <span class="opt">(opcional)</span></span>
-                <div class="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-labelledby="vende-label">
-                  {['Todavía no', 'Sí, un poco', 'Sí, en varios canales'].map((v, i) => (
-                    <label class="choice">
-                      <input type="radio" name="vende_online" value={v} class="sr-only" />
-                      <span>{v}</span>
-                    </label>
-                  ))}
+              </p>
+              <div class="grid gap-5 pt-5">
+                <div class="field">
+                  <label for="rubro">¿A qué se dedica tu empresa? <span class="opt">(opcional)</span></label>
+                  <input id="rubro" name="rubro" type="text" placeholder="Ej.: distribución de material eléctrico" />
+                </div>
+                <div class="field">
+                  <span class="field-label" id="vende-label">¿Ya vendes por internet? <span class="opt">(opcional)</span></span>
+                  <div class="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-labelledby="vende-label">
+                    {['Todavía no', 'Sí, un poco', 'Sí, en varios canales'].map((v, i) => (
+                      <label class="choice">
+                        <input type="radio" name="vende_online" value={v} class="sr-only" />
+                        <span>{v}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="sistema">¿Qué sistema administrativo o ERP usan? <span class="opt">(opcional)</span></label>
+                  <input id="sistema" name="sistema" type="text" placeholder="Ej.: el nombre de tu sistema, o «ninguno»" />
+                </div>
+                <div class="field">
+                  <label for="mensaje">¿Qué te gustaría lograr? <span class="opt">(opcional)</span></label>
+                  <textarea id="mensaje" name="mensaje" rows="3" placeholder="Ej.: vender en Mercado Libre sin descuadrar el inventario"></textarea>
                 </div>
               </div>
-              <div class="field">
-                <label for="sistema">¿Qué sistema administrativo o ERP usan? <span class="opt">(opcional)</span></label>
-                <input id="sistema" name="sistema" type="text" placeholder="Ej.: el nombre de tu sistema, o «ninguno»" />
-              </div>
-              <div class="field">
-                <label for="mensaje">¿Qué te gustaría lograr? <span class="opt">(opcional)</span></label>
-                <textarea id="mensaje" name="mensaje" rows="3" placeholder="Ej.: vender en Mercado Libre sin descuadrar el inventario"></textarea>
-              </div>
+            </fieldset>
+
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+            <div class="mt-9">
+              <button type="submit" class="btn-lit w-full text-base sm:text-lg" data-submit>
+                <span data-submit-label>Obtener asesoría y demo gratuita</span>
+                <Icon name="arrow" class="size-5" />
+              </button>
+              <p class="mt-4 text-center text-sm text-fog">Te contactaremos por WhatsApp o por correo.</p>
+              {(whatsappHref || emailHref) && (
+                <p class="mt-2 text-center text-sm text-fog">
+                  ¿Prefieres escribirnos directo?
+                  {whatsappHref && <a href={whatsappHref} class="font-semibold text-sky underline underline-offset-4" target="_blank" rel="noopener">WhatsApp</a>}
+                  {whatsappHref && emailHref && ' o '}
+                  {emailHref && <a href={emailHref} class="font-semibold text-sky underline underline-offset-4">{contact.email}</a>}
+                </p>
+              )}
+              <p class="form-status mt-4 rounded-md px-4 py-3 text-sm" role="alert" data-status hidden></p>
             </div>
-          </fieldset>
-
-          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-
-          <div class="mt-9">
-            <button type="submit" class="btn-lit w-full text-base sm:text-lg" data-submit>
-              <span data-submit-label>Obtener asesoría y demo gratuita</span>
-              <Icon name="arrow" class="size-5" />
-            </button>
-            <p class="mt-4 text-center text-sm text-muted">Te contactaremos por WhatsApp o por correo.</p>
-            {(whatsappHref || emailHref) && (
-              <p class="mt-2 text-center text-sm text-muted">
-                ¿Prefieres escribirnos directo?
-                {whatsappHref && <a href={whatsappHref} class="font-semibold text-blue-ink underline underline-offset-4" target="_blank" rel="noopener">WhatsApp</a>}
-                {whatsappHref && emailHref && ' o '}
-                {emailHref && <a href={emailHref} class="font-semibold text-blue-ink underline underline-offset-4">{contact.email}</a>}
-              </p>
-            )}
-            <p class="form-status mt-4 rounded-md px-4 py-3 text-sm" role="alert" data-status hidden></p>
           </div>
         </form>
 
-        <div class="text-center" data-success hidden tabindex="-1">
+        <div class="px-5 py-12 text-center sm:px-8 sm:py-14" data-success hidden tabindex="-1">
           <div class="mx-auto grid size-14 place-items-center rounded-full bg-teal text-navy">
             <Icon name="check" class="size-7" />
           </div>
-          <p class="mt-6 font-sans text-2xl font-[800] text-navy [font-stretch:116%]">Orden recibida</p>
-          <p class="mx-auto mt-3 max-w-[28rem] leading-relaxed text-ink/85" data-success-text>
+          <p class="mt-6 font-sans text-2xl font-[800] text-paper [font-stretch:116%]">Solicitud recibida</p>
+          <p class="mx-auto mt-3 max-w-[28rem] leading-relaxed text-fog" data-success-text>
             Gracias. Te contactaremos pronto para coordinar tu asesoría y demo gratuita.
           </p>
-          <div class="tear-line mx-auto mt-8 max-w-[20rem] text-ink"></div>
-          <p class="tabular mt-4 font-mono text-xs text-muted [font-stretch:85%]" data-success-stamp></p>
+          <div class="mx-auto mt-8 h-px max-w-[20rem] bg-sky/20"></div>
+          <p class="tabular mt-4 font-mono text-xs text-fog [font-stretch:85%]" data-success-stamp></p>
         </div>
       </div>
     </div>
@@ -160,47 +153,86 @@ const required = [
 </section>
 
 <style>
+  /* Pasos conectados por una pista */
+  .step-pad {
+    position: relative;
+    z-index: 1;
+    border: 1.5px solid rgb(107 187 224 / 0.5);
+    background: var(--color-navy-deep);
+  }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 2.5rem;
+    bottom: 0.25rem;
+    width: 2px;
+    background: rgb(107 187 224 / 0.3);
+  }
+
+  /* El formulario es un módulo con pines arriba y abajo */
+  .module {
+    position: relative;
+    border-radius: 12px;
+    border: 1px solid rgb(107 187 224 / 0.22);
+    background: #0f2840;
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+  .module::before,
+  .module::after {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    right: 2rem;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, rgb(107 187 224 / 0.35) 0 3px, transparent 3px 14px);
+  }
+  .module::before { top: -7px; }
+  .module::after { bottom: -7px; }
+  .module-head { border-bottom: 1px solid rgb(107 187 224 / 0.15); }
+  .optional { border: 1.5px dashed rgb(107 187 224 / 0.3); }
+
   .field label,
   .field-label {
     display: block;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--color-navy);
+    color: var(--color-paper);
   }
-  .opt { font-weight: 400; color: var(--color-muted); }
+  .opt { font-weight: 400; color: var(--color-fog); }
   .field input:not([type='radio']),
   .field textarea {
     margin-top: 0.4rem;
     width: 100%;
     min-height: 3rem;
-    padding: 0.7rem 0.875rem;
-    border-radius: 5px;
-    border: 1px solid rgb(31 42 51 / 0.22);
-    background: #fff;
-    color: var(--color-ink);
+    padding: 0.75rem 0.875rem;
+    border-radius: 6px;
+    border: 1px solid rgb(107 187 224 / 0.25);
+    background: var(--color-navy-deep);
+    color: var(--color-paper);
     font-size: 1rem;
     transition: border-color 200ms, box-shadow 200ms;
   }
   .field textarea { resize: vertical; min-height: 5.5rem; }
   .field input::placeholder,
-  .field textarea::placeholder { color: var(--color-muted); }
+  .field textarea::placeholder { color: rgb(159 179 198 / 0.55); }
   .field input:hover,
-  .field textarea:hover { border-color: rgb(31 42 51 / 0.4); }
+  .field textarea:hover { border-color: rgb(107 187 224 / 0.5); }
   .field input:focus,
   .field textarea:focus {
     outline: none;
-    border-color: var(--color-teal-ink);
-    box-shadow: 0 0 0 3px rgb(25 195 177 / 0.28);
+    border-color: var(--color-teal);
+    box-shadow: 0 0 0 3px rgb(25 195 177 / 0.25);
   }
   .field input[aria-invalid='true'] {
-    border-color: #c0392b;
+    border-color: var(--color-coral);
     box-shadow: 0 0 0 3px rgb(255 107 107 / 0.2);
   }
   .error {
     display: flex;
     margin-top: 0.4rem;
     font-size: 0.8125rem;
-    color: #b42318;
+    color: #ff9b9b;
   }
   .error[hidden] { display: none; }
   .choice span {
@@ -209,17 +241,17 @@ const required = [
     min-height: 2.75rem;
     padding: 0 1rem;
     border-radius: 999px;
-    border: 1px solid rgb(31 42 51 / 0.22);
-    background: #fff;
+    border: 1px solid rgb(107 187 224 / 0.3);
+    background: var(--color-navy-deep);
     font-size: 0.9375rem;
-    color: var(--color-ink);
+    color: var(--color-paper);
     cursor: pointer;
     transition: background-color 200ms, border-color 200ms, color 200ms;
   }
-  .choice:hover span { border-color: rgb(31 42 51 / 0.45); }
-  .choice input:checked + span { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-paper); }
-  .choice input:focus-visible + span { outline: 2px solid var(--color-teal-ink); outline-offset: 2px; }
-  .form-status[data-kind='error'] { background: rgb(255 107 107 / 0.12); color: #9b1c12; }
+  .choice:hover span { border-color: rgb(107 187 224 / 0.6); }
+  .choice input:checked + span { background: var(--color-paper); border-color: var(--color-paper); color: var(--color-navy); }
+  .choice input:focus-visible + span { outline: 2px solid var(--color-teal); outline-offset: 2px; }
+  .form-status[data-kind='error'] { background: rgb(255 107 107 / 0.12); color: #ffb4b4; }
 </style>
 
 <script>
@@ -278,7 +310,7 @@ const required = [
       }
 
       submit.disabled = true;
-      submitLabel.textContent = 'Enviando tu orden…';
+      submitLabel.textContent = 'Enviando tu solicitud…';
       try {
         const res = await fetch(endpoint, {
           method: 'POST',
