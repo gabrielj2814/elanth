@@ -1,0 +1,44 @@
+---
+import Printer from './Printer.astro';
+import Icon from './Icon.astro';
+---
+<section id="inicio" class="relative isolate overflow-hidden bg-navy pt-24 pb-16 sm:pt-32 lg:min-h-[min(100dvh,60rem)] lg:pt-36 lg:pb-24">
+  <div class="mx-auto grid max-w-[90rem] items-start gap-14 px-4 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:px-12">
+    <div class="lg:col-span-7 lg:pt-6">
+      <div class="bands max-w-[36.5rem]">
+        <h1 class="display whitespace-nowrap text-paper">
+          <span class="block text-[calc(99cqi/6.089)]">Tú recibes</span>
+          <span class="block text-[calc(99cqi/6.987)]">los pedidos.</span>
+          <span class="mt-[0.3em] block text-[calc(99cqi/14.134)] text-sky">Nosotros, todo lo demás.</span>
+        </h1>
+      </div>
+
+      <p class="mt-8 max-w-[36.5rem] text-lg leading-relaxed text-fog sm:text-xl">
+        Creamos tu tienda online, la conectamos a tu ERP y a cada canal de venta, y la operamos por ti.
+      </p>
+
+      <div class="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-7">
+        <a href="#asesoria" class="btn-lit w-full text-base sm:w-auto sm:text-lg">
+          Obtener asesoría y demo gratuita
+          <Icon name="arrow" class="size-5" />
+        </a>
+        <a href="#servicios" class="link-quiet text-paper">Ver cómo funciona</a>
+      </div>
+
+      <p class="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-fog">
+        <span class="inline-flex items-center gap-2"><Icon name="store" class="size-4 text-sky" />Tienda a la medida</span>
+        <span class="inline-flex items-center gap-2"><Icon name="database" class="size-4 text-sky" />Conexión con tu ERP</span>
+        <span class="inline-flex items-center gap-2"><Icon name="team" class="size-4 text-sky" />Equipo que la opera</span>
+      </p>
+    </div>
+
+    <div class="lg:col-span-5 lg:-mt-6">
+      <Printer />
+    </div>
+  </div>
+</section>
+
+<style>
+  .bands { container-type: inline-size; }
+</style>
+

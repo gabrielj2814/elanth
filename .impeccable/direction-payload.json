@@ -1,0 +1,124 @@
+{
+  "title": "Elige el mundo visual de Elanth",
+  "question": "La tirada asignó «La comandera de pedidos». Quédatela, toma una alternativa o vuelve a tirar.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "La comandera de pedidos",
+      "kicker": "THE ROLL",
+      "lineage": "Tickets térmicos de pedido: la impresora que escupe cada orden en el mostrador del almacén",
+      "thesis": "Tú solo recibes los pedidos: la página es la comandera donde caen las órdenes de todos los canales, ya listas para despachar.",
+      "palette": ["#0B1F33", "#F4F7FA", "#19C3B1", "#2590BE", "#F5A623"],
+      "materials": ["papel térmico con borde rasgado", "códigos de barras y líneas punteadas de corte", "panel azul marino del almacén"],
+      "viewport": "Titular que llena el ancho sobre azul marino; a la derecha una impresora que imprime tickets reales de Mercado Libre, Amazon, eBay y Marketplace con hora y SKU; CTA «Obtener asesoría y demo gratuita» como el único elemento encendido.",
+      "risk": "Si el ticket se ejecuta tímido puede leer como punto de venta minorista y no como agencia B2B.",
+      "raised": [
+        {"from": "posters-covers-sleeves-hatch-show-print", "raise": "Los titulares se componen para llenar la medida completa, banda por banda, nunca un bloque centrado tímido."},
+        {"from": "operate-b-normalled-jackfield", "raise": "El estado de sincronización nunca depende solo del color: cada canal lleva glifo y trazo (sincronizado, pendiente, en pausa)."},
+        {"from": "pop-culture-shelf-devianart-character-sheet", "raise": "Pasar sobre un servicio ilumina la parte del flujo que gobierna (tienda, ERP, canales, equipo, anuncios)."},
+        {"from": "dream-surreal-impossible-worlds-luminescent-alien-understory", "raise": "Un solo elemento encendido por pantalla: el CTA en turquesa; todo lo demás se queda en papel y tinta."},
+        {"from": "architecture-inhabitable-space-daylight-section", "raise": "Cada evento lleva sello de hora tabular, como un registro real de operación."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "El panel único",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Torres de control y paneles de inventario multicanal",
+      "thesis": "Un solo panel que muestra todos los canales, el ERP y el stock moviéndose en sincronía.",
+      "palette": ["#0B1F33", "#263445", "#2590BE", "#19C3B1", "#F4F7FA"],
+      "materials": ["interfaz de panel", "gráficos en vivo", "líneas de conexión"],
+      "viewport": "Titular a la izquierda y un panel interactivo grande a la derecha con canales, stock y pedidos sincronizándose.",
+      "risk": "Es también el destino al que llegan casi todas las agencias tecnológicas: muy familiar."
+    },
+    {
+      "id": "challenger-splitflap",
+      "label": "Tablero de salidas",
+      "verdict": "competitive",
+      "lineage": "Tablero split-flap de una estación en hora pico",
+      "thesis": "Cada canal es una fila del tablero; sus solapas cambian cuando el stock y los pedidos se sincronizan.",
+      "palette": ["#0B1F33", "#111821", "#F4F7FA", "#F5A623", "#19C3B1"],
+      "materials": ["solapas negras mate", "marco de acero", "lámparas ámbar"],
+      "viewport": "Un tablero a todo ancho con Mercado Libre, Amazon, eBay y Marketplace como filas y su estado volteando letra por letra.",
+      "case": "Se fusiona bien: el multicanal se lee de un vistazo; pierde en identificación porque el dueño de un almacén venezolano no vive en una estación.",
+      "risk": "Puede leer como novedad retro si la rejilla no es estricta.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse-hero.webp"
+    },
+    {
+      "id": "challenger-jackfield",
+      "label": "Jackfield normalizado",
+      "verdict": "declined",
+      "lineage": "Horario de patchbay en vidrio negro",
+      "thesis": "Configuración como carriles numerados con líneas de enlace.",
+      "palette": ["#0A0A0A", "#F5A623"],
+      "materials": ["vidrio negro", "líneas ámbar"],
+      "viewport": "Carriles numerados bajo una franja de leyendas fija.",
+      "case": "Es un mundo de operación, no de persuasión; el cliente no se reconoce en él.",
+      "kept": "El estado se dibuja con trazo y glifo, nunca solo con color.",
+      "risk": "Ilegible para un dueño de negocio."
+    },
+    {
+      "id": "challenger-hatch",
+      "label": "Cartel de imprenta",
+      "verdict": "declined",
+      "lineage": "Carteles tipográficos de madera",
+      "thesis": "Bandas de tipografía de madera llenando el ancho.",
+      "palette": ["#F3EAD8", "#1A1A1A", "#A33327"],
+      "materials": ["tipo de madera", "tinta desfasada"],
+      "viewport": "Un cartel alto de bandas apiladas.",
+      "case": "Atractivo pero ajeno a una agencia tecnológica B2B.",
+      "kept": "Cada titular llena la medida completa.",
+      "risk": "Nostálgico, fuera de marca."
+    },
+    {
+      "id": "challenger-sheet",
+      "label": "Hoja de personaje",
+      "verdict": "declined",
+      "lineage": "Hojas de referencia de personajes",
+      "thesis": "Vistas y muestras de color enlazadas a regiones.",
+      "palette": ["#FF6B6B", "#1769FF", "#111111"],
+      "materials": ["contorno negro", "muestras con nombre"],
+      "viewport": "Cuatro vistas con fila de muestras.",
+      "case": "Sin relación con el público ni el producto.",
+      "kept": "Pasar sobre un control ilumina la región que gobierna.",
+      "risk": "Infantil para B2B."
+    },
+    {
+      "id": "challenger-understory",
+      "label": "Sotobosque luminoso",
+      "verdict": "declined",
+      "lineage": "Bosque alienígena bioluminiscente",
+      "thesis": "La atención como iluminación.",
+      "palette": ["#0B0F0C", "#4FE3E0", "#B9A2FF"],
+      "materials": ["brillo de esporas", "venas pulsantes"],
+      "viewport": "Senderos que se iluminan por proximidad.",
+      "case": "Espectacular pero oscurece la oferta comercial.",
+      "kept": "Un único elemento más brillante por pantalla.",
+      "risk": "Pura atmósfera."
+    },
+    {
+      "id": "challenger-daylight",
+      "label": "Sección de luz diurna",
+      "verdict": "declined",
+      "lineage": "Cortes arquitectónicos con trayectoria solar",
+      "thesis": "Un corte continuo anotado con horas.",
+      "palette": ["#F2EFE8", "#2B2B2B", "#E2B04A"],
+      "materials": ["cal blanca", "poché carbón"],
+      "viewport": "Un corte largo con un rayo de sol.",
+      "case": "No conecta con comercio electrónico.",
+      "kept": "Sellos de hora tabulares en cada evento.",
+      "risk": "Demasiado arquitectónico."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "canon": true,
+  "canonCard": {
+    "label": "El estándar de la categoría",
+    "thesis": "Lo que envía toda agencia tecnológica, ejecutado impecablemente.",
+    "palette": ["#0B1F33", "#2590BE", "#F4F7FA"],
+    "materials": ["rejilla limpia", "mockup de dashboard", "tarjetas de servicios"],
+    "viewport": "Hero azul marino con titular, CTA y captura de producto; servicios en tarjetas.",
+    "risk": "Indistinguible de la competencia por diseño."
+  },
+  "steer": true
+}

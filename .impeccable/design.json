@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T00:00:00Z",
+  "title": "Design System: Elanth",
+  "extensions": {
+    "colorMeta": {
+      "teal": { "role": "primary", "displayName": "Status-Light Teal", "canonical": "#19c3b1", "tonalRamp": ["#000f0c", "#022b26", "#0c4a43", "#076d62", "#139486", "#06beac", "#51e5d2", "#bcfef3"] },
+      "teal-bright": { "role": "primary", "displayName": "Bright Teal", "canonical": "#3fe0cd", "tonalRamp": ["#000f0c", "#002b26", "#064a43", "#186c62", "#269386", "#2cbcac", "#48e6d3", "#bafff3"] },
+      "teal-ink": { "role": "primary", "displayName": "Deep Teal Ink", "canonical": "#0b7a6e", "tonalRamp": ["#000f0c", "#042b26", "#004b43", "#0f6c62", "#329285", "#5bb7aa", "#83ded0", "#bdfef2"] },
+      "sky": { "role": "secondary", "displayName": "Channel Sky", "canonical": "#6bbbe0", "tonalRamp": ["#000d16", "#012838", "#09465d", "#026788", "#388bae", "#60b0d4", "#86d7fc", "#dbf3ff"] },
+      "blue-ink": { "role": "secondary", "displayName": "Channel Ink", "canonical": "#17698f", "tonalRamp": ["#000d18", "#00283b", "#014562", "#11658b", "#3e89b1", "#64aed8", "#92d4fb", "#def2fe"] },
+      "amber": { "role": "tertiary", "displayName": "Pending Amber", "canonical": "#f5a623", "tonalRamp": ["#140800", "#341f00", "#583804", "#7d5413", "#aa7420", "#da9425", "#fdbd65", "#feebd5"] },
+      "amber-ink": { "role": "tertiary", "displayName": "Pending Amber Ink", "canonical": "#8a5300", "tonalRamp": ["#150700", "#361d00", "#5b3603", "#825111", "#ab722f", "#d29755", "#fbbd7b", "#ffebd7"] },
+      "navy": { "role": "neutral", "displayName": "Warehouse Navy", "canonical": "#0b1f33", "tonalRamp": ["#000b1e", "#11253a", "#2d4258", "#4a6077", "#6c839c", "#8fa7c1", "#b4cde9", "#e4f0fd"] },
+      "navy-deep": { "role": "neutral", "displayName": "Night Floor", "canonical": "#07141f", "tonalRamp": ["#020c17", "#182631", "#33424f", "#50606d", "#728291", "#96a7b6", "#bbcddd", "#e2f1fe"] },
+      "slate": { "role": "neutral", "displayName": "Device Slate", "canonical": "#263445", "tonalRamp": ["#020b1a", "#172535", "#324153", "#505f72", "#728296", "#95a6bb", "#bbcce2", "#e4f0fe"] },
+      "slate-soft": { "role": "neutral", "displayName": "Worn Slate", "canonical": "#34465a", "tonalRamp": ["#020b1a", "#172535", "#324153", "#505f72", "#728296", "#95a6bb", "#bbcce2", "#e4f0fe"] },
+      "ink": { "role": "neutral", "displayName": "Ticket Ink", "canonical": "#1f2a33", "tonalRamp": ["#040c14", "#1b252e", "#36414b", "#535f6a", "#75828d", "#99a7b2", "#bfcdd8", "#e2f1fd"] },
+      "paper": { "role": "neutral", "displayName": "Thermal Paper", "canonical": "#f4f7fa", "tonalRamp": ["#090b0d", "#222426", "#3e4042", "#5b5e60", "#7e8083", "#a2a5a8", "#c8cbce", "#eceff2"] },
+      "ice": { "role": "neutral", "displayName": "Ice Floor", "canonical": "#e8f1f6", "tonalRamp": ["#070c0f", "#1e2529", "#3a4145", "#575f63", "#7a8286", "#9ea6ab", "#c3ccd1", "#e7f0f5"] },
+      "fog": { "role": "neutral", "displayName": "Fog", "canonical": "#9fb3c6", "tonalRamp": ["#010c19", "#152634", "#314252", "#4e6071", "#708395", "#93a7ba", "#b9cde1", "#e3f0fe"] },
+      "muted": { "role": "neutral", "displayName": "Faded Print", "canonical": "#52637a", "tonalRamp": ["#010b1d", "#162538", "#314156", "#4e5f76", "#70829a", "#94a6c0", "#b9cce7", "#e5f0fe"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Section headlines on navy and ice; the hero sets it as fitted bands. Archivo 820 at 118% width." },
+      "headline": { "displayName": "Headline", "purpose": "Titles of paper documents and roadmap ticket names." },
+      "title": { "displayName": "Title", "purpose": "Service names in the service order; contact subheads." },
+      "body": { "displayName": "Body", "purpose": "Intros on navy and ice, capped at 34 to 40rem." },
+      "body-paper": { "displayName": "Body on paper", "purpose": "Running text inside paper documents, 0.9875 to 1.0625rem." },
+      "label": { "displayName": "Device Label", "purpose": "Uppercase condensed mono labels on the comandera and stock rail." },
+      "ticket-data": { "displayName": "Ticket Data", "purpose": "Printed data only: order lines, SKUs, times, statuses, codes, column heads." }
+    },
+    "shadows": [
+      { "name": "paper-on-navy", "value": "drop-shadow(0 18px 24px rgb(3 10 18 / 0.35)) drop-shadow(0 2px 3px rgb(3 10 18 / 0.25))", "purpose": "filter on every paper document and ticket over a dark ground; follows torn edges." },
+      { "name": "paper-on-ice", "value": "drop-shadow(0 12px 16px rgb(11 31 51 / 0.14)) drop-shadow(0 1px 2px rgb(11 31 51 / 0.18))", "purpose": "filter on roadmap tickets hanging over ice." },
+      { "name": "device-body", "value": "0 24px 40px -18px rgb(3 10 18 / 0.8), inset 0 1px 0 rgb(255 255 255 / 0.08)", "purpose": "The comandera body." },
+      { "name": "lit-glow", "value": "0 10px 30px -10px rgb(25 195 177 / 0.55), inset 0 -2px 0 rgb(11 31 51 / 0.18)", "purpose": "Primary lit button at rest." },
+      { "name": "lit-glow-hover", "value": "0 16px 36px -12px rgb(25 195 177 / 0.65), inset 0 -2px 0 rgb(11 31 51 / 0.18)", "purpose": "Primary lit button on hover." },
+      { "name": "nav-scrolled", "value": "0 1px 0 rgb(255 255 255 / 0.07), 0 10px 30px -18px rgb(0 0 0 / 0.6)", "purpose": "Fixed nav after 24px of scroll, over 92% navy with 10px backdrop blur." },
+      { "name": "focus-ring-field", "value": "0 0 0 3px rgb(25 195 177 / 0.28)", "purpose": "Form field focus, with a teal-ink border." }
+    ],
+    "motion": [
+      { "name": "ease-out-quart", "value": "cubic-bezier(0.25, 1, 0.5, 1)", "purpose": "Default state transitions: button, flow node dimming, LED pulse." },
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Arrow nudge on the lit button (300ms) and stock counter roll (450ms)." },
+      { "name": "paper-feed", "value": "1400ms cubic-bezier(0.45, 0, 0.2, 1)", "purpose": "A ticket feeding down out of the printer slot; one every 3800ms while visible." },
+      { "name": "state-quick", "value": "200ms", "purpose": "Buttons, links, fields, choice pills." },
+      { "name": "flow-light", "value": "350ms", "purpose": "Lighting and dimming route-slip nodes and print codes." },
+      { "name": "reduced-motion", "value": "prefers-reduced-motion: reduce", "purpose": "All animation and transition collapse to 0.01ms; the printer does not auto-print; smooth scroll off." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Lit Button",
+      "kind": "button",
+      "refersTo": "button-lit",
+      "description": "The one lit call to action: teal fill, navy text, arrow that slides on hover.",
+      "html": "<a href=\"#\" class=\"ds-btn-lit\">Obtener asesoría y demo gratuita<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-btn-lit { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; min-height: 3.5rem; padding: 0 1.5rem; border-radius: 6px; background: var(--color-teal, #19c3b1); color: var(--color-navy, #0b1f33); font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif; font-size: 1.125rem; font-weight: 750; font-stretch: 108%; letter-spacing: -0.005em; text-decoration: none; box-shadow: 0 10px 30px -10px rgb(25 195 177 / 0.55), inset 0 -2px 0 rgb(11 31 51 / 0.18); transition: background-color 200ms cubic-bezier(0.25,1,0.5,1), transform 200ms cubic-bezier(0.25,1,0.5,1), box-shadow 200ms cubic-bezier(0.25,1,0.5,1); } .ds-btn-lit svg { transition: transform 300ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-lit:hover { background: var(--color-teal-bright, #3fe0cd); transform: translateY(-1px); box-shadow: 0 16px 36px -12px rgb(25 195 177 / 0.65), inset 0 -2px 0 rgb(11 31 51 / 0.18); } .ds-btn-lit:hover svg { transform: translateX(3px); } .ds-btn-lit:active { transform: translateY(1px); } .ds-btn-lit:focus-visible { outline: 2px solid var(--color-teal, #19c3b1); outline-offset: 3px; }"
+    },
+    {
+      "name": "Quiet Link",
+      "kind": "button",
+      "refersTo": "link-quiet",
+      "description": "Secondary action beside the lit button; underline firms on hover.",
+      "html": "<div class=\"ds-ground\"><a href=\"#\" class=\"ds-link-quiet\">Ver cómo funciona</a></div>",
+      "css": ".ds-ground { background: #0b1f33; padding: 1rem 1.5rem; } .ds-link-quiet { display: inline-flex; align-items: center; min-height: 3.5rem; color: #f4f7fa; font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif; font-weight: 600; text-decoration: underline; text-underline-offset: 0.22em; text-decoration-thickness: 1px; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); transition: text-decoration-color 200ms; } .ds-link-quiet:hover { text-decoration-color: currentColor; } .ds-link-quiet:focus-visible { outline: 2px solid #19c3b1; outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "button-nav-ghost",
+      "description": "Fixed nav on navy: logo, fog links, ghost CTA that fills with paper on hover.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-logo\">elanth</span><ul><li><a href=\"#\">Servicios</a></li><li><a href=\"#\">Llave en mano</a></li><li><a href=\"#\">Ecosistema</a></li></ul><a href=\"#\" class=\"ds-nav-cta\">Asesoría y demo gratuita<svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 5rem; padding: 0 2rem; background: rgb(11 31 51 / 0.92); box-shadow: 0 1px 0 rgb(255 255 255 / 0.07), 0 10px 30px -18px rgb(0 0 0 / 0.6); font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif; } .ds-nav-logo { color: #f4f7fa; font-weight: 820; font-stretch: 118%; font-size: 1.5rem; } .ds-nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; font-size: 0.875rem; font-weight: 500; } .ds-nav ul a { color: #9fb3c6; text-decoration: none; transition: color 150ms; } .ds-nav ul a:hover { color: #f4f7fa; } .ds-nav-cta { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1rem; border: 1px solid rgb(244 247 250 / 0.4); border-radius: 5px; color: #f4f7fa; font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: background-color 150ms, color 150ms, border-color 150ms; } .ds-nav-cta:hover { background: #f4f7fa; border-color: #f4f7fa; color: #0b1f33; } .ds-nav-cta:focus-visible, .ds-nav ul a:focus-visible { outline: 2px solid #19c3b1; outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Text Field on Paper",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "White field on thermal paper; teal-ink border and soft teal ring on focus.",
+      "html": "<div class=\"ds-paper-pad\"><label class=\"ds-field\"><span>WhatsApp o teléfono</span><input type=\"tel\" placeholder=\"+58 412 000 0000\" /></label></div>",
+      "css": ".ds-paper-pad { background: #f4f7fa; padding: 1.5rem; } .ds-field span { display: block; font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; color: #0b1f33; } .ds-field input { margin-top: 0.4rem; width: 100%; min-height: 3rem; padding: 0.7rem 0.875rem; border-radius: 5px; border: 1px solid rgb(31 42 51 / 0.22); background: #fff; color: #1f2a33; font: inherit; font-size: 1rem; transition: border-color 200ms, box-shadow 200ms; box-sizing: border-box; } .ds-field input::placeholder { color: #52637a; } .ds-field input:hover { border-color: rgb(31 42 51 / 0.4); } .ds-field input:focus { outline: none; border-color: #0b7a6e; box-shadow: 0 0 0 3px rgb(25 195 177 / 0.28); }"
+    },
+    {
+      "name": "Choice Pill",
+      "kind": "chip",
+      "refersTo": "choice-pill",
+      "description": "Radio choice for optional questions; selected fills navy.",
+      "html": "<div class=\"ds-choices\"><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-v\" checked /><span>Todavía no</span></label><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-v\" /><span>Sí, un poco</span></label><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-v\" /><span>Sí, en varios canales</span></label></div>",
+      "css": ".ds-choices { display: flex; flex-wrap: wrap; gap: 0.5rem; background: #e8f1f6; padding: 1rem; } .ds-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; } .ds-choice span { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1rem; border-radius: 999px; border: 1px solid rgb(31 42 51 / 0.22); background: #fff; font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif; font-size: 0.9375rem; color: #1f2a33; cursor: pointer; transition: background-color 200ms, border-color 200ms, color 200ms; } .ds-choice:hover span { border-color: rgb(31 42 51 / 0.45); } .ds-choice input:checked + span { background: #0b1f33; border-color: #0b1f33; color: #f4f7fa; } .ds-choice input:focus-visible + span { outline: 2px solid #0b7a6e; outline-offset: 2px; }"
+    },
+    {
+      "name": "Print Code",
+      "kind": "chip",
+      "refersTo": "code-stamp",
+      "description": "Boxed mono stamp keying services and route-slip nodes; inverts on hover, lights teal when its node is governed.",
+      "html": "<div class=\"ds-paper-pad\"><span class=\"ds-code\">WEB</span> <span class=\"ds-code ds-code-lit\">SYNC</span> <span class=\"ds-code\">B2B</span></div>",
+      "css": ".ds-paper-pad { background: #f4f7fa; padding: 1.5rem; display: flex; gap: 0.75rem; } .ds-code { display: inline-grid; place-items: center; min-width: 2.75rem; height: 1.625rem; padding: 0 0.375rem; border: 1px solid #1f2a33; border-radius: 2px; font-family: 'Martian Mono Variable', 'Martian Mono', ui-monospace, monospace; font-stretch: 80%; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.04em; color: #1f2a33; transition: background-color 350ms, color 350ms, border-color 350ms; } .ds-code:hover { background: #0b1f33; border-color: #0b1f33; color: #f4f7fa; } .ds-code-lit, .ds-code-lit:hover { background: #19c3b1; border-color: #19c3b1; color: #0b1f33; }"
+    },
+    {
+      "name": "Order Ticket",
+      "kind": "custom",
+      "refersTo": "order-ticket",
+      "description": "Signature thermal ticket: channel, time, order, tear lines, product line, synced status and barcode; torn bottom edge.",
+      "html": "<div class=\"ds-floor\"><article class=\"ds-ticket\"><header><b>Mercado Libre</b><span>10:04</span></header><p class=\"ds-muted\">Pedido #ML-20418</p><div class=\"ds-tear\"></div><div class=\"ds-row\"><p><b>2 ×</b> Breaker 2P 40A<span class=\"ds-muted ds-block\">SKU BRK-2P40</span></p><b>$ 46.00</b></div><div class=\"ds-tear\"></div><div class=\"ds-row\"><p class=\"ds-ok\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m8 12.3 2.7 2.7L16.2 9.5\"/></svg>Stock sincronizado · 6 canales</p><svg class=\"ds-bar\" viewBox=\"0 0 40 24\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><rect x=\"0\" width=\"2\" height=\"24\"/><rect x=\"3\" width=\"1\" height=\"24\"/><rect x=\"6\" width=\"3\" height=\"24\"/><rect x=\"10\" width=\"1\" height=\"24\"/><rect x=\"13\" width=\"2\" height=\"24\"/><rect x=\"17\" width=\"1\" height=\"24\"/><rect x=\"19\" width=\"3\" height=\"24\"/><rect x=\"24\" width=\"1\" height=\"24\"/><rect x=\"26\" width=\"2\" height=\"24\"/><rect x=\"30\" width=\"1\" height=\"24\"/><rect x=\"33\" width=\"3\" height=\"24\"/><rect x=\"37\" width=\"2\" height=\"24\"/></svg></div></article></div>",
+      "css": ".ds-floor { background: #0b1f33; padding: 2rem; } .ds-ticket { --tear: 7px; max-width: 24rem; margin: 0 auto; padding: 1rem 1.25rem 1.5rem; background: #f4f7fa; color: #1f2a33; font-family: 'Martian Mono Variable', 'Martian Mono', ui-monospace, monospace; font-stretch: 82%; font-size: 0.75rem; line-height: 1.625; font-variant-numeric: tabular-nums; filter: drop-shadow(0 18px 24px rgb(3 10 18 / 0.35)) drop-shadow(0 2px 3px rgb(3 10 18 / 0.25)); -webkit-mask: linear-gradient(#000 0 0) 0 0 / 100% calc(100% - var(--tear)) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--tear) * 2) var(--tear) repeat-x; mask: linear-gradient(#000 0 0) 0 0 / 100% calc(100% - var(--tear)) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--tear) * 2) var(--tear) repeat-x; } .ds-ticket p { margin: 0; } .ds-ticket header { display: flex; justify-content: space-between; align-items: baseline; } .ds-ticket header b { font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, sans-serif; font-weight: 780; font-stretch: 112%; font-size: 0.9375rem; color: #0b1f33; } .ds-ticket header span, .ds-muted { color: #52637a; } .ds-block { display: block; } .ds-tear { height: 1px; margin: 0.625rem 0; background-image: linear-gradient(to right, #1f2a33 50%, transparent 50%); background-size: 8px 1px; opacity: 0.45; } .ds-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; } .ds-row b { color: #0b1f33; font-weight: 600; } .ds-ok { display: flex; align-items: center; gap: 0.375rem; color: #17698f; } .ds-bar { width: 4rem; height: 1.25rem; fill: #1f2a33; flex-shrink: 0; }"
+    },
+    {
+      "name": "Pending Roadmap Ticket",
+      "kind": "card",
+      "refersTo": "paper-document",
+      "description": "A future department as a paper ticket on ice, marked pending with a dashed clock glyph in amber ink.",
+      "html": "<div class=\"ds-ice\"><article class=\"ds-pending\"><h3>Elanth Media</h3><p>Producción de contenido, diseño, branding y estrategias de comunicación visual.</p><div class=\"ds-tear\"></div><p class=\"ds-status\"><span>Estado</span><span class=\"ds-amber\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\" stroke-dasharray=\"3 2.2\"/><path d=\"M12 7.5V12l3 2\"/></svg>En preparación</span></p></article></div>",
+      "css": ".ds-ice { background: #e8f1f6; padding: 2rem; } .ds-pending { --tear: 7px; max-width: 16rem; padding: 1.5rem 1.25rem 2rem; background: #f4f7fa; color: #1f2a33; font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif; filter: drop-shadow(0 12px 16px rgb(11 31 51 / 0.14)) drop-shadow(0 1px 2px rgb(11 31 51 / 0.18)); -webkit-mask: linear-gradient(#000 0 0) 0 0 / 100% calc(100% - var(--tear)) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--tear) * 2) var(--tear) repeat-x; mask: linear-gradient(#000 0 0) 0 0 / 100% calc(100% - var(--tear)) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--tear) * 2) var(--tear) repeat-x; } .ds-pending h3 { margin: 0; font-size: 1.25rem; font-weight: 800; font-stretch: 114%; color: #0b1f33; } .ds-pending p { margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.625; color: rgb(31 42 51 / 0.75); } .ds-tear { height: 1px; margin-top: 1rem; background-image: linear-gradient(to right, #1f2a33 50%, transparent 50%); background-size: 8px 1px; opacity: 0.45; } .ds-pending .ds-status { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; font-family: 'Martian Mono Variable', 'Martian Mono', ui-monospace, monospace; font-stretch: 82%; font-size: 0.6875rem; color: #52637a; } .ds-amber { display: inline-flex; align-items: center; gap: 0.375rem; color: #8a5300; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Order Printer",
+    "overview": "Elanth's world is the back room of a working business: a navy warehouse floor, a slate comandera, and thermal paper that prints out of it. Every piece of content that carries an offer, an order, or a form is a sheet of that paper: square-cornered, torn at the edges, ruled with dashed tear lines, stamped with barcodes and tabular time codes. The visitor reads the company's promise the way a shop owner reads an incoming order, which is the whole argument: you receive the orders, Elanth does everything else.\n\nThe ground is dark and dominant. Navy (`navy`) owns the hero, the \"llave en mano\" ledger and the contact section; ice (`ice`) is the lighter floor for the services slip and the roadmap rail. Paper sits on both grounds and is the only place long reading happens on light. Type is a wide, heavy Archivo that echoes the wordmark, paired with a condensed Martian Mono that only ever prints ticket and slip data. One teal light glows per view, the way a printer's single status LED does.\n\nDensity is deliberate and calm: large sections (96px to 128px vertical), a 12-column grid inside a 90rem container, and paper documents that hold most of the detail so the navy ground can stay quiet. Motion is mechanical and purposeful: paper feeds, codes light, counters roll. All of it collapses under reduced motion.",
+    "keyCharacteristics": [
+      "Navy and ice grounds; thermal paper documents carry the content.",
+      "Torn edges, dashed tear lines, barcodes and boxed print codes as native ornament.",
+      "Wide heavy Archivo display; condensed mono reserved for printed data.",
+      "A single teal light per view: the call to action, the printer LED, focus and the lit flow code.",
+      "State is drawn with glyph and stroke, never by color alone."
+    ],
+    "rules": [
+      { "name": "The One Lit Element Rule", "body": "Teal is light, not decoration. It appears only on the primary call to action and its confirmation, the printer LED and its stock flash, focus and selection, and the print code that a service is currently lighting. Never on headlines, icons, borders at rest, or backgrounds of sections.", "section": "colors" },
+      { "name": "The Two Inks Rule", "body": "Channel color is ink, and ink depends on the surface: `sky` on navy, `blue-ink` on paper. Amber follows the same split (`amber` on navy, `amber-ink` on paper).", "section": "colors" },
+      { "name": "The Pending Is Amber Rule", "body": "Amber means \"not yet\": syncing, in preparation, on the roadmap. It never marks something that is available today.", "section": "colors" },
+      { "name": "The Mono Is Printed Data Rule", "body": "Martian Mono appears only where a printer would have printed it: tickets, slips, codes, statuses, timestamps, device labels. Persuasive copy, headings and form labels stay in Archivo.", "section": "typography" },
+      { "name": "The Width Carries Weight Rule", "body": "Raise hierarchy by widening and thickening Archivo, not by adding families or color.", "section": "typography" },
+      { "name": "The Paper Casts, The Floor Doesn't Rule", "body": "Only paper, hardware (the printer, the rail and its clips), the lit button and the scrolled nav have shadows. Section grounds, the nav at rest and text never do.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do put offers, orders, forms and roadmap items on thermal paper (`paper`) with torn edges and dashed tear lines, set on a navy or ice ground.",
+      "Do keep teal to one lit element per view: the primary CTA, the printer LED, focus and selection, or the lit print code.",
+      "Do print data (codes, SKUs, times, statuses) in condensed Martian Mono with tabular figures; set everything else in Archivo.",
+      "Do raise hierarchy with Archivo width and weight (display 820 at 118%).",
+      "Do use `sky` and `amber` on navy, `blue-ink` and `amber-ink` on paper.",
+      "Do draw every state with a glyph and a stroke (check, dashed clock, sync arrows), with color as reinforcement.",
+      "Do use 1.75-stroke inline SVG icons drawn for Elanth.",
+      "Do keep paper square and hardware rounded."
+    ],
+    "donts": [
+      "Don't use teal for headlines, icons at rest, section backgrounds or decorative accents.",
+      "Don't set persuasive copy, headings or form labels in mono.",
+      "Don't stand content on the ground as rounded, bordered cards or icon-card grids; content lives on paper.",
+      "Don't give section grounds or text shadows; only paper, hardware, the lit button and the scrolled nav cast.",
+      "Don't signal sync, pending or availability by color alone.",
+      "Don't use amber for anything available today."
+    ]
+  }
+}

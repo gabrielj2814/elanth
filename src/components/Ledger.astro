@@ -1,0 +1,81 @@
+---
+import Icon from './Icon.astro';
+import Barcode from './Barcode.astro';
+
+const yours = ['Recibes los pedidos.', 'Los preparas y despachas desde tu almacén.'];
+
+const ours = [
+  'Construimos tu tienda online a la medida de tu modelo de negocio.',
+  'La conectamos con tu ERP y centralizamos el inventario.',
+  'Publicamos y sincronizamos en Mercado Libre, Amazon, eBay y Facebook Marketplace.',
+  'Configuramos precios y condiciones exclusivas para cada cliente corporativo.',
+  'Administramos la tienda con personal capacitado por Elanth.',
+  'Gestionamos tus redes, el contenido y las campañas publicitarias.',
+];
+---
+<section id="llave-en-mano" class="bg-navy">
+  <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+    <h2 class="display max-w-[60rem] text-[clamp(2.1rem,5.6vw,4rem)] text-paper">
+      Llave en mano significa que <span class="text-sky">tú haces menos.</span>
+    </h2>
+    <p class="mt-6 max-w-[40rem] text-lg leading-relaxed text-fog">
+      Escalas tus ingresos y tu presencia en la web sin multiplicar el trabajo de tu equipo. Cada orden se imprime en
+      dos copias: la tuya y la nuestra.
+    </p>
+
+    <div class="mt-16 grid items-start gap-6 lg:mt-20 lg:grid-cols-12 lg:gap-0">
+      <!-- Copia del cliente -->
+      <article class="paper paper-torn-bottom copy-left px-6 pt-7 pb-10 sm:px-8 lg:col-span-4 lg:mt-10">
+        <header class="flex items-baseline justify-between gap-3">
+          <h3 class="text-2xl font-[800] text-navy [font-stretch:114%]">Tu copia</h3>
+          <p class="font-mono text-[0.6875rem] text-muted [font-stretch:82%]">Cliente</p>
+        </header>
+        <div class="tear-line mt-4 text-ink"></div>
+        <ul class="mt-2">
+          {yours.map((y) => (
+            <li class="flex items-start gap-3 border-b border-dashed border-ink/20 py-5 last:border-0">
+              <Icon name="check" class="mt-1 size-5 shrink-0 text-blue-ink" />
+              <span class="text-[clamp(1.2rem,2vw,1.5rem)] leading-snug font-semibold text-navy [font-stretch:104%]">{y}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <!-- Perforación entre copias -->
+      <div class="perforation hidden lg:col-span-1 lg:block" aria-hidden="true"></div>
+
+      <!-- Copia de Elanth -->
+      <article class="paper paper-torn-bottom px-6 pt-7 pb-10 sm:px-8 lg:col-span-7">
+        <header class="flex items-baseline justify-between gap-3">
+          <h3 class="text-2xl font-[800] text-navy [font-stretch:114%]">Copia de Elanth</h3>
+          <p class="font-mono text-[0.6875rem] text-muted [font-stretch:82%]">Todo lo demás</p>
+        </header>
+        <div class="tear-line mt-4 text-ink"></div>
+        <ul class="mt-2 grid sm:grid-cols-2 sm:gap-x-8">
+          {ours.map((o) => (
+            <li class="flex items-start gap-3 border-b border-dashed border-ink/20 py-5">
+              <Icon name="check" class="mt-0.5 size-5 shrink-0 text-blue-ink" />
+              <span class="text-[1.0625rem] leading-relaxed text-ink">{o}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-6 flex justify-end">
+          <Barcode value="COPIA-ELANTH" class="h-8 w-36 text-ink" />
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .perforation {
+    align-self: stretch;
+    margin: 2.5rem auto 0;
+    width: 2px;
+    background-image: radial-gradient(circle, rgb(159 179 198 / 0.55) 1px, transparent 1.5px);
+    background-size: 2px 9px;
+  }
+  @media (min-width: 1024px) {
+    .copy-left { rotate: -1.2deg; transform-origin: top right; }
+  }
+</style>

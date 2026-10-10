@@ -1,0 +1,41 @@
+---
+import Barcode from './Barcode.astro';
+import Icon from './Icon.astro';
+import { products, type Order } from '../data/demo';
+
+interface Props {
+  order: Order;
+}
+const { order } = Astro.props;
+const product = products[order.sku];
+---
+<article
+  class="ticket paper paper-torn-bottom w-full px-5 pt-4 pb-6 font-mono text-[0.6875rem] leading-relaxed [font-stretch:82%] sm:text-xs"
+  data-sku={order.sku}
+  data-qty={order.qty}
+  data-name={product.name}
+  aria-label={`Pedido de demostración ${order.id} desde ${order.channel}`}
+>
+  <header class="flex items-baseline justify-between gap-3">
+    <p class="font-sans text-sm font-[780] tracking-[-0.01em] text-navy [font-stretch:112%] sm:text-[0.9375rem]">{order.channel}</p>
+    <p class="tabular shrink-0 text-muted">{order.time}</p>
+  </header>
+  <p class="tabular mt-0.5 text-muted">Pedido #{order.id}</p>
+  {order.note && <p class="mt-1 text-blue-ink">{order.note}</p>}
+  <div class="tear-line my-2.5 text-ink"></div>
+  <div class="flex items-start justify-between gap-4">
+    <p class="min-w-0">
+      <span class="tabular font-semibold text-navy">{order.qty} ×</span> {product.name}
+      <span class="block text-muted">SKU {product.sku}</span>
+    </p>
+    <p class="tabular shrink-0 font-semibold text-navy">$ {order.total}</p>
+  </div>
+  <div class="tear-line my-2.5 text-ink"></div>
+  <div class="flex items-center justify-between gap-4">
+    <p class="flex items-center gap-1.5 text-blue-ink">
+      <Icon name="check" class="size-3.5 shrink-0" />
+      <span>Stock sincronizado · 6 canales</span>
+    </p>
+    <Barcode value={order.id} class="h-5 w-16 shrink-0 text-ink" />
+  </div>
+</article>

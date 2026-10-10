@@ -1,0 +1,332 @@
+---
+import Icon from './Icon.astro';
+import Barcode from './Barcode.astro';
+
+const services = [
+  {
+    id: 'desarrollo',
+    code: 'WEB',
+    nodes: 'tienda',
+    title: 'Desarrollo y Digitalización',
+    body: 'Creamos tu plataforma de e-commerce a la medida, aunque hoy tu empresa no tenga vida digital. Llevamos tu modelo físico (catálogo, condiciones, forma de vender) al entorno web.',
+    result: 'Tu negocio, tal como funciona, ahora vende en línea.',
+    part: 'WEB · tu tienda online',
+  },
+  {
+    id: 'omnicanal',
+    code: 'SYNC',
+    nodes: 'panel erp canales',
+    title: 'Omnicanalidad y Sincronización',
+    body: 'Integramos la tienda con el sistema administrativo (ERP) que tu empresa ya usa y centralizamos el inventario. Vendes al mismo tiempo en Mercado Libre, Amazon, eBay, Facebook Marketplace y más, desde un único panel de control.',
+    result: 'Un inventario, todos los canales, sin cargar nada dos veces.',
+    part: 'ERP, SYNC y CAN',
+  },
+  {
+    id: 'b2b',
+    code: 'B2B',
+    nodes: 'b2b',
+    title: 'E-Commerce B2B Avanzado',
+    body: 'Configuramos reglas de negocio específicas, control de stock y listas de precios dinámicas para ofrecer precios y condiciones exclusivas a cada cliente corporativo, de forma automática.',
+    result: 'Cada cliente ve su precio, sin que tú lo calcules.',
+    part: 'B2B · precios por cliente',
+  },
+  {
+    id: 'gestion',
+    code: 'OPS',
+    nodes: 'equipo',
+    title: 'Gestión Operativa Delegada',
+    body: 'Personal capacitado por Elanth administra tu tienda digital. No tienes que contratar especialistas en tecnología: nuestro equipo se encarga del ecosistema digital y tú te enfocas en recibir los pedidos y gestionar tu almacén.',
+    result: 'Más canales de venta sin ampliar tu nómina técnica.',
+    part: 'OPS · toda la hoja de ruta',
+  },
+  {
+    id: 'marketing',
+    code: 'ADS',
+    nodes: 'anuncios',
+    title: 'Marketing y Tráfico Digital',
+    body: 'Un departamento dedicado a tus redes sociales y a crear contenido que impulse tu nuevo sitio. Diseñamos, lanzamos y optimizamos campañas publicitarias (Ads) hiperpersonalizadas según el nicho de tu negocio.',
+    result: 'Tráfico que llega a tu tienda, no solo seguidores.',
+    part: 'ADS · anuncios y redes',
+  },
+] as const;
+
+const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
+---
+<section id="servicios" class="relative bg-ice text-ink" data-services>
+  <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+    <div class="max-w-[52rem]">
+      <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy">Una sola orden para vender en línea, completa.</h2>
+      <p class="mt-6 max-w-[40rem] text-lg leading-relaxed text-muted">
+        E-Commerce 360° es nuestra solución llave en mano: no solo creamos tu tienda, centralizamos y automatizamos
+        todos tus canales de venta para que tus ingresos crezcan sin que crezca tu carga operativa.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-10">
+      <!-- Hoja de ruta -->
+      <div class="lg:col-span-5">
+        <figure class="flow lg:sticky lg:top-28" aria-label="Hoja de ruta de tu operación con Elanth">
+          <div class="slip paper px-4 pt-4 pb-5 sm:px-5" data-node="equipo">
+            <div class="flex items-center justify-between gap-3 border-b border-dashed border-ink/30 pb-3">
+              <p class="slip-title flex items-center gap-2 text-sm font-bold text-navy [font-stretch:106%]">
+                <span class="code">OPS</span> Operado por el equipo Elanth
+              </p>
+              <Icon name="team" class="size-4 shrink-0 text-blue-ink" />
+            </div>
+
+            <div class="mt-4 flex flex-col items-stretch">
+              <div class="node" data-node="anuncios">
+                <span class="code">ADS</span>
+                <span><strong>Anuncios y redes</strong><small>Traen clientes a tu tienda</small></span>
+              </div>
+              <span class="wire" aria-hidden="true"></span>
+              <div class="node flex-wrap" data-node="tienda">
+                <span class="code">WEB</span>
+                <span class="min-w-0"><strong>Tu tienda online</strong><small>A la medida de tu negocio</small></span>
+                <span class="chip ml-[3.5rem] sm:ml-auto" data-node="b2b"><span class="font-semibold">B2B</span> precios por cliente</span>
+              </div>
+              <span class="wire" aria-hidden="true"></span>
+              <div class="grid grid-cols-1 items-center sm:grid-cols-[1fr_auto_1.3fr]">
+                <div class="node" data-node="erp">
+                  <span class="code">ERP</span>
+                  <span><strong>Tu sistema</strong><small>El que ya usas</small></span>
+                </div>
+                <span class="wire-h" aria-hidden="true"></span>
+                <span class="wire wire-m" aria-hidden="true"></span>
+                <div class="node node-hub" data-node="panel">
+                  <span class="code">SYNC</span>
+                  <span><strong>Inventario central</strong><small>Un solo panel</small></span>
+                </div>
+              </div>
+              <span class="wire" aria-hidden="true"></span>
+              <div class="node items-start" data-node="canales">
+                <span class="code">CAN</span>
+                <span class="flex flex-wrap gap-1.5">
+                  {channelChips.map((c) => <span class="chip chip-plain">{c}</span>)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Corte: lo que queda de tu lado -->
+          <div class="my-3 flex items-center gap-2 text-muted" aria-hidden="true">
+            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.6 7.6 20 18M8.6 16.4 20 6"/></svg>
+            <span class="tear-line flex-1 text-ink"></span>
+          </div>
+          <div class="paper paper-torn-bottom px-4 pt-4 pb-6 sm:px-5">
+            <div class="node node-client" data-node="almacen">
+              <span class="code">TÚ</span>
+              <span><strong>Tu almacén</strong><small>Recibes el pedido y despachas</small></span>
+            </div>
+          </div>
+          <figcaption class="sr-only">
+            El equipo Elanth opera anuncios, tienda, reglas B2B, inventario central conectado a tu ERP y los canales de venta.
+            Tú solo recibes los pedidos en tu almacén.
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- Orden de servicio -->
+      <div class="lg:col-span-7">
+        <div class="paper paper-torn mx-auto max-w-[44rem] px-5 py-10 sm:px-10 sm:py-12">
+          <div class="flex items-start justify-between gap-4 font-mono text-xs text-muted [font-stretch:82%]">
+            <div>
+              <p class="font-sans text-xl font-[800] tracking-[-0.01em] text-navy [font-stretch:118%] sm:text-2xl">Orden de servicio</p>
+              <p class="mt-1">E-Commerce 360° · Llave en mano</p>
+            </div>
+            <p class="shrink-0 text-right">Fase actual<br />Elanth</p>
+          </div>
+          <div class="mt-6 grid grid-cols-[3.25rem_1fr] gap-x-3 font-mono text-[0.6875rem] text-muted [font-stretch:82%] sm:grid-cols-[3.75rem_1fr] sm:gap-x-5">
+            <span>Cód.</span><span>Servicio</span>
+          </div>
+          <div class="tear-line mt-2 text-ink"></div>
+
+          <ul class="divide-y divide-dashed divide-ink/20">
+            {services.map((s) => (
+              <li>
+                <button
+                  type="button"
+                  class="service grid w-full grid-cols-[3.25rem_1fr] gap-x-3 py-7 text-left sm:grid-cols-[3.75rem_1fr] sm:gap-x-5"
+                  data-service={s.id}
+                  data-nodes={s.nodes}
+                  aria-describedby={`parte-${s.id}`}
+                >
+                  <span class="service-code code mt-0.5 justify-self-start">{s.code}</span>
+                  <span class="min-w-0">
+                    <span class="block text-xl font-[760] tracking-[-0.01em] text-navy [font-stretch:110%] sm:text-[1.375rem]">{s.title}</span>
+                    <span class="mt-2 block text-[0.9875rem] leading-relaxed text-ink/85">{s.body}</span>
+                    <span class="mt-3 flex items-start gap-2 font-mono text-xs leading-relaxed text-blue-ink [font-stretch:85%]">
+                      <Icon name="arrow" class="mt-[0.2em] size-3.5 shrink-0" />
+                      {s.result}
+                    </span>
+                    <span id={`parte-${s.id}`} class="mt-2 block font-mono text-[0.6875rem] text-muted [font-stretch:85%] lg:sr-only">
+                      En la hoja de ruta: {s.part}
+                    </span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div class="tear-line text-ink"></div>
+          <div class="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div class="font-mono text-xs leading-relaxed text-muted [font-stretch:85%]">
+              <p class="tabular flex justify-between gap-8"><span>Tu parte</span><span class="text-navy">recibir y despachar</span></p>
+              <p class="tabular flex justify-between gap-8"><span>Nuestra parte</span><span class="text-navy">todo lo demás</span></p>
+            </div>
+            <Barcode value="E-COMMERCE-360" class="h-9 w-40 text-ink" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .code {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.75rem;
+    height: 1.625rem;
+    padding: 0 0.375rem;
+    border: 1px solid var(--color-ink);
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-stretch: 80%;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-ink);
+    flex-shrink: 0;
+    transition: background-color 350ms, color 350ms, border-color 350ms;
+  }
+  .node {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.25rem;
+    transition: opacity 350ms var(--ease-out-quart);
+  }
+  .node strong {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    font-stretch: 106%;
+    color: var(--color-navy);
+    line-height: 1.2;
+  }
+  .node small {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+  /* El panel central se imprime en negativo */
+  .node-hub {
+    padding: 0.625rem 0.75rem;
+    border-radius: 3px;
+    background: var(--color-navy);
+  }
+  .node-hub strong { color: var(--color-paper); }
+  .node-hub small { color: var(--color-fog); }
+  .node-hub .code { border-color: var(--color-sky); color: var(--color-sky); }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 2px;
+    border: 1px dashed rgb(23 105 143 / 0.6);
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: 0.6875rem;
+    color: var(--color-blue-ink);
+    white-space: nowrap;
+    transition: background-color 350ms, color 350ms, border-color 350ms;
+  }
+  .chip-plain { border-style: solid; border-color: rgb(31 42 51 / 0.25); color: var(--color-ink); }
+  .wire {
+    display: block;
+    width: 1px;
+    height: 1rem;
+    margin-left: calc(0.25rem + 1.375rem);
+    background-image: linear-gradient(to bottom, var(--color-ink) 50%, transparent 50%);
+    background-size: 1px 6px;
+    opacity: 0.5;
+  }
+  .wire-h { display: none; }
+  @media (min-width: 640px) {
+    .wire-h {
+      display: block;
+      width: 1rem;
+      height: 1px;
+      background-image: linear-gradient(to right, var(--color-ink) 50%, transparent 50%);
+      background-size: 6px 1px;
+      opacity: 0.5;
+    }
+    .wire-m { display: none; }
+  }
+
+  /* Estado activo: se ilumina lo que gobierna el servicio */
+  .flow.has-active .node { opacity: 0.35; }
+  .flow.has-active .slip-title { opacity: 0.45; }
+  .flow.has-active .node.lit,
+  .flow.has-active .node:has(.lit),
+  .flow.has-active [data-node='equipo'].lit .node,
+  .flow.has-active [data-node='equipo'].lit .slip-title { opacity: 1; }
+  .flow .node.lit > .code,
+  .flow [data-node='equipo'].lit .slip-title .code,
+  .flow .chip.lit {
+    background: var(--color-teal);
+    border-color: var(--color-teal);
+    color: var(--color-navy);
+  }
+  .flow [data-node='equipo'].lit { box-shadow: 0 0 0 2px var(--color-teal); }
+  .slip { transition: box-shadow 350ms; }
+
+  .service.active .service-code,
+  .service:hover .service-code { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-paper); }
+  @media (hover: hover) and (min-width: 1024px) {
+    .service { cursor: pointer; }
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-services]');
+  if (section) {
+    const flow = section.querySelector<HTMLElement>('.flow')!;
+    const items = [...section.querySelectorAll<HTMLButtonElement>('[data-service]')];
+    const nodes = [...flow.querySelectorAll<HTMLElement>('[data-node]')];
+    let pinned: HTMLButtonElement | null = null;
+
+    const light = (btn: HTMLButtonElement | null) => {
+      const ids = btn?.dataset.nodes?.split(' ') ?? [];
+      flow.classList.toggle('has-active', ids.length > 0);
+      nodes.forEach((n) => n.classList.toggle('lit', ids.includes(n.dataset.node!)));
+      items.forEach((i) => i.classList.toggle('active', i === btn));
+    };
+
+    items.forEach((btn) => {
+      btn.addEventListener('mouseenter', () => light(btn));
+      btn.addEventListener('focus', () => light(btn));
+      btn.addEventListener('mouseleave', () => light(pinned));
+      btn.addEventListener('blur', () => light(pinned));
+      btn.addEventListener('click', () => {
+        pinned = pinned === btn ? null : btn;
+        light(pinned);
+      });
+    });
+
+    // En pantallas grandes, el servicio en el centro de la vista ilumina su parte de la hoja de ruta
+    const wide = window.matchMedia('(min-width: 1024px)');
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!wide.matches || pinned) return;
+        const hit = entries.find((e) => e.isIntersecting);
+        if (hit) light(hit.target as HTMLButtonElement);
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    );
+    items.forEach((i) => io.observe(i));
+  }
+</script>

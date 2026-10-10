@@ -1,0 +1,192 @@
+---
+import Ticket from './Ticket.astro';
+import Icon from './Icon.astro';
+import { channels, orders, products } from '../data/demo';
+
+const visible = [orders[1], orders[0]];
+const first = products[orders[1].sku];
+// Stock inicial tras los dos pedidos ya impresos
+const initialStock: Record<string, number> = Object.fromEntries(
+  Object.values(products).map((p) => [p.sku, p.stock]),
+);
+initialStock[orders[0].sku] -= orders[0].qty;
+initialStock[orders[1].sku] -= orders[1].qty;
+---
+<div class="printer relative mx-auto w-full max-w-[27rem]" data-printer data-stock={JSON.stringify(initialStock)}>
+  <!-- Cuerpo de la comandera -->
+  <div class="relative z-10 rounded-t-[14px] rounded-b-[4px] bg-slate px-5 pt-4 pb-0 shadow-[0_24px_40px_-18px_rgb(3_10_18/0.8),inset_0_1px_0_rgb(255_255_255/0.08)]">
+    <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="led relative flex size-2.5" aria-hidden="true">
+          <span class="led-pulse absolute inset-0 rounded-full bg-teal opacity-70"></span>
+          <span class="relative size-2.5 rounded-full bg-teal shadow-[0_0_10px_rgb(25_195_177/0.9)]"></span>
+        </span>
+        <p class="label text-fog">Comandera · Elanth</p>
+      </div>
+      <p class="label rounded-sm border border-fog/30 px-1.5 py-0.5 text-fog">Demostración</p>
+    </div>
+    <!-- Ranura: el papel sale de aquí -->
+    <div class="mx-1 mt-4 h-2 rounded-t-[3px] bg-navy-deep shadow-[inset_0_2px_3px_rgb(0_0_0/0.8)]"></div>
+  </div>
+
+  <!-- Papel saliendo -->
+  <div class="feed relative h-[23rem] overflow-hidden px-5 sm:h-[25.5rem] lg:h-[27rem]">
+    <ol class="flex flex-col gap-2" data-feed aria-live="off" aria-label="Pedidos recibidos (demostración)">
+      {visible.map((o) => (
+        <li class="feed-item"><Ticket order={o} /></li>
+      ))}
+    </ol>
+  </div>
+
+  <!-- Inventario sincronizado -->
+  <div class="relative z-10 -mt-px rounded-[10px] border border-white/10 bg-navy-deep/80 p-4 backdrop-blur-sm" data-rail>
+    <div class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        <p class="label text-fog">Inventario central</p>
+        <p class="mt-1 truncate text-sm font-semibold text-paper [font-stretch:104%]" data-rail-name>{first.name}</p>
+      </div>
+      <p class="label tabular shrink-0 pt-0.5 text-fog" data-rail-sku>{first.sku}</p>
+    </div>
+    <ul class="mt-3 grid grid-cols-3 gap-px overflow-hidden rounded-md bg-white/10" aria-label="Existencias por canal">
+      {channels.map((c) => (
+        <li class="rail-cell flex flex-col gap-1 bg-navy-deep px-2.5 py-2" data-channel={c.id}>
+          <span class="flex items-center justify-between gap-1">
+            <span class="truncate text-[0.6875rem] text-fog [font-stretch:92%]">{c.short}</span>
+            <span class="rail-state text-sky" data-state="ok">
+              <Icon name="check" class="state-ok size-3.5" label="sincronizado" />
+              <Icon name="sync" class="state-sync hidden size-3.5" label="sincronizando" />
+            </span>
+          </span>
+          <span class="tabular font-mono text-base font-medium text-paper [font-stretch:85%]" data-count>{initialStock[first.sku]}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {orders.map((o, i) => (
+    <template data-ticket={i}><li class="feed-item"><Ticket order={o} /></li></template>
+  ))}
+</div>
+
+<style>
+  .feed {
+    -webkit-mask: linear-gradient(to bottom, #000 0, #000 calc(100% - 5rem), transparent);
+    mask: linear-gradient(to bottom, #000 0, #000 calc(100% - 5rem), transparent);
+  }
+  .feed::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 10px;
+    background: linear-gradient(to bottom, rgb(3 10 18 / 0.45), transparent);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .led-pulse { animation: none; }
+  .printing .led-pulse { animation: led 0.9s var(--ease-out-quart) infinite; }
+  @keyframes led {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+  .rail-state[data-state='sync'] .state-ok { display: none; }
+  .rail-state[data-state='sync'] .state-sync { display: block; animation: spin 0.8s linear infinite; }
+  .rail-state[data-state='sync'] { color: var(--color-amber); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  [data-count] { transition: color 400ms; }
+  .rail-cell.bump [data-count] { color: var(--color-teal-bright); }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-printer]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (root && !reduce.matches) {
+    const feed = root.querySelector<HTMLOListElement>('[data-feed]')!;
+    const templates = [...root.querySelectorAll<HTMLTemplateElement>('template[data-ticket]')];
+    const stock: Record<string, number> = JSON.parse(root.dataset.stock || '{}');
+    const railName = root.querySelector<HTMLElement>('[data-rail-name]')!;
+    const railSku = root.querySelector<HTMLElement>('[data-rail-sku]')!;
+    const cells = [...root.querySelectorAll<HTMLElement>('.rail-cell')];
+    const names: Record<string, string> = {};
+    templates.forEach((t) => {
+      const art = t.content.querySelector<HTMLElement>('.ticket')!;
+      const sku = art.dataset.sku!;
+      names[sku] = art.dataset.name || sku;
+    });
+
+    let next = 2;
+    let minutes = 10 * 60 + 4;
+    let timer: number | undefined;
+    let visible = false;
+
+    const fmt = (m: number) =>
+      `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+
+    function print() {
+      const tpl = templates[next % templates.length];
+      next++;
+      const node = tpl.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
+      const ticket = node.querySelector<HTMLElement>('.ticket')!;
+      const sku = ticket.dataset.sku!;
+      const qty = Number(ticket.dataset.qty);
+      minutes += 2 + (next % 4);
+      const time = ticket.querySelector('header .tabular');
+      if (time) time.textContent = fmt(minutes);
+
+      feed.prepend(node);
+      const h = node.getBoundingClientRect().height;
+      root!.classList.add('printing');
+
+      node.animate([{ height: '0px', marginBottom: '-8px' }, { height: `${h}px`, marginBottom: '0px' }], {
+        duration: 1400,
+        easing: 'cubic-bezier(0.45, 0, 0.2, 1)',
+      });
+      ticket.animate([{ transform: `translateY(-${h}px)` }, { transform: 'translateY(0)' }], {
+        duration: 1400,
+        easing: 'cubic-bezier(0.45, 0, 0.2, 1)',
+      }).finished.then(() => {
+        root!.classList.remove('printing');
+        sync(sku, qty);
+        while (feed.children.length > 4) feed.lastElementChild!.remove();
+      });
+    }
+
+    function sync(sku: string, qty: number) {
+      stock[sku] = Math.max(0, (stock[sku] ?? 0) - qty);
+      railName.textContent = names[sku];
+      railSku.textContent = sku;
+      cells.forEach((cell, i) => {
+        const state = cell.querySelector<HTMLElement>('.rail-state')!;
+        const count = cell.querySelector<HTMLElement>('[data-count]')!;
+        window.setTimeout(() => {
+          state.dataset.state = 'sync';
+          window.setTimeout(() => {
+            count.textContent = String(stock[sku]);
+            state.dataset.state = 'ok';
+            cell.classList.add('bump');
+            count.animate(
+              [{ transform: 'translateY(-40%)', opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }],
+              { duration: 450, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+            );
+            window.setTimeout(() => cell.classList.remove('bump'), 900);
+          }, 380);
+        }, i * 45);
+      });
+    }
+
+    const start = () => {
+      if (timer || !visible || document.hidden) return;
+      timer = window.setInterval(print, 3800);
+    };
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+    };
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      visible ? start() : stop();
+    }).observe(root);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  }
+</script>

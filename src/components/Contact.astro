@@ -1,0 +1,306 @@
+---
+import Icon from './Icon.astro';
+import Barcode from './Barcode.astro';
+import { contact } from '../config';
+
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+const whatsappHref = contact.whatsapp
+  ? `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent('Hola Elanth, quiero mi asesoría y demo gratuita.')}`
+  : '';
+const emailHref = contact.email ? `mailto:${contact.email}?subject=${encodeURIComponent('Asesoría y demo gratuita')}` : '';
+
+const steps = [
+  { title: 'Recibimos tu solicitud', body: 'Con tus datos de contacto basta para empezar.' },
+  { title: 'Te contactamos', body: 'Conversamos sobre tu negocio, tus canales y tu sistema administrativo.' },
+  { title: 'Te mostramos una demo', body: 'Ves cómo funcionaría tu operación digital antes de decidir nada.' },
+];
+
+const required = [
+  { id: 'nombre', label: 'Nombre y apellido', type: 'text', autocomplete: 'name', placeholder: '', error: 'Escribe tu nombre para saber con quién hablamos.' },
+  { id: 'empresa', label: 'Empresa', type: 'text', autocomplete: 'organization', placeholder: '', error: 'Escribe el nombre de tu empresa.' },
+  { id: 'telefono', label: 'WhatsApp o teléfono', type: 'tel', autocomplete: 'tel', placeholder: '+58 412 000 0000', error: 'Escribe un número de contacto, por ejemplo +58 412 000 0000.' },
+  { id: 'correo', label: 'Correo electrónico', type: 'email', autocomplete: 'email', placeholder: 'nombre@empresa.com', error: 'Escribe un correo válido, por ejemplo nombre@empresa.com.' },
+];
+---
+<section id="asesoria" class="relative overflow-hidden bg-navy">
+  <div class="mx-auto grid max-w-[90rem] gap-14 px-4 py-24 sm:px-8 sm:py-32 lg:grid-cols-12 lg:gap-10 lg:px-12">
+    <div class="lg:col-span-5">
+      <div class="lg:sticky lg:top-28">
+        <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-paper">
+          Pide tu asesoría y <span class="text-sky">demo gratuita.</span>
+        </h2>
+        <p class="mt-6 max-w-[34rem] text-lg leading-relaxed text-fog">
+          Déjanos tus datos y te contactamos. Revisamos tu caso y te mostramos cómo se vería tu empresa vendiendo en línea,
+          sin costo.
+        </p>
+
+        <h3 class="mt-14 text-xl font-bold text-paper [font-stretch:108%]">Qué pasa después</h3>
+        <ol class="mt-5 space-y-6">
+          {steps.map((s, i) => (
+            <li class="grid grid-cols-[2.25rem_1fr] gap-4">
+              <span class="tabular grid size-9 place-items-center rounded-full border border-sky/40 text-sm font-semibold text-sky">{i + 1}</span>
+              <span>
+                <span class="block font-semibold text-paper [font-stretch:104%]">{s.title}</span>
+                <span class="mt-1 block text-fog">{s.body}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7">
+      <div class="paper paper-torn mx-auto max-w-[42rem] px-5 py-10 sm:px-10 sm:py-12" data-contact>
+        <form action={endpoint || undefined} method="post" novalidate data-endpoint={endpoint} data-whatsapp={whatsappHref} data-email={contact.email} data-form>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="font-sans text-xl font-[800] tracking-[-0.01em] text-navy [font-stretch:118%] sm:text-2xl">Orden de asesoría</p>
+              <p class="mt-1 font-mono text-xs text-muted [font-stretch:85%]">Asesoría y demo · Sin costo</p>
+            </div>
+            <Barcode value="ASESORIA" class="mt-1 h-7 w-24 shrink-0 text-ink" />
+          </div>
+          <div class="tear-line mt-6 text-ink"></div>
+
+          <fieldset class="mt-7">
+            <legend class="text-base font-bold text-navy [font-stretch:106%]">Tus datos de contacto</legend>
+            <div class="mt-5 grid gap-5 sm:grid-cols-2">
+              {required.map((f) => (
+                <div class="field">
+                  <label for={f.id}>{f.label}</label>
+                  <input
+                    id={f.id}
+                    name={f.id}
+                    type={f.type}
+                    autocomplete={f.autocomplete}
+                    placeholder={f.placeholder || undefined}
+                    required
+                    aria-describedby={`${f.id}-error`}
+                    data-error={f.error}
+                  />
+                  <p id={`${f.id}-error`} class="error" hidden></p>
+                </div>
+              ))}
+            </div>
+          </fieldset>
+
+          <!-- Corte: lo opcional -->
+          <div class="relative mt-10 mb-8 flex items-center gap-3 text-ink" aria-hidden="true">
+            <div class="tear-line flex-1"></div>
+            <svg class="size-4 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.6 7.6 20 18M8.6 16.4 20 6"/></svg>
+          </div>
+
+          <fieldset class="optional rounded-md border border-dashed border-ink/25 bg-ice p-4 sm:p-6">
+            <legend class="float-left w-full">
+              <span class="block text-lg font-bold text-navy [font-stretch:106%]">Opcional: cuéntanos de tu negocio</span>
+              <span class="mt-1 block text-sm leading-relaxed font-normal text-muted">
+                Puedes dejar esta parte en blanco. Si la llenas, llegamos a la conversación con la tarea adelantada.
+              </span>
+            </legend>
+            <div class="clear-both grid gap-5 pt-5">
+              <div class="field">
+                <label for="rubro">¿A qué se dedica tu empresa? <span class="opt">(opcional)</span></label>
+                <input id="rubro" name="rubro" type="text" placeholder="Ej.: distribución de material eléctrico" />
+              </div>
+              <div class="field">
+                <span class="field-label" id="vende-label">¿Ya vendes por internet? <span class="opt">(opcional)</span></span>
+                <div class="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-labelledby="vende-label">
+                  {['Todavía no', 'Sí, un poco', 'Sí, en varios canales'].map((v, i) => (
+                    <label class="choice">
+                      <input type="radio" name="vende_online" value={v} class="sr-only" />
+                      <span>{v}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div class="field">
+                <label for="sistema">¿Qué sistema administrativo o ERP usan? <span class="opt">(opcional)</span></label>
+                <input id="sistema" name="sistema" type="text" placeholder="Ej.: el nombre de tu sistema, o «ninguno»" />
+              </div>
+              <div class="field">
+                <label for="mensaje">¿Qué te gustaría lograr? <span class="opt">(opcional)</span></label>
+                <textarea id="mensaje" name="mensaje" rows="3" placeholder="Ej.: vender en Mercado Libre sin descuadrar el inventario"></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+          <div class="mt-9">
+            <button type="submit" class="btn-lit w-full text-base sm:text-lg" data-submit>
+              <span data-submit-label>Obtener asesoría y demo gratuita</span>
+              <Icon name="arrow" class="size-5" />
+            </button>
+            <p class="mt-4 text-center text-sm text-muted">Te contactaremos por WhatsApp o por correo.</p>
+            {(whatsappHref || emailHref) && (
+              <p class="mt-2 text-center text-sm text-muted">
+                ¿Prefieres escribirnos directo?
+                {whatsappHref && <a href={whatsappHref} class="font-semibold text-blue-ink underline underline-offset-4" target="_blank" rel="noopener">WhatsApp</a>}
+                {whatsappHref && emailHref && ' o '}
+                {emailHref && <a href={emailHref} class="font-semibold text-blue-ink underline underline-offset-4">{contact.email}</a>}
+              </p>
+            )}
+            <p class="form-status mt-4 rounded-md px-4 py-3 text-sm" role="alert" data-status hidden></p>
+          </div>
+        </form>
+
+        <div class="text-center" data-success hidden tabindex="-1">
+          <div class="mx-auto grid size-14 place-items-center rounded-full bg-teal text-navy">
+            <Icon name="check" class="size-7" />
+          </div>
+          <p class="mt-6 font-sans text-2xl font-[800] text-navy [font-stretch:116%]">Orden recibida</p>
+          <p class="mx-auto mt-3 max-w-[28rem] leading-relaxed text-ink/85" data-success-text>
+            Gracias. Te contactaremos pronto para coordinar tu asesoría y demo gratuita.
+          </p>
+          <div class="tear-line mx-auto mt-8 max-w-[20rem] text-ink"></div>
+          <p class="tabular mt-4 font-mono text-xs text-muted [font-stretch:85%]" data-success-stamp></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .field label,
+  .field-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+  .opt { font-weight: 400; color: var(--color-muted); }
+  .field input:not([type='radio']),
+  .field textarea {
+    margin-top: 0.4rem;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.7rem 0.875rem;
+    border-radius: 5px;
+    border: 1px solid rgb(31 42 51 / 0.22);
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 1rem;
+    transition: border-color 200ms, box-shadow 200ms;
+  }
+  .field textarea { resize: vertical; min-height: 5.5rem; }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--color-muted); }
+  .field input:hover,
+  .field textarea:hover { border-color: rgb(31 42 51 / 0.4); }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--color-teal-ink);
+    box-shadow: 0 0 0 3px rgb(25 195 177 / 0.28);
+  }
+  .field input[aria-invalid='true'] {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgb(255 107 107 / 0.2);
+  }
+  .error {
+    display: flex;
+    margin-top: 0.4rem;
+    font-size: 0.8125rem;
+    color: #b42318;
+  }
+  .error[hidden] { display: none; }
+  .choice span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border-radius: 999px;
+    border: 1px solid rgb(31 42 51 / 0.22);
+    background: #fff;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: background-color 200ms, border-color 200ms, color 200ms;
+  }
+  .choice:hover span { border-color: rgb(31 42 51 / 0.45); }
+  .choice input:checked + span { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-paper); }
+  .choice input:focus-visible + span { outline: 2px solid var(--color-teal-ink); outline-offset: 2px; }
+  .form-status[data-kind='error'] { background: rgb(255 107 107 / 0.12); color: #9b1c12; }
+</style>
+
+<script>
+  const wrap = document.querySelector<HTMLElement>('[data-contact]');
+  const form = wrap?.querySelector<HTMLFormElement>('[data-form]');
+
+  if (wrap && form) {
+    const endpoint = form.dataset.endpoint || '';
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const success = wrap.querySelector<HTMLElement>('[data-success]')!;
+    const fields = [...form.querySelectorAll<HTMLInputElement>('input[required]')];
+
+    const validate = (input: HTMLInputElement) => {
+      const error = document.getElementById(`${input.id}-error`)!;
+      const value = input.value.trim();
+      let ok = value.length > 0;
+      if (ok && input.type === 'email') ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+      if (ok && input.type === 'tel') ok = value.replace(/\D/g, '').length >= 7;
+      input.setAttribute('aria-invalid', String(!ok));
+      error.hidden = ok;
+      error.textContent = ok ? '' : input.dataset.error || '';
+      return ok;
+    };
+
+    fields.forEach((input) => {
+      input.addEventListener('blur', () => input.value && validate(input));
+      input.addEventListener('input', () => input.getAttribute('aria-invalid') === 'true' && validate(input));
+    });
+
+    const direct = [
+      form.dataset.whatsapp ? 'por WhatsApp' : '',
+      form.dataset.email ? `a ${form.dataset.email}` : '',
+    ].filter(Boolean).join(' o ');
+
+    const showError = (msg: string) => {
+      status.dataset.kind = 'error';
+      status.textContent = direct ? `${msg} También puedes escribirnos directo ${direct}.` : msg;
+      status.hidden = false;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.hidden = true;
+      const invalid = fields.filter((f) => !validate(f));
+      if (invalid.length) {
+        invalid[0].focus();
+        return;
+      }
+
+      if (!endpoint) {
+        showError('No pudimos enviar tu solicitud porque el formulario todavía no está conectado.');
+        console.warn('[Elanth] Define PUBLIC_FORM_ENDPOINT en .env para recibir las solicitudes.');
+        return;
+      }
+
+      submit.disabled = true;
+      submitLabel.textContent = 'Enviando tu orden…';
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        const name = (form.elements.namedItem('nombre') as HTMLInputElement).value.trim().split(' ')[0];
+        const now = new Date();
+        wrap.querySelector('[data-success-text]')!.textContent =
+          `Gracias, ${name}. Te contactaremos pronto para coordinar tu asesoría y demo gratuita.`;
+        wrap.querySelector('[data-success-stamp]')!.textContent =
+          `${now.toLocaleDateString('es-VE')} · ${now.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' })}`;
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+      } catch {
+        showError('No pudimos enviar tu solicitud. Revisa tu conexión e inténtalo de nuevo.');
+      } finally {
+        submit.disabled = false;
+        submitLabel.textContent = 'Obtener asesoría y demo gratuita';
+      }
+    });
+  }
+</script>

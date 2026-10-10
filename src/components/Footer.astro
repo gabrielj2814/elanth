@@ -1,0 +1,24 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-white/10 bg-navy-deep">
+  <div class="mx-auto flex max-w-[90rem] flex-col gap-10 px-4 py-14 sm:px-8 md:flex-row md:items-end md:justify-between lg:px-12">
+    <div>
+      <img src="/brand/elanth-logo-light.svg" alt="Elanth Technology Solutions" width="3260" height="1268" loading="lazy" class="h-14 w-auto" />
+      <p class="mt-5 max-w-[26rem] text-sm leading-relaxed text-fog">
+        El puente entre las empresas tradicionales y el mundo digital. Soluciones tecnológicas B2B desde Venezuela.
+      </p>
+    </div>
+    <div class="flex flex-col gap-4 text-sm text-fog md:items-end">
+      <nav aria-label="Pie de página">
+        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+          <li><a href="#servicios" class="hover:text-paper">Servicios</a></li>
+          <li><a href="#llave-en-mano" class="hover:text-paper">Llave en mano</a></li>
+          <li><a href="#ecosistema" class="hover:text-paper">Ecosistema</a></li>
+          <li><a href="#asesoria" class="text-teal hover:text-teal-bright">Asesoría gratuita</a></li>
+        </ul>
+      </nav>
+      <p class="tabular">© {year} Elanth Technology Solutions</p>
+    </div>
+  </div>
+</footer>

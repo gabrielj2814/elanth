@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+const links = [
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#llave-en-mano', label: 'Llave en mano' },
+  { href: '#ecosistema', label: 'Ecosistema' },
+];
+---
+<header class="site-nav fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow] duration-300" data-nav>
+  <nav class="mx-auto flex h-16 max-w-[90rem] items-center justify-between gap-6 px-4 sm:h-20 sm:px-8 lg:px-12" aria-label="Principal">
+    <a href="#inicio" class="shrink-0" aria-label="Elanth, ir al inicio">
+      <img src="/brand/elanth-logo-light.svg" alt="Elanth Technology Solutions" width="3260" height="1268" class="h-9 w-auto sm:h-11" />
+    </a>
+    <ul class="hidden items-center gap-8 text-sm font-medium text-fog md:flex">
+      {links.map((l) => (
+        <li><a href={l.href} class="transition-colors hover:text-paper">{l.label}</a></li>
+      ))}
+    </ul>
+    <a
+      href="#asesoria"
+      class="group inline-flex min-h-10 items-center gap-2 rounded-[5px] border border-paper/40 px-3.5 text-[0.8125rem] font-semibold text-paper transition-colors hover:border-paper hover:bg-paper hover:text-navy sm:min-h-11 sm:px-4 sm:text-sm"
+    >
+      <span class="sm:hidden">Asesoría gratis</span>
+      <span class="hidden sm:inline">Asesoría y demo gratuita</span>
+      <Icon name="arrow" class="size-4 transition-transform group-hover:translate-x-0.5" />
+    </a>
+  </nav>
+</header>
+
+<style>
+  .site-nav.scrolled {
+    background: rgb(11 31 51 / 0.92);
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.07), 0 10px 30px -18px rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(10px);
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  if (nav) {
+    const update = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>
