@@ -111,6 +111,10 @@ const niches = [
                     <option value="">Elige el nicho de tu empresa</option>
                     {niches.map((n) => <option value={n}>{n}</option>)}
                   </select>
+                  <div class="mt-4" data-niche-other hidden>
+                    <label for="nicho_otro">¿A qué nicho se dedica tu empresa? <span class="opt">(opcional)</span></label>
+                    <input id="nicho_otro" name="nicho_otro" type="text" placeholder="Ej.: artículos de oficina" />
+                  </div>
                 </div>
                 <div class="field">
                   <span class="field-label" id="vende-label">¿Ya vendes por internet? <span class="opt">(opcional)</span></span>
@@ -323,6 +327,14 @@ const niches = [
     fields.forEach((input) => {
       input.addEventListener('blur', () => input.value && validate(input));
       input.addEventListener('input', () => input.getAttribute('aria-invalid') === 'true' && validate(input));
+    });
+
+    // Si el nicho no está en la lista, se puede escribir
+    const niche = form.querySelector<HTMLSelectElement>('#nicho')!;
+    const nicheOther = form.querySelector<HTMLElement>('[data-niche-other]')!;
+    niche.addEventListener('change', () => {
+      nicheOther.hidden = niche.value !== 'Otro';
+      if (!nicheOther.hidden) nicheOther.querySelector('input')!.focus();
     });
 
     // «¿Cuál usan?» solo aparece si la empresa tiene ERP
