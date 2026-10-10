@@ -16,9 +16,25 @@ const steps = [
 
 const required = [
   { id: 'nombre', label: 'Nombre y apellido', type: 'text', autocomplete: 'name', placeholder: '', error: 'Escribe tu nombre para saber con quién hablamos.' },
-  { id: 'empresa', label: 'Empresa', type: 'text', autocomplete: 'organization', placeholder: '', error: 'Escribe el nombre de tu empresa.' },
+  { id: 'cargo', label: 'Cargo', type: 'text', autocomplete: 'organization-title', placeholder: 'Ej.: gerente general', error: 'Escribe tu cargo en la empresa.' },
+  { id: 'empresa', label: 'Empresa', type: 'text', autocomplete: 'organization', placeholder: '', error: 'Escribe el nombre de tu empresa.', wide: true },
   { id: 'telefono', label: 'WhatsApp o teléfono', type: 'tel', autocomplete: 'tel', placeholder: '+58 412 000 0000', error: 'Escribe un número de contacto, por ejemplo +58 412 000 0000.' },
   { id: 'correo', label: 'Correo electrónico', type: 'email', autocomplete: 'email', placeholder: 'nombre@empresa.com', error: 'Escribe un correo válido, por ejemplo nombre@empresa.com.' },
+];
+
+// Nichos para el selector de datos del negocio
+const niches = [
+  'Ferretería y construcción',
+  'Material eléctrico e iluminación',
+  'Repuestos y autopartes',
+  'Alimentos y bebidas',
+  'Salud, farmacia y cuidado personal',
+  'Moda, calzado y accesorios',
+  'Hogar, muebles y electrodomésticos',
+  'Tecnología y electrónica',
+  'Industria y manufactura',
+  'Agro y veterinaria',
+  'Otro',
 ];
 ---
 <section id="asesoria" class="circuit-grid-dark relative overflow-hidden bg-navy">
@@ -64,7 +80,7 @@ const required = [
               <legend class="text-base font-bold text-paper [font-stretch:106%]">Tus datos de contacto</legend>
               <div class="mt-5 grid gap-5 sm:grid-cols-2">
                 {required.map((f) => (
-                  <div class="field">
+                  <div class:list={['field', { 'sm:col-span-2': f.wide }]}>
                     <label for={f.id}>{f.label}</label>
                     <input
                       id={f.id}
@@ -85,13 +101,16 @@ const required = [
             <fieldset class="optional mt-[1.875rem] rounded-lg px-4 pt-1.5 pb-5 sm:px-[1.375rem] sm:pb-6">
               <legend class="px-2 font-mono text-[0.6875rem] font-semibold tracking-[0.06em] text-sky [font-stretch:82%]">OPCIONAL</legend>
               <p class="text-sm leading-relaxed text-fog">
-                <span class="mb-0.5 block text-[1.0625rem] font-bold text-paper [font-stretch:106%]">Cuéntanos de tu negocio</span>
+                <span class="mb-0.5 block text-[1.0625rem] font-bold text-paper [font-stretch:106%]">Datos de tu negocio</span>
                 Puedes dejar esta parte en blanco. Si la llenas, llegamos a la conversación con la tarea adelantada.
               </p>
               <div class="grid gap-5 pt-5">
                 <div class="field">
-                  <label for="rubro">¿A qué se dedica tu empresa? <span class="opt">(opcional)</span></label>
-                  <input id="rubro" name="rubro" type="text" placeholder="Ej.: distribución de material eléctrico" />
+                  <label for="nicho">Nicho <span class="opt">(opcional)</span></label>
+                  <select id="nicho" name="nicho">
+                    <option value="">Elige el nicho de tu empresa</option>
+                    {niches.map((n) => <option value={n}>{n}</option>)}
+                  </select>
                 </div>
                 <div class="field">
                   <span class="field-label" id="vende-label">¿Ya vendes por internet? <span class="opt">(opcional)</span></span>
@@ -105,12 +124,23 @@ const required = [
                   </div>
                 </div>
                 <div class="field">
-                  <label for="sistema">¿Qué sistema administrativo o ERP usan? <span class="opt">(opcional)</span></label>
-                  <input id="sistema" name="sistema" type="text" placeholder="Ej.: el nombre de tu sistema, o «ninguno»" />
+                  <span class="field-label" id="erp-label">¿Tu empresa usa un sistema administrativo o ERP? <span class="opt">(opcional)</span></span>
+                  <div class="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-labelledby="erp-label">
+                    {['Sí', 'No', 'No estoy seguro'].map((v) => (
+                      <label class="choice">
+                        <input type="radio" name="tiene_erp" value={v} class="sr-only" />
+                        <span>{v}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <div class="mt-4" data-erp-name hidden>
+                    <label for="sistema">¿Cuál usan? <span class="opt">(opcional)</span></label>
+                    <input id="sistema" name="sistema" type="text" placeholder="Ej.: el nombre de tu sistema administrativo" />
+                  </div>
                 </div>
                 <div class="field">
-                  <label for="mensaje">¿Qué te gustaría lograr? <span class="opt">(opcional)</span></label>
-                  <textarea id="mensaje" name="mensaje" rows="3" placeholder="Ej.: vender en Mercado Libre sin descuadrar el inventario"></textarea>
+                  <label for="descripcion">¿A qué se dedica tu empresa? <span class="opt">(opcional)</span></label>
+                  <textarea id="descripcion" name="descripcion" rows="4" placeholder="Ej.: distribuimos material eléctrico a ferreterías y constructoras de la región central."></textarea>
                 </div>
               </div>
             </fieldset>
@@ -201,7 +231,8 @@ const required = [
   }
   .opt { font-weight: 400; color: var(--color-fog); }
   .field input:not([type='radio']),
-  .field textarea {
+  .field textarea,
+  .field select {
     margin-top: 0.4rem;
     width: 100%;
     min-height: 3rem;
@@ -214,12 +245,23 @@ const required = [
     transition: border-color 200ms, box-shadow 200ms;
   }
   .field textarea { resize: vertical; min-height: 5.5rem; }
+  .field select {
+    appearance: none;
+    padding-right: 2.75rem;
+    background: var(--color-navy-deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236bbbe0' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 0.875rem center / 1.125rem;
+    cursor: pointer;
+  }
+  /* Mientras no se elige un nicho, se lee como placeholder */
+  .field select:has(option[value='']:checked) { color: rgb(159 179 198 / 0.55); }
+  .field select option { background: var(--color-navy-deep); color: var(--color-paper); }
   .field input::placeholder,
   .field textarea::placeholder { color: rgb(159 179 198 / 0.55); }
   .field input:hover,
-  .field textarea:hover { border-color: rgb(107 187 224 / 0.5); }
+  .field textarea:hover,
+  .field select:hover { border-color: rgb(107 187 224 / 0.5); }
   .field input:focus,
-  .field textarea:focus {
+  .field textarea:focus,
+  .field select:focus {
     outline: none;
     border-color: var(--color-teal);
     box-shadow: 0 0 0 3px rgb(25 195 177 / 0.25);
@@ -281,6 +323,14 @@ const required = [
     fields.forEach((input) => {
       input.addEventListener('blur', () => input.value && validate(input));
       input.addEventListener('input', () => input.getAttribute('aria-invalid') === 'true' && validate(input));
+    });
+
+    // «¿Cuál usan?» solo aparece si la empresa tiene ERP
+    const erpName = form.querySelector<HTMLElement>('[data-erp-name]')!;
+    form.querySelectorAll<HTMLInputElement>('input[name="tiene_erp"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        erpName.hidden = form.querySelector<HTMLInputElement>('input[name="tiene_erp"]:checked')?.value !== 'Sí';
+      });
     });
 
     const direct = [
