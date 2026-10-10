@@ -23,6 +23,15 @@ npm run preview
 3. **Dominio.** Cambia `site` en `astro.config.mjs` si el dominio final no es `https://elanth.com`.
 4. **Imagen para redes (opcional).** Añade una imagen de 1200 × 630 y su etiqueta `og:image` en `src/layouts/Base.astro`.
 
+## Despliegue en GitHub Pages
+
+Cada `push` a `master` publica el sitio con `.github/workflows/deploy.yml`. También se puede lanzar a mano desde la pestaña **Actions**.
+
+1. En GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. Para el formulario: **Settings → Secrets and variables → Actions → Variables** y crea `PUBLIC_FORM_ENDPOINT`.
+
+El workflow toma el dominio y la ruta base de GitHub Pages: `https://gabrielj2814.github.io/elanth/`, o la raíz si configuras un dominio propio. Para las rutas a archivos de `public/` usa `asset()` de `src/config.ts`, no rutas que empiecen con `/`.
+
 ## Estructura
 
 - `src/pages/index.astro`: arma la página.

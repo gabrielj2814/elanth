@@ -1,10 +1,11 @@
 ---
+import { asset } from '../config';
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-white/10 bg-navy-deep">
   <div class="mx-auto flex max-w-[90rem] flex-col gap-10 px-4 py-14 sm:px-8 md:flex-row md:items-end md:justify-between lg:px-12">
     <div>
-      <img src="/brand/elanth-logo-light.svg" alt="Elanth Technology Solutions" width="3260" height="1268" loading="lazy" class="h-14 w-auto" />
+      <img src={asset("brand/elanth-logo-light.svg")} alt="Elanth Technology Solutions" width="3260" height="1268" loading="lazy" class="h-14 w-auto" />
       <p class="mt-5 max-w-[26rem] text-sm leading-relaxed text-fog">
         El puente entre las empresas tradicionales y el mundo digital. Soluciones tecnológicas B2B desde Venezuela.
       </p>

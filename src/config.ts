@@ -7,3 +7,6 @@ export const contact = {
   /** Correo de contacto, p. ej. "hola@elanth.com" */
   email: '',
 };
+
+/** Antepone la ruta base del sitio (p. ej. "/elanth" en GitHub Pages) a un archivo de `public/`. */
+export const asset = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
