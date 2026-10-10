@@ -1,0 +1,191 @@
+---
+// Ecosistema E-Commerce 360°: cada parte de la operación orbita alrededor de Elanth
+// y envía pulsos al centro, donde todo se centraliza.
+import Icon from './Icon.astro';
+import { asset } from '../config';
+
+const nodes = [
+  { icon: 'store', label: 'Tienda online' },
+  { icon: 'database', label: 'Tu ERP' },
+  { icon: 'sync', label: 'Inventario central' },
+  { icon: 'channels', label: 'Canales de venta' },
+  { icon: 'tag', label: 'Precios B2B' },
+  { icon: 'team', label: 'Equipo Elanth' },
+  { icon: 'megaphone', label: 'Anuncios y redes' },
+  { icon: 'box', label: 'Despacho' },
+] as const;
+const step = 360 / nodes.length;
+---
+<div
+  class="orbit"
+  role="img"
+  aria-label={`E-Commerce 360°: ${nodes.map((n) => n.label.toLowerCase()).join(', ')}, conectados alrededor de Elanth.`}
+>
+  <div class="blob" aria-hidden="true"></div>
+
+  <!-- Órbita interior con satélites -->
+  <svg class="layer" viewBox="-50 -50 100 100" aria-hidden="true">
+    <circle r="27" class="inner" />
+  </svg>
+  <span class="sat sat-a" aria-hidden="true"></span>
+  <span class="sat sat-b" aria-hidden="true"></span>
+
+  <!-- Anillo 360° con radios y pulsos hacia el centro -->
+  <div class="wheel" aria-hidden="true">
+    <svg class="layer" viewBox="-50 -50 100 100">
+      <defs>
+        <linearGradient id="orbit-ring" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#6bbbe0" />
+          <stop offset="0.55" stop-color="#2590be" />
+          <stop offset="1" stop-color="#0b1f33" stop-opacity="0.25" />
+        </linearGradient>
+      </defs>
+      <circle r="42" class="track" />
+      {nodes.map((_, i) => (
+        <g transform={`rotate(${i * step})`}>
+          <line x1="0" y1="-35.5" x2="0" y2="-18" class="spoke" />
+          <line x1="0" y1="-35.5" x2="0" y2="-18" class="packet" pathLength="100" style={`animation-delay:${(i * 0.55).toFixed(2)}s`} />
+        </g>
+      ))}
+    </svg>
+    {nodes.map((n, i) => (
+      <span class="node" style={`--a:${i * step}deg`}>
+        <span class="node-in"><Icon name={n.icon} class="node-icon" /></span>
+      </span>
+    ))}
+  </div>
+
+  <div class="core" aria-hidden="true">
+    <img src={asset('brand/elanth-mark.svg')} alt="" width="1940" height="1110" loading="lazy" />
+    <span class="core-label">E-COMMERCE 360°</span>
+  </div>
+</div>
+
+<style>
+  .orbit {
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    isolation: isolate;
+    /* Las capas que giran son cuadradas: sus esquinas no deben ensanchar la página */
+    overflow: clip;
+    overflow-clip-margin: 3cqw;
+  }
+  .layer { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+  /* Mancha de fondo que respira */
+  .blob {
+    position: absolute;
+    inset: 9cqw;
+    z-index: -1;
+    border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+    background: radial-gradient(circle at 35% 35%, rgb(107 187 224 / 0.32), rgb(37 144 190 / 0.14) 55%, rgb(11 31 51 / 0.06));
+    animation: morph 16s ease-in-out infinite alternate;
+  }
+
+  .inner { fill: none; stroke: var(--color-blue-ink); stroke-opacity: 0.35; stroke-width: 0.35; stroke-dasharray: 1 1.6; }
+
+  /* Satélites en la órbita interior */
+  .sat { position: absolute; inset: 0; animation: spin 16s linear infinite; }
+  .sat::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 27cqw);
+    left: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+  }
+  .sat-a::before { width: 3cqw; height: 3cqw; background: var(--color-sky); box-shadow: 0 0 0 1cqw rgb(107 187 224 / 0.2); }
+  .sat-b { animation-duration: 26s; animation-direction: reverse; animation-delay: -9s; }
+  .sat-b::before { width: 2cqw; height: 2cqw; background: var(--color-blue-ink); }
+
+  /* Anillo exterior: gira lento y lleva los nodos */
+  .wheel { position: absolute; inset: 0; animation: spin 70s linear infinite; }
+  .track { fill: none; stroke: url(#orbit-ring); stroke-width: 0.7; }
+  .spoke { stroke: var(--color-blue-ink); stroke-opacity: 0.3; stroke-width: 0.3; stroke-dasharray: 0.8 1.2; }
+  .packet {
+    stroke: var(--color-blue);
+    stroke-width: 0.9;
+    stroke-linecap: round;
+    stroke-dasharray: 9 100;
+    stroke-dashoffset: 9;
+    animation: packet 4.4s var(--ease-out-quart) infinite;
+  }
+
+  .node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12cqw;
+    height: 12cqw;
+    translate: -50% -50%;
+    transform: rotate(var(--a)) translateY(-42cqw) rotate(calc(var(--a) * -1));
+  }
+  /* Gira al revés del anillo para que los íconos queden siempre derechos */
+  .node-in {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--color-navy);
+    color: var(--color-sky);
+    box-shadow: 0 0 0 0.8cqw var(--color-ice), 0 10px 20px -10px rgb(11 31 51 / 0.6);
+    animation: spin 70s linear infinite reverse;
+  }
+  .node-icon { width: 5.4cqw; height: 5.4cqw; }
+
+  /* Núcleo: Elanth recibe todo */
+  .core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6cqw;
+    width: 35cqw;
+    height: 35cqw;
+    translate: -50% -50%;
+    border-radius: 50%;
+    border: 0.6cqw solid var(--color-navy);
+    background: #fff;
+    box-shadow: 0 18px 36px -18px rgb(11 31 51 / 0.55);
+  }
+  .core::after {
+    content: '';
+    position: absolute;
+    inset: -0.6cqw;
+    border-radius: 50%;
+    border: 0.4cqw solid var(--color-sky);
+    opacity: 0;
+    animation: ripple 2.2s var(--ease-out-quart) infinite;
+  }
+  .core img { width: 20cqw; height: auto; }
+  .core-label {
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: clamp(0.5rem, 2.2cqw, 0.75rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--color-navy);
+  }
+
+  @keyframes spin { to { rotate: 360deg; } }
+  @keyframes packet {
+    0% { stroke-dashoffset: 9; opacity: 0; }
+    10% { opacity: 1; }
+    60% { stroke-dashoffset: -91; opacity: 1; }
+    61%, 100% { stroke-dashoffset: -91; opacity: 0; }
+  }
+  @keyframes ripple {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.32); opacity: 0; }
+  }
+  @keyframes morph {
+    0% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; rotate: 0deg; }
+    100% { border-radius: 58% 42% 38% 62% / 55% 61% 39% 45%; rotate: 25deg; }
+  }
+</style>
