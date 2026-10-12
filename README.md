@@ -71,6 +71,8 @@ Pasos en Coolify:
 
 Estas variables se usan al compilar. Si cambias alguna, vuelve a desplegar para que se aplique.
 
+El contenedor escucha en su puerto interno 80, pero no ocupa el puerto 80 del VPS. El proxy de Coolify recibe el tráfico de cada dominio y lo reparte, así que este proyecto puede convivir con otros que también usan el 80. Si quieres entrar por `IP:puerto` sin dominio, descomenta el bloque `ports` de `docker-compose.yml` y define `HOST_PORT` con un puerto libre.
+
 Para probarlo en tu equipo (con Docker Desktop abierto):
 
 ```bash
