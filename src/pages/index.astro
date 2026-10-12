@@ -8,36 +8,10 @@ import Solutions from '../components/Solutions.astro';
 import WhatsApp from '../components/WhatsApp.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
-import { asset } from '../config';
-
-// Servicios por niveles, para que Google entienda qué ofrece Elanth
-const schema = [
-  {
-    '@type': 'Service',
-    name: 'E-Commerce 360°',
-    serviceType: 'Desarrollo de tiendas online y comercio electrónico',
-    provider: { '@id': new URL(asset(''), Astro.site).href + '#organizacion' },
-    description:
-      'Solución llave en mano: tienda online a la medida, automatización con IA, sincronización con ERP y marketplaces, e-commerce B2B, marketing digital y gestión delegada.',
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Niveles de E-Commerce 360°',
-      itemListElement: [
-        'Desarrollo y digitalización de tu negocio',
-        'Automatización inteligente con IA',
-        'Sincronización: tienda conectada con ERP, Mercado Libre, Amazon, eBay y Facebook Marketplace',
-        'E-Commerce avanzado B2B',
-        'Marketing y tráfico digital',
-        'Gestión delegada',
-      ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
-    },
-  },
-];
 ---
 <Base
-  title="Elanth | Tiendas online y e-commerce a la medida para tu negocio"
-  description="Creamos tu tienda online a la medida, la conectamos con tu ERP y tus canales de venta y la automatizamos con IA. Pide tu asesoría y demo gratuita."
-  schema={schema}
+  title="Elanth · Tu negocio vendiendo en línea"
+  description="Creamos tu tienda online a la medida de tu negocio: desde tu primera venta digital hasta la integración de tus sistemas y canales de venta, operaciones 100% delegadas y automatización con IA. Pide tu asesoría y demo gratuita."
 >
   <Nav />
   <main id="contenido">
