@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Vision from '../components/Vision.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import { asset } from '../config';
+
+const pillars = [
+  {
+    code: 'MISIÓN',
+    title: 'Nuestra misión',
+    body: 'Conectar a las empresas tradicionales con el mundo digital mediante soluciones tecnológicas hechas a la medida de su modelo de negocio, que generen resultados comerciales tangibles sin multiplicar su carga operativa.',
+  },
+  {
+    code: 'VISIÓN',
+    title: 'Nuestra visión',
+    body: 'Ser el hub tecnológico de referencia para las empresas de Venezuela y la región: un ecosistema de departamentos especializados capaz de resolver cualquier reto digital de nuestros clientes.',
+  },
+];
+---
+<Base
+  title="Sobre nosotros · Elanth"
+  description="Elanth es una agencia de soluciones tecnológicas B2B que conecta a las empresas tradicionales con el mundo digital. Conoce nuestra misión, visión y ecosistema."
+>
+  <Nav />
+  <main id="contenido">
+    <section class="circuit-grid-dark bg-navy pt-28 pb-20 sm:pt-40 sm:pb-28">
+      <div class="mx-auto max-w-[90rem] px-4 sm:px-8 lg:px-12">
+        <h1 class="display max-w-[58rem] text-[clamp(2.4rem,7vw,5.25rem)] text-paper">
+          El puente entre tu empresa y <span class="text-sky">el mundo digital.</span>
+        </h1>
+        <p class="mt-8 max-w-[42rem] text-lg leading-relaxed text-fog sm:text-xl">
+          Elanth es una agencia de soluciones tecnológicas B2B enfocada en el capital humano y en generar resultados
+          comerciales tangibles. Desarrollamos ecosistemas de software que se adaptan con exactitud al modelo de negocio de
+          cada cliente.
+        </p>
+
+        <div class="mt-16 grid gap-5 lg:mt-20 lg:grid-cols-2">
+          {pillars.map((p) => (
+            <article class="pillar">
+              <span class="ic-chip ic-chip-dark">{p.code}</span>
+              <h2 class="mt-5 text-[1.625rem] font-[800] tracking-[-0.01em] text-paper [font-stretch:114%]">{p.title}</h2>
+              <p class="mt-3 text-[1.0625rem] leading-relaxed text-fog">{p.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Vision />
+
+    <section class="bg-navy">
+      <div class="mx-auto flex max-w-[90rem] flex-col items-start gap-8 px-4 py-20 sm:px-8 sm:py-24 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+        <h2 class="display max-w-[40rem] text-[clamp(1.9rem,4.4vw,3.25rem)] text-paper">
+          ¿Listo para llevar tu negocio al mundo digital?
+        </h2>
+        <a href={asset('#asesoria')} class="btn-lit w-full text-base sm:w-auto sm:text-lg">
+          Obtener asesoría y demo gratuita
+          <Icon name="arrow" class="size-5" />
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsApp />
+</Base>
+
+<style>
+  .pillar {
+    position: relative;
+    padding: 1.75rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgb(107 187 224 / 0.22);
+    background: #0f2840;
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+  @media (min-width: 640px) {
+    .pillar { padding: 2.25rem 2.25rem 2.5rem; }
+  }
+</style>

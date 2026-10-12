@@ -1,11 +1,9 @@
 ---
 import Icon from './Icon.astro';
-import { contact } from '../config';
+import { contact, whatsappUrl } from '../config';
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
-const whatsappHref = contact.whatsapp
-  ? `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent('Hola Elanth, quiero mi asesoría y demo gratuita.')}`
-  : '';
+const whatsappHref = whatsappUrl;
 const emailHref = contact.email ? `mailto:${contact.email}?subject=${encodeURIComponent('Asesoría y demo gratuita')}` : '';
 
 const steps = [
@@ -16,8 +14,7 @@ const steps = [
 
 const required = [
   { id: 'nombre', label: 'Nombre y apellido', type: 'text', autocomplete: 'name', placeholder: '', error: 'Escribe tu nombre para saber con quién hablamos.' },
-  { id: 'cargo', label: 'Cargo', type: 'text', autocomplete: 'organization-title', placeholder: 'Ej.: gerente general', error: 'Escribe tu cargo en la empresa.' },
-  { id: 'empresa', label: 'Empresa', type: 'text', autocomplete: 'organization', placeholder: '', error: 'Escribe el nombre de tu empresa.', wide: true },
+  { id: 'empresa', label: 'Nombre de tu negocio', type: 'text', autocomplete: 'organization', placeholder: '', error: 'Escribe el nombre de tu negocio.' },
   { id: 'telefono', label: 'WhatsApp o teléfono', type: 'tel', autocomplete: 'tel', placeholder: '+58 412 000 0000', error: 'Escribe un número de contacto, por ejemplo +58 412 000 0000.' },
   { id: 'correo', label: 'Correo electrónico', type: 'email', autocomplete: 'email', placeholder: 'nombre@empresa.com', error: 'Escribe un correo válido, por ejemplo nombre@empresa.com.' },
 ];
@@ -80,7 +77,7 @@ const niches = [
               <legend class="text-base font-bold text-paper [font-stretch:106%]">Tus datos de contacto</legend>
               <div class="mt-5 grid gap-5 sm:grid-cols-2">
                 {required.map((f) => (
-                  <div class:list={['field', { 'sm:col-span-2': f.wide }]}>
+                  <div class="field">
                     <label for={f.id}>{f.label}</label>
                     <input
                       id={f.id}
@@ -98,13 +95,28 @@ const niches = [
               </div>
             </fieldset>
 
-            <fieldset class="optional mt-[1.875rem] rounded-lg px-4 pt-1.5 pb-5 sm:px-[1.375rem] sm:pb-6">
-              <legend class="px-2 font-mono text-[0.6875rem] font-semibold tracking-[0.06em] text-sky [font-stretch:82%]">OPCIONAL</legend>
-              <p class="text-sm leading-relaxed text-fog">
-                <span class="mb-0.5 block text-[1.0625rem] font-bold text-paper [font-stretch:106%]">Datos de tu negocio</span>
-                Puedes dejar esta parte en blanco. Si la llenas, llegamos a la conversación con la tarea adelantada.
-              </p>
-              <div class="grid gap-5 pt-5">
+            <!-- Los datos del negocio son opcionales: se muestran solo si el cliente los pide -->
+            <button
+              type="button"
+              class="reveal mt-[1.875rem] flex w-full items-center gap-3.5 rounded-lg px-4 py-4 text-left sm:px-[1.375rem]"
+              aria-expanded="false"
+              aria-controls="datos-negocio"
+              data-reveal
+            >
+              <span class="reveal-icon grid size-8 shrink-0 place-items-center rounded-md text-sky" aria-hidden="true">
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block text-[1.0625rem] font-bold text-paper [font-stretch:106%]">
+                  <span data-reveal-label>Agregar datos de tu negocio</span> <span class="opt">(opcional)</span>
+                </span>
+                <span class="mt-0.5 block text-sm leading-relaxed text-fog">Si los llenas, llegamos a la conversación con la tarea adelantada.</span>
+              </span>
+            </button>
+
+            <fieldset id="datos-negocio" class="optional mt-3 rounded-lg px-4 pt-4 pb-5 sm:px-[1.375rem] sm:pb-6" hidden data-optional>
+              <legend class="sr-only">Datos de tu negocio (opcional)</legend>
+              <div class="grid gap-5">
                 <div class="field">
                   <label for="nicho">Nicho <span class="opt">(opcional)</span></label>
                   <select id="nicho" name="nicho">
@@ -225,6 +237,19 @@ const niches = [
   .module::after { bottom: -7px; }
   .module-head { border-bottom: 1px solid rgb(107 187 224 / 0.15); }
   .optional { border: 1.5px dashed rgb(107 187 224 / 0.3); }
+  .optional[hidden] { display: none; }
+  .reveal {
+    border: 1.5px dashed rgb(107 187 224 / 0.3);
+    transition: border-color 200ms, background-color 200ms;
+  }
+  .reveal:hover { border-color: rgb(107 187 224 / 0.6); background: rgb(7 20 31 / 0.4); }
+  .reveal-icon {
+    border: 1.5px solid rgb(107 187 224 / 0.4);
+    background: var(--color-navy-deep);
+  }
+  .reveal-icon svg { transition: rotate 300ms var(--ease-out-quart); }
+  .reveal[aria-expanded='true'] { border-style: solid; border-color: rgb(107 187 224 / 0.45); }
+  .reveal[aria-expanded='true'] .reveal-icon svg { rotate: 45deg; }
 
   .field label,
   .field-label {
@@ -327,6 +352,18 @@ const niches = [
     fields.forEach((input) => {
       input.addEventListener('blur', () => input.value && validate(input));
       input.addEventListener('input', () => input.getAttribute('aria-invalid') === 'true' && validate(input));
+    });
+
+    // Mostrar u ocultar los datos opcionales del negocio
+    const reveal = form.querySelector<HTMLButtonElement>('[data-reveal]')!;
+    const optional = form.querySelector<HTMLElement>('[data-optional]')!;
+    const revealLabel = reveal.querySelector<HTMLElement>('[data-reveal-label]')!;
+    reveal.addEventListener('click', () => {
+      const open = reveal.getAttribute('aria-expanded') !== 'true';
+      reveal.setAttribute('aria-expanded', String(open));
+      optional.hidden = !open;
+      revealLabel.textContent = open ? 'Ocultar datos de tu negocio' : 'Agregar datos de tu negocio';
+      if (open) optional.querySelector<HTMLElement>('select, input, textarea')?.focus();
     });
 
     // Si el nicho no está en la lista, se puede escribir

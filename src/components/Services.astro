@@ -2,51 +2,63 @@
 import Icon from './Icon.astro';
 import Orbit from './Orbit.astro';
 
-const services = [
+// Niveles: se contratan de a uno, en orden, según lo que el negocio necesite.
+const levels = [
   {
     id: 'desarrollo',
-    code: 'WEB',
+    level: 1,
     nodes: 'tienda',
-    title: 'Desarrollo y Digitalización',
+    title: 'Desarrollo y digitalización de tu negocio',
     body: 'Creamos tu plataforma de e-commerce a la medida, aunque hoy tu empresa no tenga vida digital. Llevamos tu modelo físico (catálogo, condiciones, forma de vender) al entorno web.',
     result: 'Tu negocio, tal como funciona, ahora vende en línea.',
     part: 'WEB · tu tienda online',
   },
   {
+    id: 'ia',
+    level: 2,
+    nodes: 'ia',
+    title: 'Automatización inteligente con IA',
+    body: 'Automatizamos tus procesos con IA para optimizar los tiempos y la calidad de tu operación.',
+    result: 'Menos tareas manuales, respuestas más rápidas.',
+    part: 'IA · automatización',
+  },
+  {
     id: 'omnicanal',
-    code: 'SYNC',
+    level: 3,
     nodes: 'panel erp canales',
-    title: 'Omnicanalidad y Sincronización',
+    title: 'Sincronización: tienda conectada',
     body: 'Integramos la tienda con el sistema administrativo (ERP) que tu empresa ya usa y centralizamos el inventario. Vendes al mismo tiempo en Mercado Libre, Amazon, eBay, Facebook Marketplace y más, desde un único panel de control.',
     result: 'Un inventario, todos los canales, sin cargar nada dos veces.',
     part: 'ERP, SYNC y CAN',
   },
   {
     id: 'b2b',
-    code: 'B2B',
+    level: 4,
     nodes: 'b2b',
-    title: 'E-Commerce B2B Avanzado',
+    title: 'E-Commerce avanzado B2B',
     body: 'Configuramos reglas de negocio específicas, control de stock y listas de precios dinámicas para ofrecer precios y condiciones exclusivas a cada cliente corporativo, de forma automática.',
     result: 'Cada cliente ve su precio, sin que tú lo calcules.',
     part: 'B2B · precios por cliente',
+  },
+] as const;
+
+// Acompañan cualquier nivel
+const support = [
+  {
+    id: 'marketing',
+    code: 'ADS',
+    nodes: 'anuncios',
+    title: 'Marketing y tráfico digital',
+    body: 'Atraemos a potenciales clientes a tu tienda con redes sociales, contenido y campañas publicitarias según el nicho de tu negocio.',
+    part: 'ADS · anuncios y redes',
   },
   {
     id: 'gestion',
     code: 'OPS',
     nodes: 'equipo',
-    title: 'Gestión Operativa Delegada',
-    body: 'Personal capacitado por Elanth administra tu tienda digital. No tienes que contratar especialistas en tecnología: nuestro equipo se encarga del ecosistema digital y tú te enfocas en recibir los pedidos y gestionar tu almacén.',
-    result: 'Más canales de venta sin ampliar tu nómina técnica.',
+    title: 'Gestión delegada',
+    body: 'Tienda 100% automatizada y delegada: personal capacitado por Elanth la administra y tú te enfocas en recibir los pedidos.',
     part: 'OPS · toda la hoja de ruta',
-  },
-  {
-    id: 'marketing',
-    code: 'ADS',
-    nodes: 'anuncios',
-    title: 'Marketing y Tráfico Digital',
-    body: 'Un departamento dedicado a tus redes sociales y a crear contenido que impulse tu nuevo sitio. Diseñamos, lanzamos y optimizamos campañas publicitarias (Ads) hiperpersonalizadas según el nicho de tu negocio.',
-    result: 'Tráfico que llega a tu tienda, no solo seguidores.',
-    part: 'ADS · anuncios y redes',
   },
 ] as const;
 
@@ -56,10 +68,11 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
   <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
     <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-7 lg:col-start-6 lg:row-start-1">
-        <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy">Tus ventas en linea, de principio a fin.</h2>
+        <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy">Tus ventas en línea, de principio a fin.</h2>
         <p class="mt-6 max-w-[40rem] text-lg leading-relaxed text-muted">
-          E-Commerce 360° es nuestra solución llave en mano: no solo creamos tu tienda, centralizamos y automatizamos
-          todos tus canales de venta para que tus ingresos crezcan sin que crezca tu carga operativa.
+          E-Commerce 360° es nuestra solución llave en mano: no solo creamos tu tienda, también podemos centralizar y
+          automatizar todos tus canales de venta para que evolucione tu forma de vender sin aumentar significativamente tu
+          carga operativa.
         </p>
       </div>
       <!-- Ecosistema 360°: a la izquierda en escritorio, debajo del texto en móvil -->
@@ -90,6 +103,11 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
                 <span class="code">WEB</span>
                 <span class="min-w-0"><strong>Tu tienda online</strong><small>A la medida de tu negocio</small></span>
                 <span class="chip ml-[3.5rem] sm:ml-auto" data-node="b2b"><span class="font-semibold">B2B</span> precios por cliente</span>
+              </div>
+              <span class="wire" aria-hidden="true"></span>
+              <div class="node" data-node="ia">
+                <span class="code">IA</span>
+                <span><strong>Automatización con IA</strong><small>Procesos más rápidos y precisos</small></span>
               </div>
               <span class="wire" aria-hidden="true"></span>
               <div class="grid grid-cols-1 items-center sm:grid-cols-[1fr_auto_1.3fr]">
@@ -139,13 +157,13 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
             <span class="pad" aria-hidden="true"></span>
             <span class="ic-chip ic-chip-dark">E360</span>
             <span>
-              <span class="block text-xl font-[800] tracking-[-0.01em] text-paper [font-stretch:116%]">Orden de servicio</span>
-              <span class="mt-0.5 block text-[0.8125rem] text-fog">E-Commerce 360° · Llave en mano</span>
+              <span class="block text-xl font-[800] tracking-[-0.01em] text-paper [font-stretch:116%]">Avanza por niveles</span>
+              <span class="mt-0.5 block text-[0.8125rem] text-fog">Contrata lo que tu negocio necesita hoy y sube de nivel cuando quieras.</span>
             </span>
           </div>
 
-          {services.map((s) => (
-            <div class="bus-node bus-mod">
+          {levels.map((s) => (
+            <div class="bus-node bus-mod" id={`nivel-${s.level}`}>
               <span class="pad" aria-hidden="true"></span>
               <button
                 type="button"
@@ -154,11 +172,14 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
                 data-nodes={s.nodes}
                 aria-describedby={`parte-${s.id}`}
               >
-                <span class="flex items-center gap-3.5">
-                  <span class="ic-chip">{s.code}</span>
-                  <span class="text-[1.1875rem] leading-tight font-[760] tracking-[-0.01em] text-navy [font-stretch:110%]">{s.title}</span>
+                <span class="flex flex-wrap items-center gap-x-3.5 gap-y-2">
+                  <span class="ic-chip">NIVEL {s.level}</span>
+                  <span class="meter" aria-hidden="true">
+                    {levels.map((l) => <span class:list={{ on: l.level <= s.level }}></span>)}
+                  </span>
                 </span>
-                <span class="mt-3 block text-[0.9875rem] leading-relaxed text-ink/85">{s.body}</span>
+                <span class="mt-3.5 block text-[1.1875rem] leading-tight font-[760] tracking-[-0.01em] text-navy [font-stretch:110%] sm:text-[1.3125rem]">{s.title}</span>
+                <span class="mt-2.5 block text-[0.9875rem] leading-relaxed text-ink/85">{s.body}</span>
                 <span class="mt-3 flex items-start gap-2 text-[0.9375rem] font-semibold text-blue-ink">
                   <Icon name="arrow" class="mt-[0.2em] size-4 shrink-0" />
                   {s.result}
@@ -169,6 +190,34 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
               </button>
             </div>
           ))}
+
+          <div class="bus-node bus-mod bus-support">
+            <span class="pad" aria-hidden="true"></span>
+            <div class="support">
+              <p class="text-[1.0625rem] font-bold text-navy [font-stretch:106%]">Acompañamos tu proceso con</p>
+              <p class="mt-1 text-sm text-muted">Disponibles en cualquier nivel.</p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                {support.map((s) => (
+                  <button
+                    type="button"
+                    class="service module module-sub w-full text-left"
+                    data-service={s.id}
+                    data-nodes={s.nodes}
+                    aria-describedby={`parte-${s.id}`}
+                  >
+                    <span class="flex items-center gap-3">
+                      <span class="ic-chip">{s.code}</span>
+                      <span class="text-[1.0625rem] leading-tight font-[760] text-navy [font-stretch:108%]">{s.title}</span>
+                    </span>
+                    <span class="mt-2.5 block text-[0.9375rem] leading-relaxed text-ink/85">{s.body}</span>
+                    <span id={`parte-${s.id}`} class="mt-2 block font-mono text-[0.6875rem] text-muted [font-stretch:85%] lg:sr-only">
+                      En la hoja de ruta: {s.part}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
 
           <div class="bus-node bus-term">
             <span class="pad" aria-hidden="true"></span>
@@ -365,10 +414,30 @@ const channelChips = ['Mercado Libre', 'Amazon', 'eBay', 'Marketplace'];
     border: 1.5px dashed rgb(11 31 51 / 0.35);
     background: rgb(255 255 255 / 0.5);
   }
+  /* Medidor: cuántos niveles cubre este paso */
+  .meter { display: inline-flex; gap: 3px; }
+  .meter span {
+    width: 1.125rem;
+    height: 0.375rem;
+    border-radius: 1px;
+    background: rgb(11 31 51 / 0.12);
+  }
+  .meter span.on { background: var(--color-blue-ink); }
+  .support {
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1.5px dashed rgb(23 105 143 / 0.45);
+    background: rgb(255 255 255 / 0.45);
+  }
+  .module-sub { padding: 1.125rem; }
+  .bus-support { --ty: 1.95rem; }
+  .bus-node:has(.active) .support { border-color: var(--color-navy); }
   @media (min-width: 640px) {
     .board { --g: 3rem; --bx: 1rem; }
+    .support { padding: 1.375rem 1.5rem; }
+    .module-sub { padding: 1.25rem; }
     .bus-mod { --ty: 2.25rem; }
-    .module { padding: 1.375rem 1.5rem; }
+    .module:not(.module-sub) { padding: 1.375rem 1.5rem; }
   }
   @media (hover: hover) and (min-width: 1024px) {
     .service { cursor: pointer; }

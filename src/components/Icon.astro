@@ -1,7 +1,7 @@
 ---
 // Iconos de trazo único (1.75) dibujados para Elanth.
 interface Props {
-  name: 'arrow' | 'sync' | 'check' | 'clock' | 'store' | 'database' | 'channels' | 'team' | 'megaphone' | 'tag' | 'box' | 'printer' | 'whatsapp';
+  name: 'arrow' | 'sync' | 'check' | 'clock' | 'store' | 'database' | 'channels' | 'team' | 'megaphone' | 'tag' | 'box' | 'printer' | 'whatsapp' | 'spark' | 'sprout' | 'building';
   class?: string;
   label?: string;
 }
@@ -93,6 +93,25 @@ const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'tr
       <path d="M7 8V3.5h10V8" />
       <rect x="3.5" y="8" width="17" height="8.5" rx="1.5" />
       <path d="M7 14h10v6.5H7z" />
+    </>
+  )}
+  {name === 'spark' && (
+    <>
+      <path d="M12 3.5c.6 3.9 2.6 5.9 6.5 6.5-3.9.6-5.9 2.6-6.5 6.5-.6-3.9-2.6-5.9-6.5-6.5 3.9-.6 5.9-2.6 6.5-6.5Z" />
+      <path d="M18.5 15.5c.25 1.5 1 2.25 2.5 2.5-1.5.25-2.25 1-2.5 2.5-.25-1.5-1-2.25-2.5-2.5 1.5-.25 2.25-1 2.5-2.5Z" />
+    </>
+  )}
+  {name === 'sprout' && (
+    <>
+      <path d="M12 21v-9" />
+      <path d="M12 12c0-3.6-2.4-6-6.5-6 0 3.6 2.4 6 6.5 6Z" />
+      <path d="M12 14.5c0-3.3 2.2-5.5 6.5-5.5 0 3.3-2.2 5.5-6.5 5.5Z" />
+    </>
+  )}
+  {name === 'building' && (
+    <>
+      <path d="M4 20.5h16M6 20.5V4.5h8v16M14 9.5h4v11" />
+      <path d="M9 8h2M9 11.5h2M9 15h2" />
     </>
   )}
   {name === 'whatsapp' && (
