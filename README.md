@@ -49,3 +49,33 @@ El workflow toma el dominio y la ruta base de GitHub Pages: `https://gabrielj281
 - La imagen para compartir en redes es `public/brand/og-elanth.png` (1200 × 630). Los íconos son `favicon.svg`, `favicon-512.png` y `apple-touch-icon.png`.
 - Para aparecer en Google: registra el sitio en [Google Search Console](https://search.google.com/search-console), verifícalo y envía la URL del sitemap (`…/sitemap-index.xml`).
 - Google solo lee `robots.txt` en la raíz de un dominio. En `gabrielj2814.github.io/elanth/` no lo va a leer; con un dominio propio sí. Aunque no lo lea, el sitio se puede indexar, porque el sitemap se envía desde Search Console.
+
+## Despliegue en un VPS con Coolify (Docker Compose)
+
+El proyecto se compila dentro de Docker y se sirve con nginx:
+
+- `Dockerfile`: compila el sitio con Node 22 y lo copia a una imagen ligera de nginx.
+- `docker/nginx.conf`: configuración de nginx con compresión, caché, cabeceras de seguridad y página 404.
+- `docker-compose.yml`: el servicio `web` que lee Coolify.
+
+Pasos en Coolify:
+
+1. **New Resource → Public/Private Repository**: elige este repositorio y la rama `master`.
+2. **Build Pack**: `Docker Compose`, con el archivo `/docker-compose.yml`.
+3. **Domains**: en el servicio `web`, escribe el dominio con https (p. ej. `https://elanth.com`). Coolify pide el certificado SSL solo.
+4. **Environment Variables**:
+   - `SITE_URL`: el mismo dominio, sin barra final (p. ej. `https://elanth.com`).
+   - `BASE_PATH`: `/`.
+   - `PUBLIC_FORM_ENDPOINT`: la URL del servicio del formulario.
+5. **Deploy**.
+
+Estas variables se usan al compilar. Si cambias alguna, vuelve a desplegar para que se aplique.
+
+Para probarlo en tu equipo (con Docker Desktop abierto):
+
+```bash
+docker compose build
+docker run --rm -p 8080:80 elanth-landing:latest
+```
+
+Después abre http://localhost:8080.

@@ -7,8 +7,10 @@ interface Props {
   description: string;
   /** Datos estructurados propios de la página (schema.org), además de los de la organización */
   schema?: Record<string, unknown>[];
+  /** Páginas que no deben aparecer en buscadores (p. ej. 404) */
+  noindex?: boolean;
 }
-const { title, description, schema = [] } = Astro.props;
+const { title, description, schema = [], noindex = false } = Astro.props;
 // Siempre con barra final, igual que las URLs del sitemap
 const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site);
 const home = new URL(asset(''), Astro.site).href;
@@ -46,7 +48,7 @@ const graph = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} />
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href={asset('sitemap-index.xml')} />
     <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
