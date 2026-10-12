@@ -17,11 +17,11 @@ services:
     restart: unless-stopped
     # Puerto interno del contenedor. No ocupa el puerto 80 del VPS: el proxy de Coolify
     # recibe el tráfico del dominio y lo reenvía aquí, aunque otros proyectos usen también el 80.
-    expose:
+    # expose:
       # - "80"
     # Solo si quieres entrar por IP:puerto sin dominio (p. ej. http://IP-DEL-VPS:8081),
     # descomenta estas líneas y elige un puerto libre del VPS con la variable HOST_PORT:
-    # ports:
+    ports:
       - "${HOST_PORT:-8081}:80"
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
