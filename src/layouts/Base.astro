@@ -5,26 +5,70 @@ import { asset } from '../config';
 interface Props {
   title: string;
   description: string;
+  /** Datos estructurados propios de la página (schema.org), además de los de la organización */
+  schema?: Record<string, unknown>[];
 }
-const { title, description } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const { title, description, schema = [] } = Astro.props;
+// Siempre con barra final, igual que las URLs del sitemap
+const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site);
+const home = new URL(asset(''), Astro.site).href;
+const ogImage = new URL(asset('brand/og-elanth.png'), Astro.site).href;
+// UBICACIÓN OCULTA: para volver a indicar Venezuela, usar lang="es-VE" en <html>
+// y restaurar <meta property="og:locale" content="es_VE" /> en <head>.
+
+// Organización y sitio: Google los usa para el nombre, el logo y el buscador del resultado
+const graph = [
+  {
+    '@type': 'Organization',
+    '@id': `${home}#organizacion`,
+    name: 'Elanth Technology Solutions',
+    alternateName: 'Elanth',
+    url: home,
+    logo: new URL(asset('favicon-512.png'), Astro.site).href,
+    description:
+      'Agencia de soluciones tecnológicas B2B: tiendas online a la medida, omnicanalidad, e-commerce B2B, automatización con IA y gestión delegada.',
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${home}#sitio`,
+    name: 'Elanth',
+    url: home,
+    inLanguage: 'es',
+    publisher: { '@id': `${home}#organizacion` },
+  },
+  ...schema,
+];
 ---
 <!doctype html>
-<html lang="es-VE">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href={asset("favicon.svg")} />
+    <link rel="sitemap" href={asset('sitemap-index.xml')} />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+    <link rel="icon" type="image/png" sizes="512x512" href={asset('favicon-512.png')} />
+    <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
     <meta name="theme-color" content="#0b1f33" />
+
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_VE" />
+    <meta property="og:site_name" content="Elanth" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Elanth: lleva tu negocio al mundo digital. Empieza a vender por internet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
   </head>
   <body class="min-h-dvh overflow-x-clip">
     <a

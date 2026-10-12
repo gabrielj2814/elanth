@@ -41,3 +41,11 @@ El workflow toma el dominio y la ruta base de GitHub Pages: `https://gabrielj281
 - `src/data/demo.ts`: pedidos de demostración de la comandera. Son ficticios y la página los rotula como «Demostración».
 - `src/styles/global.css`: colores de la marca, tipografías y estilos base.
 - `public/brand/`: logo original, versión clara y símbolo. Salen de `Visuales/Logo/Svg/elanth_logo.svg`.
+
+## SEO
+
+- Cada página tiene título, descripción, URL canónica, etiquetas Open Graph y Twitter, y datos estructurados de schema.org (organización, sitio web, servicios y «Sobre nosotros»).
+- `@astrojs/sitemap` genera `sitemap-index.xml`, y `src/pages/robots.txt.ts` publica `robots.txt` apuntando a ese sitemap.
+- La imagen para compartir en redes es `public/brand/og-elanth.png` (1200 × 630). Los íconos son `favicon.svg`, `favicon-512.png` y `apple-touch-icon.png`.
+- Para aparecer en Google: registra el sitio en [Google Search Console](https://search.google.com/search-console), verifícalo y envía la URL del sitemap (`…/sitemap-index.xml`).
+- Google solo lee `robots.txt` en la raíz de un dominio. En `gabrielj2814.github.io/elanth/` no lo va a leer; con un dominio propio sí. Aunque no lo lea, el sitio se puede indexar, porque el sitemap se envía desde Search Console.

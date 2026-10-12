@@ -1,6 +1,6 @@
 ---
 name: Elanth
-description: Turnkey e-commerce for traditional Venezuelan businesses, drawn as an order printer printing thermal tickets onto a navy warehouse floor.
+description: Turnkey e-commerce for traditional businesses, drawn as an order printer printing thermal tickets onto a navy warehouse floor.
 colors:
   navy: "#0b1f33"
   navy-deep: "#07141f"

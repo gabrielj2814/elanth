@@ -19,23 +19,62 @@ const links = [
         <li><a href={l.href} class="transition-colors hover:text-paper">{l.label}</a></li>
       ))}
     </ul>
-    <a
-      href={asset('#asesoria')}
-      class="group inline-flex min-h-10 items-center gap-2 rounded-[5px] border border-paper/40 px-3.5 text-[0.8125rem] font-semibold text-paper transition-colors hover:border-paper hover:bg-paper hover:text-navy sm:min-h-11 sm:px-4 sm:text-sm"
-    >
-      <span class="sm:hidden">Asesoría gratis</span>
-      <span class="hidden sm:inline">Pide tu demo y asesoría gratis</span>
-      <Icon name="arrow" class="size-4 transition-transform group-hover:translate-x-0.5" />
-    </a>
+    <div class="flex items-center gap-2">
+      <a
+        href={asset('#asesoria')}
+        class="group inline-flex min-h-10 items-center gap-2 rounded-[5px] border border-paper/40 px-3.5 text-[0.8125rem] font-semibold text-paper transition-colors hover:border-paper hover:bg-paper hover:text-navy sm:min-h-11 sm:px-4 sm:text-sm"
+      >
+        <span class="sm:hidden">Asesoría gratis</span>
+        <span class="hidden sm:inline">Pide tu demo y asesoría gratis</span>
+        <Icon name="arrow" class="size-4 transition-transform group-hover:translate-x-0.5" />
+      </a>
+      {/* Menú para pantallas pequeñas */}
+      <button
+        type="button"
+        class="menu-btn grid size-10 place-items-center rounded-[5px] text-paper sm:size-11 md:hidden"
+        aria-expanded="false"
+        aria-controls="menu-movil"
+        aria-label="Abrir menú"
+        data-menu-btn
+      >
+        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+          <path class="bar bar-1" d="M4 7h16" />
+          <path class="bar bar-2" d="M4 12h16" />
+          <path class="bar bar-3" d="M4 17h16" />
+        </svg>
+      </button>
+    </div>
   </nav>
+
+  <div id="menu-movil" class="menu-panel md:hidden" hidden data-menu>
+    <ul class="mx-auto flex max-w-[90rem] flex-col px-4 pb-5 sm:px-8">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class="flex min-h-13 items-center justify-between border-b border-white/10 text-base font-semibold text-paper">
+            {l.label}
+            <Icon name="arrow" class="size-4 text-sky" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </header>
 
 <style>
-  .site-nav.scrolled {
-    background: rgb(11 31 51 / 0.92);
+  .site-nav.scrolled,
+  .site-nav.open {
+    background: rgb(11 31 51 / 0.96);
     box-shadow: 0 1px 0 rgb(255 255 255 / 0.07), 0 10px 30px -18px rgb(0 0 0 / 0.6);
     backdrop-filter: blur(10px);
   }
+  .menu-btn { border: 1px solid rgb(244 247 250 / 0.4); transition: border-color 200ms, background-color 200ms; }
+  .menu-btn:hover { border-color: var(--color-paper); }
+  .bar { transition: transform 250ms var(--ease-out-quart), opacity 200ms; transform-origin: center; transform-box: fill-box; }
+  .open .bar-1 { transform: translateY(5px) rotate(45deg); }
+  .open .bar-2 { opacity: 0; }
+  .open .bar-3 { transform: translateY(-5px) rotate(-45deg); }
+  .menu-panel:not([hidden]) { animation: drop 250ms var(--ease-out-quart); }
+  @keyframes drop { from { opacity: 0; transform: translateY(-6px); } }
 </style>
 
 <script>
@@ -44,5 +83,25 @@ const links = [
     const update = () => nav.classList.toggle('scrolled', window.scrollY > 24);
     update();
     window.addEventListener('scroll', update, { passive: true });
+
+    const btn = nav.querySelector<HTMLButtonElement>('[data-menu-btn]')!;
+    const panel = nav.querySelector<HTMLElement>('[data-menu]')!;
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      nav.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    };
+    btn.addEventListener('click', () => setOpen(panel.hidden));
+    panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!panel.hidden && !nav.contains(e.target as Node)) setOpen(false);
+    });
   }
 </script>

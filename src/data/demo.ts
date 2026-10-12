@@ -21,8 +21,11 @@ export type Product = { sku: string; name: string; stock: number };
 export const products: Record<string, Product> = {
   'CAB-THW12': { sku: 'CAB-THW12', name: 'Cable THW 12 AWG · rollo 100 m', stock: 148 },
   'PVC-1205': { sku: 'PVC-1205', name: 'Tubo PVC ½" × 3 m', stock: 620 },
-  'PNT-CAU01': { sku: 'PNT-CAU01', name: 'Pintura de caucho blanca · galón', stock: 236 },
-  'LED-9W10': { sku: 'LED-9W10', name: 'Bombillo LED 9 W · caja × 10', stock: 84 },
+  // UBICACIÓN OCULTA: nombres con términos venezolanos
+  // 'PNT-CAU01': { sku: 'PNT-CAU01', name: 'Pintura de caucho blanca · galón', stock: 236 },
+  // 'LED-9W10': { sku: 'LED-9W10', name: 'Bombillo LED 9 W · caja × 10', stock: 84 },
+  'PNT-CAU01': { sku: 'PNT-CAU01', name: 'Pintura látex blanca · galón', stock: 236 },
+  'LED-9W10': { sku: 'LED-9W10', name: 'Bombilla LED 9 W · caja × 10', stock: 84 },
   'TOR-6X1': { sku: 'TOR-6X1', name: 'Tornillo drywall 6 × 1" · caja × 1000', stock: 57 },
 };
 

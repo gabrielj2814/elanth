@@ -16,13 +16,15 @@ const pillars = [
   {
     code: 'VISIÓN',
     title: 'Nuestra visión',
-    body: 'Ser el hub tecnológico de referencia para las empresas de Venezuela y la región: un ecosistema de departamentos especializados capaz de resolver cualquier reto digital de nuestros clientes.',
+    // UBICACIÓN OCULTA: body: 'Ser el hub tecnológico de referencia para las empresas de Venezuela y la región: un ecosistema de departamentos especializados capaz de resolver cualquier reto digital de nuestros clientes.',
+    body: 'Ser el hub tecnológico de referencia para las empresas que dan el salto al mundo digital: un ecosistema de departamentos especializados capaz de resolver cualquier reto digital de nuestros clientes.',
   },
 ];
 ---
 <Base
-  title="Sobre nosotros · Elanth"
+  title="Sobre nosotros | Elanth Technology Solutions"
   description="Elanth es una agencia de soluciones tecnológicas B2B que conecta a las empresas tradicionales con el mundo digital. Conoce nuestra misión, visión y ecosistema."
+  schema={[{ '@type': 'AboutPage', name: 'Sobre nosotros', url: new URL(Astro.url.pathname, Astro.site).href }]}
 >
   <Nav />
   <main id="contenido">

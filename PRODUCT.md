@@ -12,7 +12,7 @@ Astro + Tailwind CSS (pinned by the user). Static landing page; must work well o
 
 ## Users
 
-Owners and managers of traditional Venezuelan businesses (distributors, wholesalers, retailers, manufacturers) that sell physically and have little or no digital presence. They already run an administrative system (ERP) and a warehouse, and want to sell online without hiring a tech team or multiplying operational workload. Many sell B2B to other companies.
+Owners and managers of traditional businesses (distributors, wholesalers, retailers, manufacturers) that sell physically and have little or no digital presence. They already run an administrative system (ERP) and a warehouse, and want to sell online without hiring a tech team or multiplying operational workload. Many sell B2B to other companies.
 
 ## Product Purpose
 
@@ -39,7 +39,7 @@ Primary conversion: **"Obtener asesoría y demo gratuita"** — a simple contact
 
 - Name: Elanth — "Technology Solutions". Logo: circuit-board elephant whose trunk becomes a rising arrow (`Visuales/Logo/Svg/elanth_logo.svg`, `Visuales/Logo/Png/elanth_logo_transparente.png`).
 - Official palette (`Visuales/Paleta de colores/Paleta_de_colores_elanth.xlsx`): #0B1F33 navy, #2590BE blue, #19C3B1 teal, #F4F7FA off-white, #263445 slate; secondary values in the file: #1769FF, #1F2A33, #E8F1F6, #F5A623, #FF6B6B.
-- Language: Spanish for Venezuela.
+- Language: neutral Spanish. The site must not state or imply where Elanth is based (no country, city, local idioms or locale codes); the only exception is the WhatsApp number the user provided.
 
 ## Evidence on Hand
 

@@ -7,8 +7,8 @@ related_targets: []
 
 # Surface brief: Elanth landing (src/pages/index.astro)
 
-Scope: single landing page, Spanish (Venezuela). Visitor mode: Persuade.
-Audience: owners/managers of traditional Venezuelan businesses with ERP + warehouse, little digital presence.
+Scope: single landing page, neutral Spanish, no stated location. Visitor mode: Persuade.
+Audience: owners/managers of traditional businesses with ERP + warehouse, little digital presence.
 Action: "Obtener asesoría y demo gratuita" -> simple contact form (nombre, empresa, contacto); business details clearly OPTIONAL.
 Proof: no clients/metrics/testimonials exist; demonstration orders are synthetic and labeled as such.
 Constraints: Astro + Tailwind; desktop and mobile; future departments shown as roadmap only.

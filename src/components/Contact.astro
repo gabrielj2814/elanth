@@ -15,7 +15,9 @@ const steps = [
 const required = [
   { id: 'nombre', label: 'Nombre y apellido', type: 'text', autocomplete: 'name', placeholder: '', error: 'Escribe tu nombre para saber con quién hablamos.' },
   { id: 'empresa', label: 'Nombre de tu negocio', type: 'text', autocomplete: 'organization', placeholder: '', error: 'Escribe el nombre de tu negocio.' },
-  { id: 'telefono', label: 'WhatsApp o teléfono', type: 'tel', autocomplete: 'tel', placeholder: '+58 412 000 0000', error: 'Escribe un número de contacto, por ejemplo +58 412 000 0000.' },
+  // UBICACIÓN OCULTA: versión con Venezuela
+  // { id: 'telefono', label: 'WhatsApp o teléfono', type: 'tel', autocomplete: 'tel', placeholder: '+58 412 000 0000', error: 'Escribe un número de contacto, por ejemplo +58 412 000 0000.' },
+  { id: 'telefono', label: 'WhatsApp o teléfono', type: 'tel', autocomplete: 'tel', placeholder: 'Con código de país', error: 'Escribe un número de contacto con su código de país.' },
   { id: 'correo', label: 'Correo electrónico', type: 'email', autocomplete: 'email', placeholder: 'nombre@empresa.com', error: 'Escribe un correo válido, por ejemplo nombre@empresa.com.' },
 ];
 
@@ -421,8 +423,9 @@ const niches = [
         const now = new Date();
         wrap.querySelector('[data-success-text]')!.textContent =
           `Gracias, ${name}. Te contactaremos pronto para coordinar tu asesoría y demo gratuita.`;
+        // UBICACIÓN OCULTA: antes se usaba el formato 'es-VE' en las dos llamadas de abajo
         wrap.querySelector('[data-success-stamp]')!.textContent =
-          `${now.toLocaleDateString('es-VE')} · ${now.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' })}`;
+          `${now.toLocaleDateString('es')} · ${now.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' })}`;
         form.hidden = true;
         success.hidden = false;
         success.focus();

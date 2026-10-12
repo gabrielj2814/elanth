@@ -83,7 +83,7 @@
       "kind": "input",
       "refersTo": "input-field",
       "description": "White field on thermal paper; teal-ink border and soft teal ring on focus.",
-      "html": "<div class=\"ds-paper-pad\"><label class=\"ds-field\"><span>WhatsApp o teléfono</span><input type=\"tel\" placeholder=\"+58 412 000 0000\" /></label></div>",
+      "html": "<div class=\"ds-paper-pad\"><label class=\"ds-field\"><span>WhatsApp o teléfono</span><input type=\"tel\" placeholder=\"Con código de país\" /></label></div>",
       "css": ".ds-paper-pad { background: #f4f7fa; padding: 1.5rem; } .ds-field span { display: block; font-family: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; color: #0b1f33; } .ds-field input { margin-top: 0.4rem; width: 100%; min-height: 3rem; padding: 0.7rem 0.875rem; border-radius: 5px; border: 1px solid rgb(31 42 51 / 0.22); background: #fff; color: #1f2a33; font: inherit; font-size: 1rem; transition: border-color 200ms, box-shadow 200ms; box-sizing: border-box; } .ds-field input::placeholder { color: #52637a; } .ds-field input:hover { border-color: rgb(31 42 51 / 0.4); } .ds-field input:focus { outline: none; border-color: #0b7a6e; box-shadow: 0 0 0 3px rgb(25 195 177 / 0.28); }"
     },
     {
