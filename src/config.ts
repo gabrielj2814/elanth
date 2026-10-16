@@ -17,6 +17,10 @@ export const whatsappLink = (message: string = contact.whatsappMessage) =>
 
 export const whatsappUrl = whatsappLink();
 
+/** Mensaje para quien llega desde la página de Elanth Code */
+export const codeWhatsappMessage =
+  'Hola, me interesa Elanth Code. Tengo un proyecto de software y me gustaría recibir una propuesta.';
+
 /** Mensaje para quien llega desde la página de Elanth Media */
 export const mediaWhatsappMessage =
   'Hola, me interesan los paquetes de Elanth Media. Me gustaría recibir una propuesta para mi negocio.';

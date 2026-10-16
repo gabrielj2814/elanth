@@ -1,0 +1,336 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import CodeEditor from '../components/CodeEditor.astro';
+import Solutions from '../components/Solutions.astro';
+import { asset, whatsappLink, codeWhatsappMessage } from '../config';
+
+// Contenido propuesto por Elanth a partir de: «Desarrollo avanzado de software,
+// integraciones complejas y aplicaciones a la medida». Sin precios, clientes ni cifras.
+const services = [
+  {
+    id: 'software',
+    code: 'SOFT',
+    icon: 'layers',
+    title: 'Software a la medida',
+    body: 'Sistemas internos construidos sobre tus procesos reales: inventario, pedidos, despacho, cobranza o lo que tu operación necesite.',
+    result: 'Tu forma de trabajar, convertida en software.',
+  },
+  {
+    id: 'integraciones',
+    code: 'API',
+    icon: 'sync',
+    title: 'Integraciones complejas',
+    body: 'Conectamos tu ERP, tu tienda, los marketplaces, las pasarelas de pago y cualquier sistema con API para que la información viaje sola.',
+    result: 'Tus sistemas se hablan entre sí.',
+  },
+  {
+    id: 'aplicaciones',
+    code: 'APP',
+    icon: 'film',
+    title: 'Aplicaciones web y móviles',
+    body: 'Apps para tus clientes, tu fuerza de venta o tu equipo de almacén, diseñadas para usarse todos los días.',
+    result: 'Tu negocio, en el bolsillo de quien lo necesita.',
+  },
+  {
+    id: 'ia',
+    code: 'IA',
+    icon: 'spark',
+    title: 'Automatización con IA',
+    body: 'Asistentes y flujos inteligentes que responden, clasifican y procesan tareas repetitivas para que tu equipo se enfoque en lo importante.',
+    result: 'Menos trabajo manual, más tiempo para vender.',
+  },
+  {
+    id: 'datos',
+    code: 'DATA',
+    icon: 'chart',
+    title: 'Paneles y reportes',
+    body: 'Tableros con los números de tu negocio en tiempo real, alimentados por los sistemas que ya usas.',
+    result: 'Decisiones con datos, no con suposiciones.',
+  },
+  {
+    id: 'modernizacion',
+    code: 'MOD',
+    icon: 'bolt',
+    title: 'Modernización de sistemas',
+    body: 'Llevamos hojas de cálculo y sistemas antiguos a software moderno, seguro y fácil de mantener, sin detener tu operación.',
+    result: 'Lo que ya funciona, ahora sin límites.',
+  },
+] as const;
+
+const process = [
+  { code: 'v0.1', title: 'Descubrimiento', body: 'Conversamos con tu equipo, entendemos el proceso y definimos qué problema resuelve el software.' },
+  { code: 'v0.5', title: 'Diseño de la solución', body: 'Prototipo, arquitectura e integraciones necesarias, antes de escribir la primera línea.' },
+  { code: 'v0.9', title: 'Desarrollo por entregas', body: 'Construimos en partes que puedes probar, para ajustar el rumbo a tiempo.' },
+  { code: 'v1.0', title: 'Puesta en marcha y soporte', body: 'Lanzamos, capacitamos a tu equipo y acompañamos la evolución del sistema.' },
+];
+
+const paths = [
+  { icon: 'layers', audience: 'Software', title: 'Mi operación vive en hojas de cálculo', body: 'Convertimos tus procesos en un sistema propio, ordenado y seguro.', link: 'Ver software a la medida', href: '#software' },
+  { icon: 'sync', audience: 'Integraciones', title: 'Mis sistemas no se hablan entre sí', body: 'Conectamos ERP, tienda, marketplaces y pagos para dejar de copiar datos a mano.', link: 'Ver integraciones', href: '#integraciones' },
+  { icon: 'film', audience: 'Aplicaciones', title: 'Quiero una app para mis clientes o mi equipo', body: 'Diseñamos y desarrollamos la aplicación web o móvil que tu negocio necesita.', link: 'Ver aplicaciones', href: '#aplicaciones' },
+  { icon: 'spark', audience: 'IA', title: 'Hay tareas repetitivas que nos quitan tiempo', body: 'Automatizamos con IA lo que hoy se hace a mano, una y otra vez.', link: 'Ver automatización con IA', href: '#ia' },
+];
+
+const pageUrl = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site).href;
+const schema = [
+  {
+    '@type': 'Service',
+    name: 'Elanth Code',
+    serviceType: 'Desarrollo de software a la medida',
+    url: pageUrl,
+    provider: { '@id': new URL(asset(''), Astro.site).href + '#organizacion' },
+    description: 'Desarrollo avanzado de software, integraciones complejas y aplicaciones a la medida.',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Servicios de Elanth Code',
+      itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.title } })),
+    },
+  },
+];
+---
+<Base
+  title="Elanth Code | Desarrollo de software, integraciones y aplicaciones a la medida"
+  description="Desarrollamos software a la medida, integraciones complejas entre tus sistemas y aplicaciones web y móviles para tu negocio. Cuéntanos tu proyecto."
+  schema={schema}
+>
+  <Nav />
+  <main id="contenido">
+    <!-- Hero -->
+    <section class="circuit-grid-dark relative overflow-hidden bg-navy pt-28 pb-20 sm:pt-36 lg:pb-28">
+      <div class="mx-auto grid max-w-[90rem] items-center gap-14 px-4 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <div class="lg:col-span-6">
+          <h1 class="display text-[clamp(2.6rem,7.4vw,5.25rem)] text-paper">
+            <span class="sr-only">Elanth Code: </span>
+            Software que se adapta a tu negocio. <span class="text-electric-soft">No al revés.</span>
+          </h1>
+          <p class="mt-8 max-w-[36rem] text-lg leading-relaxed text-fog sm:text-xl">
+            Desarrollo avanzado de software, integraciones complejas y aplicaciones a la medida, para que tus sistemas
+            funcionen como tu empresa realmente trabaja.
+          </p>
+
+          <div class="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-7">
+            <a href={whatsappLink(codeWhatsappMessage)} target="_blank" rel="noopener" class="btn-lit w-full text-base sm:w-auto sm:text-lg">
+              Cuéntanos tu proyecto
+              <Icon name="arrow" class="size-5" />
+            </a>
+            <a href={asset('#asesoria')} class="link-quiet text-paper">Pedir asesoría gratuita</a>
+          </div>
+
+          <div class="lockup mt-12">
+            <img src={asset('brand/elanth-code-mark-light.svg')} alt="" width="1940" height="1110" />
+            <span>
+              <span class="block text-lg leading-none font-[820] tracking-[0.02em] text-paper [font-stretch:118%]">ELANTH CODE</span>
+              <span class="mt-1.5 block text-sm text-fog">Software, integraciones y apps</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <CodeEditor />
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué construimos -->
+    <section id="servicios-code" class="circuit-grid bg-ice text-ink">
+      <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy lg:col-span-7">Lo que construimos</h2>
+          <p class="max-w-[34rem] text-lg leading-relaxed text-muted lg:col-span-5 lg:pb-2">
+            Cada proyecto parte de cómo trabaja tu empresa hoy. La tecnología se adapta a tu modelo de negocio, no al
+            revés.
+          </p>
+        </div>
+
+        <!-- Directorio de módulos: una fila por servicio -->
+        <div class="dir mt-14 lg:mt-16">
+          <p class="dir-head">
+            <span>elanth-code / servicios</span>
+            <span class="hidden sm:inline">{services.length} módulos</span>
+          </p>
+          <ul>
+            {services.map((s) => (
+              <li id={s.id} class="row">
+                <span class="flex items-center gap-3 lg:flex-col lg:items-start">
+                  <span class="ic-chip">{s.code}</span>
+                  <Icon name={s.icon} class="size-5 text-blue-ink lg:hidden" />
+                </span>
+                <h3 class="text-[1.3125rem] leading-tight font-[780] tracking-[-0.01em] text-navy [font-stretch:110%]">{s.title}</h3>
+                <span>
+                  <span class="block text-[0.9875rem] leading-relaxed text-ink/85">{s.body}</span>
+                  <span class="mt-2.5 flex items-start gap-2 text-[0.9375rem] font-semibold text-blue-ink">
+                    <Icon name="arrow" class="mt-[0.2em] size-4 shrink-0" />
+                    {s.result}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo trabajamos -->
+    <section id="proceso" class="circuit-grid-dark bg-navy">
+      <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-paper lg:col-span-7">
+            Cómo <span class="text-electric-soft">trabajamos</span>
+          </h2>
+          <p class="max-w-[34rem] text-lg leading-relaxed text-fog lg:col-span-5 lg:pb-2">
+            Entregas cortas que puedes probar, en lugar de esperar meses para ver el resultado.
+          </p>
+        </div>
+
+        <ol class="commits mt-14 lg:mt-20">
+          {process.map((p) => (
+            <li class="commit">
+              <span class="node" aria-hidden="true"></span>
+              <span class="tag">{p.code}</span>
+              <h3 class="mt-4 text-xl font-[780] text-paper [font-stretch:108%]">{p.title}</h3>
+              <p class="mt-2 text-fog">{p.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ¿Cuál es tu caso? -->
+    <Solutions
+      id="tu-caso"
+      title="¿Cuál es tu caso?"
+      intro="Elige lo que más se parece a tu situación. Si no está aquí, también lo construimos."
+      items={paths}
+      help={{ text: '¿Tu proyecto es distinto?', link: 'Cuéntanoslo y lo evaluamos contigo', href: '#empezar' }}
+    />
+
+    <!-- Cierre -->
+    <section id="empezar" class="circuit-grid-dark bg-navy">
+      <div class="mx-auto grid max-w-[90rem] items-center gap-12 px-4 py-24 sm:px-8 sm:py-32 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <div class="lg:col-span-7">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-paper">
+            ¿Tienes un proyecto <span class="text-electric-soft">en mente?</span>
+          </h2>
+          <p class="mt-6 max-w-[36rem] text-lg leading-relaxed text-fog">
+            Cuéntanos qué necesitas resolver. Revisamos tu caso y te proponemos el camino más directo, sin compromiso.
+          </p>
+          <p class="mt-8 text-fog">
+            ¿Lo que buscas es vender por internet?
+            <a href={asset('')} class="font-semibold text-paper underline decoration-paper/30 underline-offset-4 hover:decoration-paper">Conoce E-Commerce 360°</a>
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="proposal">
+            <img src={asset('brand/elanth-code-mark-light.svg')} alt="" width="1940" height="1110" class="w-24" />
+            <p class="mt-6 text-[1.5rem] leading-tight font-[800] text-paper [font-stretch:114%]">Hablemos de tu proyecto</p>
+            <a href={whatsappLink(codeWhatsappMessage)} target="_blank" rel="noopener" class="btn-lit mt-7 w-full text-base sm:text-lg">
+              Escríbenos por WhatsApp
+              <Icon name="arrow" class="size-5" />
+            </a>
+            <a href={asset('#asesoria')} class="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-[6px] border border-paper/40 font-semibold text-paper transition-colors hover:border-paper hover:bg-paper hover:text-navy">
+              Prefiero el formulario de asesoría
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsApp message={codeWhatsappMessage} />
+</Base>
+
+<style>
+  .lockup { display: flex; align-items: center; gap: 1rem; }
+  .lockup img { width: 4.5rem; height: auto; }
+
+  .dir {
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid rgb(11 31 51 / 0.14);
+    background: #fff;
+    box-shadow: 0 24px 40px -30px rgb(11 31 51 / 0.45);
+  }
+  .dir-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--color-navy);
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: 0.75rem;
+    color: var(--color-fog);
+  }
+  .row {
+    display: grid;
+    gap: 0.875rem;
+    padding: 1.5rem 1.25rem;
+    border-top: 1px solid rgb(11 31 51 / 0.1);
+    transition: background-color 250ms;
+  }
+  .row:first-child { border-top: 0; }
+  .row:hover { background: rgb(232 241 246 / 0.6); }
+  @media (min-width: 1024px) {
+    .row { grid-template-columns: 7rem 17rem 1fr; gap: 2rem; align-items: start; padding: 1.75rem 2rem; }
+  }
+
+  /* Proceso como historial de versiones */
+  .commits {
+    display: grid;
+    gap: 2.25rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+  .commits::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-electric-soft), rgb(107 187 224 / 0.25));
+  }
+  .commit { position: relative; }
+  .node {
+    position: absolute;
+    left: calc(-2rem + 1px);
+    top: 0.25rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--color-electric-soft);
+    background: var(--color-navy);
+  }
+  .commit:last-child .node { background: var(--color-electric-soft); box-shadow: 0 0 0 5px rgb(91 147 255 / 0.2); }
+  .tag {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    background: rgb(91 147 255 / 0.14);
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-electric-soft);
+  }
+  @media (min-width: 1024px) {
+    .commits { grid-template-columns: repeat(4, 1fr); gap: 2rem; padding-left: 0; padding-top: 2.5rem; }
+    .commits::before { left: 0; right: 0; top: 6px; bottom: auto; width: auto; height: 2px; background: linear-gradient(to right, var(--color-electric-soft), rgb(107 187 224 / 0.25)); }
+    .node { left: 0; top: -2.5rem; }
+  }
+
+  .proposal {
+    padding: 2rem 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgb(107 187 224 / 0.22);
+    background: #0f2840;
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+  @media (min-width: 640px) {
+    .proposal { padding: 2.5rem; }
+  }
+</style>
