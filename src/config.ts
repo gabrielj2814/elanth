@@ -11,9 +11,15 @@ export const contact = {
   email: '',
 };
 
-export const whatsappUrl = contact.whatsapp
-  ? `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(contact.whatsappMessage)}`
-  : '';
+/** Enlace a WhatsApp con un mensaje ya escrito (por defecto, el general de Elanth) */
+export const whatsappLink = (message: string = contact.whatsappMessage) =>
+  contact.whatsapp ? `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(message)}` : '';
+
+export const whatsappUrl = whatsappLink();
+
+/** Mensaje para quien llega desde la página de Elanth Media */
+export const mediaWhatsappMessage =
+  'Hola, me interesan los paquetes de Elanth Media. Me gustaría recibir una propuesta para mi negocio.';
 
 /** Antepone la ruta base del sitio (p. ej. "/elanth" en GitHub Pages) a un archivo de `public/`. */
 export const asset = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;

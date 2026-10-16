@@ -6,7 +6,7 @@ import { asset } from '../config';
 const depts = [
   { pos: 'l1', code: 'E360', name: 'E-Commerce 360°', body: 'Tiendas, omnicanalidad, B2B, gestión delegada y marketing.', live: true },
   { pos: 'l2', code: 'CODE', name: 'Elanth Code', body: 'Desarrollo avanzado de software, integraciones complejas y aplicaciones a la medida.', live: true },
-  { pos: 'r1', code: 'MEDIA', name: 'Elanth Media', body: 'Producción de contenido, diseño, branding y estrategias de comunicación visual.', live: true },
+  { pos: 'r1', code: 'MEDIA', name: 'Elanth Media', body: 'Producción de contenido, diseño, branding y estrategias de comunicación visual.', live: true, href: 'elanth-media/', cta: 'Ver paquetes de Media' },
   { pos: 'r2', code: 'IND', name: 'Elanth Industry', body: 'Desarrollo de software y soluciones avanzadas para la industria.' },
 ];
 const left = depts.filter((d) => d.pos.startsWith('l'));
@@ -41,8 +41,8 @@ const right = depts.filter((d) => d.pos.startsWith('r'));
               <h3 class="mt-[1.125rem] text-[1.375rem] font-[800] tracking-[-0.01em] text-navy [font-stretch:114%]">{d.name}</h3>
               <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink/80">{d.body}</p>
               {d.live && (
-                <a href={asset('#asesoria')} class="mt-1.5 inline-flex min-h-11 items-center gap-1.5 text-[0.9375rem] font-semibold text-blue-ink underline decoration-blue-ink/40 underline-offset-4 hover:decoration-blue-ink">
-                  Pedir asesoría <Icon name="arrow" class="size-4" />
+                <a href={asset(d.href ?? '#asesoria')} class="mt-1.5 inline-flex min-h-11 items-center gap-1.5 text-[0.9375rem] font-semibold text-blue-ink underline decoration-blue-ink/40 underline-offset-4 hover:decoration-blue-ink">
+                  {d.cta ?? 'Pedir asesoría'} <Icon name="arrow" class="size-4" />
                 </a>
               )}
             </article>

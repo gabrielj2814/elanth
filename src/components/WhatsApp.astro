@@ -1,7 +1,13 @@
 ---
 // Botón flotante que abre WhatsApp con el mensaje ya escrito.
 import { siWhatsapp } from 'simple-icons';
-import { whatsappUrl } from '../config';
+import { whatsappLink } from '../config';
+
+interface Props {
+  /** Mensaje que se escribe al abrir el chat; si no se pasa, se usa el general */
+  message?: string;
+}
+const whatsappUrl = whatsappLink(Astro.props.message);
 ---
 {whatsappUrl && (
   <a

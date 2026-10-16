@@ -1,0 +1,384 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import MediaFeed from '../components/MediaFeed.astro';
+import Solutions from '../components/Solutions.astro';
+import { asset, whatsappLink, mediaWhatsappMessage } from '../config';
+
+// Contenido de «Paquetes Elanth Media», sin precios ni condiciones de pago.
+const ask = (pkg: string) =>
+  whatsappLink(`Hola, me interesa el paquete ${pkg} de Elanth Media. Me gustaría recibir una propuesta para mi negocio.`);
+
+const social = [
+  {
+    id: 'senal',
+    code: 'SEÑAL',
+    name: 'Señal',
+    items: ['2 posts o carruseles por semana', '1 reel al mes', '1 story diaria', 'Respuesta a DM con redirección a WhatsApp'],
+  },
+  {
+    id: 'pulso',
+    code: 'PULSO',
+    name: 'Pulso',
+    badge: 'Recomendado',
+    items: ['3 posts o carruseles por semana', '3 reels al mes', '2 stories diarias', 'Respuesta a comentarios y DM con redirección a WhatsApp'],
+  },
+];
+
+const shared = [
+  { icon: 'pen', text: 'Creación o rediseño de perfil' },
+  { icon: 'calendar', text: 'Planificación de contenido' },
+  { icon: 'target', text: '1 pauta publicitaria' },
+  { icon: 'chat', text: 'Copy en cada publicación' },
+  { icon: 'chart', text: 'Resumen estadístico' },
+] as const;
+
+const content = [
+  { id: 'chispa', code: 'CHISPA', name: 'Chispa', items: [{ icon: 'film', text: '3 reels' }, { icon: 'camera', text: '25 fotografías' }] },
+  {
+    id: 'impacto',
+    code: 'IMPACTO',
+    name: 'Impacto',
+    badge: 'Más completo',
+    items: [{ icon: 'film', text: '6 reels' }, { icon: 'camera', text: '20 fotografías' }, { icon: 'layers', text: '5 diseños de flyer' }],
+  },
+] as const;
+
+const paths = [
+  { icon: 'signal', audience: 'Señal', title: 'Arrancas en redes', body: 'Quieres una presencia ordenada y constante.', link: 'Ver Señal', href: '#senal' },
+  { icon: 'chart', audience: 'Pulso', title: 'Quieres más movimiento', body: 'Más reels y atención a tus comentarios.', link: 'Ver Pulso', href: '#pulso' },
+  { icon: 'spark', audience: 'Chispa', title: 'Ya manejas tus redes', body: 'Solo necesitas material profesional.', link: 'Ver Chispa', href: '#chispa' },
+  { icon: 'target', audience: 'Impacto', title: 'Preparas una campaña', body: 'Necesitas reels, fotos y flyers.', link: 'Ver Impacto', href: '#impacto' },
+];
+
+const steps = [
+  { title: 'Cuéntanos qué vendes', body: 'Una conversación corta para entender tu negocio, tus clientes y tu meta.' },
+  { title: 'Elige tu paquete', body: 'Te ayudamos a escoger el que se ajuste a tu presupuesto y a tu ritmo.' },
+  { title: 'Producimos y te reportamos', body: 'Recibes tu contenido listo para publicar y un resumen de resultados.' },
+];
+
+const pageUrl = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site).href;
+const schema = [
+  {
+    '@type': 'Service',
+    name: 'Elanth Media',
+    serviceType: 'Gestión de redes sociales y creación de contenido',
+    url: pageUrl,
+    provider: { '@id': new URL(asset(''), Astro.site).href + '#organizacion' },
+    description:
+      'Campañas de marketing funcionales según tu nicho: gestión de redes sociales, reels, fotografía y diseño de flyers.',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Paquetes de Elanth Media',
+      itemListElement: ['Señal', 'Pulso', 'Chispa', 'Impacto'].map((name) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: `Paquete ${name}` },
+      })),
+    },
+  },
+];
+---
+<Base
+  title="Elanth Media | Gestión de redes sociales y creación de contenido"
+  description="Convertimos tu visión en campañas de marketing funcionales según tu nicho: gestión de redes, reels, fotografía y flyers. Recibe una propuesta sin compromiso."
+  schema={schema}
+>
+  <Nav />
+  <main id="contenido">
+    <!-- Hero -->
+    <section class="circuit-grid-dark relative overflow-hidden bg-navy pt-28 pb-20 sm:pt-36 lg:pb-28">
+      <div class="mx-auto grid max-w-[90rem] items-center gap-14 px-4 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:px-12">
+        <div class="lg:col-span-7">
+          <h1 class="display text-[clamp(2.6rem,8vw,5.5rem)] text-paper">
+            <span class="sr-only">Elanth Media: </span>
+            Tu visión. <span class="text-coral">Mil formas de contarla.</span>
+          </h1>
+          <p class="mt-8 max-w-[36rem] text-lg leading-relaxed text-fog sm:text-xl">
+            Convertimos tu visión en campañas de marketing funcionales, pensadas según tu nicho y lo que tu negocio necesita hoy.
+          </p>
+          <p class="mt-4 max-w-[36rem] text-lg font-semibold text-paper sm:text-xl">
+            Nuestra meta: que los likes se conviertan en transacciones.
+          </p>
+
+          <div class="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-7">
+            <a href={whatsappLink(mediaWhatsappMessage)} target="_blank" rel="noopener" class="btn-lit w-full text-base sm:w-auto sm:text-lg">
+              Recibe una propuesta
+              <Icon name="arrow" class="size-5" />
+            </a>
+            <a href="#paquetes" class="link-quiet text-paper">Ver paquetes</a>
+          </div>
+
+          <div class="lockup mt-12">
+            <img src={asset('brand/elanth-media-mark-light.svg')} alt="" width="1940" height="1110" />
+            <span>
+              <span class="block text-lg leading-none font-[820] tracking-[0.02em] text-paper [font-stretch:118%]">ELANTH MEDIA</span>
+              <span class="mt-1.5 block text-sm text-fog">Redes y contenido</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <MediaFeed />
+        </div>
+      </div>
+    </section>
+
+    <!-- Gestión de redes -->
+    <section id="paquetes" class="circuit-grid bg-ice text-ink">
+      <div id="redes" class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy lg:col-span-7">Gestión de redes</h2>
+          <p class="max-w-[34rem] text-lg leading-relaxed text-muted lg:col-span-5 lg:pb-2">
+            Planes mensuales para que tu marca publique con constancia y cada conversación termine en WhatsApp.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-5 lg:mt-16 lg:grid-cols-2">
+          {social.map((p) => (
+            <article id={p.id} class:list={['pkg', { featured: p.badge }]}>
+              <header class="flex flex-wrap items-center justify-between gap-3">
+                <span class="flex items-center gap-3">
+                  <span class="ic-chip">{p.code}</span>
+                  <span class="text-sm font-semibold text-muted">Plan mensual</span>
+                </span>
+                {p.badge && <span class="badge">{p.badge}</span>}
+              </header>
+              <h3 class="mt-6 text-[2rem] leading-none font-[820] tracking-[-0.02em] text-navy [font-stretch:118%]">{p.name}</h3>
+              <ul class="mt-6">
+                {p.items.map((it) => (
+                  <li class="flex items-start gap-3 border-b border-dashed border-ink/15 py-3.5 last:border-0">
+                    <Icon name="check" class="mt-0.5 size-5 shrink-0 text-blue-ink" />
+                    <span class="text-[1.0625rem] leading-snug text-ink">{it}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href={ask(p.name)} target="_blank" rel="noopener" class="pkg-cta mt-6">
+                Quiero {p.name}
+                <Icon name="arrow" class="size-4" />
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <div class="shared mt-5">
+          <p class="text-[1.0625rem] font-bold text-navy [font-stretch:106%]">Incluido en ambos</p>
+          <ul class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-5">
+            {shared.map((s) => (
+              <li class="flex items-start gap-2.5">
+                <span class="grid size-8 shrink-0 place-items-center rounded-md bg-navy text-sky"><Icon name={s.icon} class="size-4" /></span>
+                <span class="pt-1 text-[0.9375rem] leading-snug text-ink">{s.text}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-5 border-t border-dashed border-ink/20 pt-4 text-sm leading-relaxed text-muted">
+            La pauta incluye la configuración y optimización de tu anuncio. La inversión publicitaria (presupuesto de anuncios)
+            la pagas directamente a la plataforma.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Creación de contenido -->
+    <section id="contenido-media" class="circuit-grid-dark bg-navy">
+      <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-paper lg:col-span-7">
+            Creación de <span class="text-coral">contenido</span>
+          </h2>
+          <p class="max-w-[34rem] text-lg leading-relaxed text-fog lg:col-span-5 lg:pb-2">
+            Paquetes por proyecto: reels, fotografía y diseño listos para publicar, para tus redes o para tu próxima campaña.
+          </p>
+        </div>
+
+        <div class="mt-14 grid gap-5 lg:mt-16 lg:grid-cols-2">
+          {content.map((p) => (
+            <article id={p.id} class:list={['pkg-dark', { featured: 'badge' in p }]}>
+              <header class="flex flex-wrap items-center justify-between gap-3">
+                <span class="flex items-center gap-3">
+                  <span class="ic-chip ic-chip-dark">{p.code}</span>
+                  <span class="text-sm font-semibold text-fog">Pago por paquete</span>
+                </span>
+                {'badge' in p && <span class="badge">{p.badge}</span>}
+              </header>
+              <h3 class="mt-6 text-[2rem] leading-none font-[820] tracking-[-0.02em] text-paper [font-stretch:118%]">{p.name}</h3>
+              <ul class="mt-6 grid gap-3 sm:grid-cols-3">
+                {p.items.map((it) => (
+                  <li class="deliverable">
+                    <Icon name={it.icon} class="size-6 text-sky" />
+                    <span class="mt-3 block text-lg leading-tight font-bold text-paper [font-stretch:106%]">{it.text}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href={ask(p.name)} target="_blank" rel="noopener" class="pkg-cta pkg-cta-dark mt-6">
+                Quiero {p.name}
+                <Icon name="arrow" class="size-4" />
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <div class="extra mt-5">
+          <span class="grid size-11 shrink-0 place-items-center rounded-lg bg-coral/15 text-coral"><Icon name="film" class="size-5" /></span>
+          <span>
+            <span class="block text-lg font-bold text-paper [font-stretch:106%]">Reel adicional</span>
+            <span class="mt-0.5 block text-fog">¿Necesitas uno más? Súmalo a cualquier paquete.</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ¿Cuál me conviene? -->
+    <Solutions
+      id="cual-me-conviene"
+      title="¿Cuál me conviene?"
+      intro="Elige según el momento de tu negocio. Si dudas, te ayudamos a decidir en la primera conversación."
+      items={paths}
+      help={{ text: '¿Necesitas algo distinto?', link: 'Servicios fuera de estos paquetes se cotizan a medida', href: '#empezamos' }}
+    />
+
+    <!-- Así empezamos + propuesta -->
+    <section id="empezamos" class="circuit-grid-dark bg-navy">
+      <div class="mx-auto grid max-w-[90rem] gap-14 px-4 py-24 sm:px-8 sm:py-32 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <div class="lg:col-span-6">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-paper">Así empezamos</h2>
+          <ol class="mt-10">
+            {steps.map((s, i) => (
+              <li class="step relative grid grid-cols-[2.25rem_1fr] gap-4 pb-8 last:pb-0">
+                <span class="step-pad tabular grid size-9 place-items-center rounded-lg text-[0.875rem] font-semibold text-sky">{i + 1}</span>
+                <span>
+                  <span class="block text-lg font-semibold text-paper [font-stretch:104%]">{s.title}</span>
+                  <span class="mt-1 block text-fog">{s.body}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="proposal">
+            <img src={asset('brand/elanth-media-mark-light.svg')} alt="" width="1940" height="1110" class="w-24" />
+            <h2 class="mt-6 text-[clamp(1.75rem,3.6vw,2.5rem)] leading-[1.02] font-[820] tracking-[-0.02em] text-paper [font-stretch:118%]">
+              Tu visión. <span class="text-coral">Mil formas de contarla.</span>
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-fog">Recibe una propuesta según tu negocio. Sin compromiso.</p>
+            <a href={whatsappLink(mediaWhatsappMessage)} target="_blank" rel="noopener" class="btn-lit mt-8 w-full text-base sm:text-lg">
+              Escríbenos por WhatsApp
+              <Icon name="arrow" class="size-5" />
+            </a>
+            <p class="mt-5 text-sm text-fog">Servicios fuera de estos paquetes se cotizan a medida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsApp message={mediaWhatsappMessage} />
+</Base>
+
+<style>
+  .lockup { display: flex; align-items: center; gap: 1rem; }
+  .lockup img { width: 4.5rem; height: auto; }
+
+  /* Paquetes de redes */
+  .pkg {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgb(11 31 51 / 0.14);
+    background: #fff;
+  }
+  .pkg.featured { border: 2px solid var(--color-navy); box-shadow: 0 24px 40px -24px rgb(11 31 51 / 0.45); }
+  .badge {
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background: var(--color-coral);
+    color: var(--color-navy);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .pkg-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    margin-top: auto;
+    padding: 0 1.25rem;
+    border-radius: 6px;
+    border: 1.5px solid var(--color-navy);
+    font-weight: 700;
+    color: var(--color-navy);
+    transition: background-color 200ms, color 200ms;
+  }
+  .pkg ul + .pkg-cta,
+  .pkg-dark ul + .pkg-cta { margin-top: 1.5rem; }
+  .pkg-cta:hover { background: var(--color-navy); color: var(--color-paper); }
+  .shared {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1.5px dashed rgb(23 105 143 / 0.45);
+    background: rgb(255 255 255 / 0.55);
+  }
+
+  /* Paquetes de contenido */
+  .pkg-dark {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgb(107 187 224 / 0.22);
+    background: #0f2840;
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+  .pkg-dark.featured { border: 2px solid rgb(255 107 107 / 0.7); }
+  .deliverable {
+    padding: 1rem;
+    border-radius: 10px;
+    background: var(--color-navy-deep);
+    border: 1px solid rgb(107 187 224 / 0.15);
+  }
+  .pkg-cta-dark { border-color: rgb(244 247 250 / 0.5); color: var(--color-paper); }
+  .pkg-cta-dark:hover { background: var(--color-paper); color: var(--color-navy); }
+  .extra {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    border: 1.5px dashed rgb(107 187 224 / 0.3);
+  }
+
+  /* Pasos conectados */
+  .step-pad {
+    position: relative;
+    z-index: 1;
+    border: 1.5px solid rgb(107 187 224 / 0.5);
+    background: var(--color-navy-deep);
+  }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 2.5rem;
+    bottom: 0.25rem;
+    width: 2px;
+    background: rgb(107 187 224 / 0.3);
+  }
+  .proposal {
+    padding: 2rem 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgb(107 187 224 / 0.22);
+    background: #0f2840;
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+  @media (min-width: 640px) {
+    .pkg,
+    .pkg-dark { padding: 2rem; }
+    .proposal { padding: 2.5rem; }
+  }
+</style>

@@ -5,6 +5,7 @@ import { asset } from '../config';
 const links = [
   { href: asset('#servicios'), label: 'Servicios' },
   { href: asset('#soluciones'), label: 'Soluciones' },
+  { href: asset('elanth-media/'), label: 'Elanth Media' },
   { href: asset('sobre-nosotros/'), label: 'Sobre nosotros' },
   { href: asset('#asesoria'), label: 'Contacto' },
 ];
@@ -14,7 +15,7 @@ const links = [
     <a href={asset('')} class="shrink-0" aria-label="Elanth, ir al inicio">
       <img src={asset("brand/elanth-logo-light.svg")} alt="Elanth Technology Solutions" width="3260" height="1268" class="h-11 w-auto sm:h-14" />
     </a>
-    <ul class="hidden items-center gap-8 text-sm font-medium text-fog lg:flex">
+    <ul class="hidden items-center gap-6 text-sm font-medium text-fog lg:flex xl:gap-8">
       {links.map((l) => (
         <li><a href={l.href} class="transition-colors hover:text-paper">{l.label}</a></li>
       ))}
