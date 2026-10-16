@@ -9,12 +9,22 @@ interface Props {
   schema?: Record<string, unknown>[];
   /** Páginas que no deben aparecer en buscadores (p. ej. 404) */
   noindex?: boolean;
+  /** Imagen para compartir en redes (ruta dentro de public/) y su texto alternativo */
+  ogImage?: string;
+  ogImageAlt?: string;
 }
-const { title, description, schema = [], noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  schema = [],
+  noindex = false,
+  ogImage: ogImagePath = 'brand/og-elanth.png',
+  ogImageAlt = 'Elanth: lleva tu negocio al mundo digital. Empieza a vender por internet.',
+} = Astro.props;
 // Siempre con barra final, igual que las URLs del sitemap
 const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site);
 const home = new URL(asset(''), Astro.site).href;
-const ogImage = new URL(asset('brand/og-elanth.png'), Astro.site).href;
+const ogImage = new URL(asset(ogImagePath), Astro.site).href;
 // UBICACIÓN OCULTA: para volver a indicar Venezuela, usar lang="es-VE" en <html>
 // y restaurar <meta property="og:locale" content="es_VE" /> en <head>.
 
@@ -64,7 +74,8 @@ const graph = [
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Elanth: lleva tu negocio al mundo digital. Empieza a vender por internet." />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
