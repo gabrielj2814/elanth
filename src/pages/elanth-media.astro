@@ -62,6 +62,72 @@ const paths = [
   { icon: 'chart', audience: 'Pulso', title: 'Quieres más movimiento', body: 'Más reels y atención a tus comentarios.', link: 'Ver el plan Pulso', href: '#pulso' },
 ];
 
+// Más allá de las redes: áreas que Elanth Media ofrece además de los planes mensuales
+const creative = [
+  {
+    id: 'produccion',
+    icon: 'film',
+    label: 'Producción audiovisual',
+    title: 'Contenido que se ve profesional',
+    pitch: 'Llevamos cámara y dirección creativa a tu negocio para producir el material que tus redes necesitan.',
+    items: [
+      'Dirección creativa e ideas para el contenido de cada mes',
+      'Jornadas de producción planificadas en tu negocio',
+      'Reels cortos listos para publicar',
+      'Fotografías retocadas de tus productos, tu espacio y tu equipo',
+    ],
+  },
+  {
+    id: 'estrategia',
+    icon: 'target',
+    label: 'Estrategia de marca',
+    title: 'Un plan antes de publicar',
+    pitch: 'Entendemos tu mercado y a tu cliente para que cada publicación tenga un propósito.',
+    items: [
+      'Estudio de tu mercado y de tu competencia directa e indirecta',
+      'Perfil de tu cliente ideal: necesidades, dolores y tono de comunicación',
+      'Personalidad de marca y pilares de contenido',
+      'Calendario trimestral atado a fechas especiales y metas comerciales',
+    ],
+  },
+  {
+    id: 'diseno',
+    icon: 'pen',
+    label: 'Diseño y campañas',
+    title: 'Una imagen que se reconoce',
+    pitch: 'Piezas gráficas y campañas con un mismo concepto visual en todos tus canales.',
+    items: [
+      'Piezas para redes: banners, flyers, cupones e íconos',
+      'Campañas de comunicación con concepto visual y guía de uso',
+      'Grillas de contenido para aprobar antes de publicar',
+      'Reporte mensual con las métricas de tus redes',
+    ],
+  },
+] as const;
+
+const reasons = [
+  {
+    icon: 'layers',
+    title: 'Todo bajo un mismo techo',
+    body: 'Elanth Media trabaja junto a E-Commerce 360° y Elanth Code: tus redes, tu tienda y tus sistemas hablan el mismo idioma.',
+  },
+  {
+    icon: 'target',
+    title: 'Estrategia antes que piezas',
+    body: 'No hacemos publicaciones sueltas. Cada pieza responde a un plan conectado con tus objetivos de venta.',
+  },
+  {
+    icon: 'chat',
+    title: 'Una sola voz en cada canal',
+    body: 'Tu marca suena igual en Instagram, Facebook, WhatsApp y tu tienda, para que te reconozcan en todas partes.',
+  },
+  {
+    icon: 'bag',
+    title: 'Del like a la venta',
+    body: 'Llevamos cada conversación a WhatsApp y te reportamos lo que importa: clientes interesados, no solo seguidores.',
+  },
+] as const;
+
 const steps = [
   { title: 'Cuéntanos qué vendes', body: 'Una conversación corta para entender tu negocio, tus clientes y tu meta.' },
   { title: 'Elige tu plan', body: 'Te ayudamos a escoger el que se ajuste a tu presupuesto y a tu ritmo.' },
@@ -73,7 +139,7 @@ const schema = [
   {
     '@type': 'Service',
     name: 'Elanth Media',
-    serviceType: 'Gestión de redes sociales',
+    serviceType: 'Marketing digital: redes sociales, producción audiovisual y estrategia de marca',
     url: pageUrl,
     provider: { '@id': new URL(asset(''), Astro.site).href + '#organizacion' },
     description:
@@ -81,14 +147,17 @@ const schema = [
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Planes de Elanth Media',
-      itemListElement: plans.map((p) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: `Plan ${p.name}` } })),
+      itemListElement: [
+        ...plans.map((p) => `Plan ${p.name}`),
+        ...creative.map((c) => c.label),
+      ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
     },
   },
 ];
 ---
 <Base
-  title="Elanth Media | Gestión de redes sociales para tu negocio"
-  description="Convertimos tu visión en campañas de marketing funcionales según tu nicho: planes de gestión de redes con posts, reels, stories y pauta publicitaria. Recibe una propuesta sin compromiso."
+  title="Elanth Media | Redes sociales, producción audiovisual y estrategia de marca"
+  description="Convertimos tu visión en campañas de marketing funcionales según tu nicho: gestión de redes, producción audiovisual, estrategia de marca y diseño. Recibe una propuesta sin compromiso."
   schema={schema}
   ogImage="brand/og-elanth-media.png"
   ogImageAlt="Elanth Media: tu visión. Mil formas de contarla."
@@ -122,7 +191,7 @@ const schema = [
             <img src={asset('brand/elanth-media-mark-light.svg')} alt="" width="1940" height="1110" />
             <span>
               <span class="block text-lg leading-none font-[820] tracking-[0.02em] text-paper [font-stretch:118%]">ELANTH MEDIA</span>
-              <span class="mt-1.5 block text-sm text-fog">Redes sociales</span>
+              <span class="mt-1.5 block text-sm text-fog">Redes, contenido y estrategia</span>
             </span>
           </div>
         </div>
@@ -236,6 +305,103 @@ const schema = [
       items={paths}
       help={{ text: '¿Necesitas algo distinto?', link: 'Servicios fuera de estos planes se cotizan a medida', href: '#empezamos' }}
     />
+
+    <!-- Más allá de las redes -->
+    <section id="mas-alla" class="aurora">
+      <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-paper lg:col-span-7">
+            Más allá de las <span class="text-coral">redes.</span>
+          </h2>
+          <p class="max-w-[34rem] text-lg leading-relaxed text-fog lg:col-span-5 lg:pb-2">
+            Cuando tu marca necesita más que publicaciones: producción, estrategia y una imagen coherente. Puedes sumarlas a
+            tu plan o contratarlas por separado.
+          </p>
+        </div>
+
+        <ul class="mt-14 grid gap-5 lg:mt-16 lg:grid-cols-3">
+          {creative.map((c, i) => (
+            <li id={c.id} class="craft">
+              <span class="watermark craft-mark" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+
+              {/* Viñeta visual de cada área */}
+              <div class="vignette" aria-hidden="true">
+                {c.id === 'produccion' && (
+                  <div class="frames">
+                    {[0, 1, 2, 3].map((n) => (
+                      <span class:list={['frame', { play: n === 1 }]}>
+                        {n === 1 && <Icon name="film" class="size-5" />}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {c.id === 'estrategia' && (
+                  <div class="pillars">
+                    {[['Educar', 72], ['Inspirar', 54], ['Vender', 88]].map(([name, h]) => (
+                      <span class="pillar-col">
+                        <span class="pillar-bar" style={`height:${h}%`}></span>
+                        <span class="pillar-name">{name}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {c.id === 'diseno' && (
+                  <div class="swatches">
+                    <span class="type-sample">Aa</span>
+                    <span class="flex gap-1.5">
+                      {['#ff6b6b', '#f5a623', '#19c3b1', '#6bbbe0', '#f4f7fa'].map((col) => (
+                        <span class="swatch" style={`background:${col}`}></span>
+                      ))}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <span class="mt-6 flex items-center gap-3">
+                <span class="hex hex-coral hex-sm"><Icon name={c.icon} class="size-4" /></span>
+                <span class="tag-label text-sky!">{c.label}</span>
+              </span>
+              <h3 class="mt-4 text-[1.5rem] leading-tight font-[800] tracking-[-0.01em] text-paper [font-stretch:112%]">{c.title}</h3>
+              <p class="mt-3 text-fog">{c.pitch}</p>
+              <ul class="mt-5 grid gap-2.5">
+                {c.items.map((it) => (
+                  <li class="flex items-start gap-2.5 text-[0.9375rem] leading-snug text-paper/90">
+                    <Icon name="check" class="mt-0.5 size-4 shrink-0 text-coral" />
+                    {it}
+                  </li>
+                ))}
+              </ul>
+              <a href={whatsappLink(`Hola, me interesa el servicio de ${c.label.toLowerCase()} de Elanth Media. Me gustaría recibir una propuesta.`)} target="_blank" rel="noopener" class="craft-cta mt-7">
+                Pedir propuesta
+                <Icon name="arrow" class="size-4" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ¿Por qué Elanth Media? -->
+    <section id="por-que" class="mesh-soft text-ink">
+      <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy lg:col-span-7">¿Por qué Elanth Media?</h2>
+          <p class="max-w-[34rem] text-lg leading-relaxed text-muted lg:col-span-5 lg:pb-2">
+            No vemos solo publicaciones: vemos el panorama completo de cómo tu marca llega a tus clientes.
+          </p>
+        </div>
+        <ul class="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+          {reasons.map((r, i) => (
+            <li class="card-soft flex flex-col p-6 sm:p-7">
+              <span class="watermark" aria-hidden="true">{i + 1}</span>
+              <span class="hex"><Icon name={r.icon} class="size-5" /></span>
+              <h3 class="mt-6 text-[1.25rem] leading-tight font-[800] text-navy [font-stretch:112%]">{r.title}</h3>
+              <p class="mt-3 text-[0.9875rem] leading-relaxed text-ink/85">{r.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
 
     <!-- Así empezamos + propuesta -->
     <section id="empezamos" class="aurora">
@@ -387,6 +553,68 @@ const schema = [
   .plan-cta:hover { background: var(--color-navy); color: var(--color-paper); }
   .plan-cta-lit { border-color: var(--color-coral); background: var(--color-coral); color: var(--color-navy); }
   .plan-cta-lit:hover { background: #ff8585; color: var(--color-navy); }
+
+  /* Más allá de las redes */
+  .craft {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1.5rem;
+    border-radius: 18px;
+    border: 1px solid rgb(107 187 224 / 0.16);
+    background: rgb(7 20 31 / 0.42);
+    backdrop-filter: blur(8px);
+    transition: border-color 300ms, transform 300ms var(--ease-out-quart);
+  }
+  .craft:hover { border-color: rgb(255 107 107 / 0.45); transform: translateY(-3px); }
+  .craft > :not(.craft-mark) { position: relative; z-index: 1; }
+  .craft-mark { color: rgb(255 255 255 / 0.04); font-size: 6rem; }
+  .vignette {
+    display: grid;
+    place-items: center;
+    height: 8.5rem;
+    border-radius: 14px;
+    background: rgb(255 255 255 / 0.04);
+    border: 1px solid rgb(255 255 255 / 0.05);
+  }
+  .frames { display: flex; gap: 0.5rem; }
+  .frame {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    aspect-ratio: 9 / 16;
+    border-radius: 8px;
+    background: linear-gradient(160deg, rgb(107 187 224 / 0.35), rgb(37 144 190 / 0.12));
+    color: var(--color-navy);
+  }
+  .frame:nth-child(odd) { translate: 0 0.5rem; }
+  .frame.play { background: linear-gradient(160deg, var(--color-coral), #c2410c); box-shadow: 0 12px 24px -10px rgb(255 107 107 / 0.6); }
+  .pillars { display: flex; align-items: flex-end; gap: 1rem; height: 6.5rem; }
+  .pillar-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0.375rem; height: 100%; }
+  .pillar-bar { display: block; width: 2.5rem; border-radius: 6px 6px 3px 3px; background: linear-gradient(to top, rgb(37 144 190 / 0.5), var(--color-sky)); }
+  .pillar-col:last-child .pillar-bar { background: linear-gradient(to top, #c2410c, var(--color-coral)); }
+  .pillar-name { font-size: 0.6875rem; font-weight: 600; color: var(--color-fog); }
+  .swatches { display: flex; align-items: center; gap: 1.25rem; }
+  .type-sample { font-size: 3.25rem; font-weight: 820; font-stretch: 118%; line-height: 1; color: var(--color-paper); }
+  .swatch { width: 1.375rem; height: 3.25rem; border-radius: 999px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.08); }
+  .swatch:nth-child(even) { translate: 0 0.5rem; }
+  .craft-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    margin-top: auto;
+    border-radius: 8px;
+    border: 1.5px solid rgb(244 247 250 / 0.4);
+    font-weight: 700;
+    color: var(--color-paper);
+    transition: background-color 200ms, color 200ms, border-color 200ms;
+  }
+  .craft ul + .craft-cta { margin-top: 1.75rem; }
+  .craft-cta:hover { border-color: var(--color-coral); background: var(--color-coral); color: var(--color-navy); }
+  @media (min-width: 640px) { .craft { padding: 2rem; } }
 
   .step-row {
     display: flex;
