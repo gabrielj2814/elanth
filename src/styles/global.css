@@ -145,12 +145,94 @@
     opacity: 0.45;
   }
 
-  /* Circuit: technical grid ground and IC chip codes */
-  .circuit-grid {
-    background-image:
-      linear-gradient(rgb(11 31 51 / 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(11 31 51 / 0.045) 1px, transparent 1px);
-    background-size: 32px 32px;
+  /* Malla suave: manchas muy claras de azul, turquesa y blanco que se mueven despacio */
+  .mesh-soft {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    background-color: #eef4f8;
+  }
+  .mesh-soft::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(36% 30% at 16% 18%, rgb(107 187 224 / 0.34), transparent 70%),
+      radial-gradient(32% 28% at 84% 26%, rgb(25 195 177 / 0.2), transparent 70%),
+      radial-gradient(40% 34% at 58% 62%, rgb(255 255 255 / 0.95), transparent 70%),
+      radial-gradient(30% 26% at 24% 84%, rgb(107 187 224 / 0.24), transparent 70%),
+      radial-gradient(34% 28% at 86% 88%, rgb(25 195 177 / 0.16), transparent 70%);
+    animation: mesh-drift 32s ease-in-out infinite alternate;
+  }
+
+  /* Aurora: luz azul y turquesa que se desplaza muy despacio sobre el azul marino */
+  .aurora {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    background-color: var(--color-navy);
+  }
+  .aurora::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(34% 30% at 18% 14%, rgb(37 144 190 / 0.42), transparent 70%),
+      radial-gradient(30% 28% at 82% 32%, rgb(25 195 177 / 0.2), transparent 70%),
+      radial-gradient(38% 32% at 46% 92%, rgb(37 144 190 / 0.26), transparent 70%);
+    animation: mesh-drift 38s ease-in-out infinite alternate;
+  }
+  @keyframes mesh-drift {
+    0% { transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1); }
+    50% { transform: translate3d(3%, 2%, 0) rotate(3deg) scale(1.06); }
+    100% { transform: translate3d(-2%, 3%, 0) rotate(-2deg) scale(1.02); }
+  }
+
+  /* Estilo de listas: hexágono con ícono, etiqueta espaciada y número de fondo */
+  .hex {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.875rem;
+    height: 3.25rem;
+    background: var(--color-navy);
+    color: var(--color-sky);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  }
+  .hex-light { background: rgb(107 187 224 / 0.16); color: var(--color-sky); }
+  .tag-label {
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-blue-ink);
+  }
+  .watermark {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-stretch: 118%;
+    font-weight: 820;
+    font-size: 6rem;
+    line-height: 1;
+    color: rgb(11 31 51 / 0.06);
+    pointer-events: none;
+    user-select: none;
+  }
+  .card-soft {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid rgb(11 31 51 / 0.08);
+    background: rgb(255 255 255 / 0.86);
+    box-shadow: 0 1px 2px rgb(11 31 51 / 0.06), 0 18px 36px -24px rgb(11 31 51 / 0.35);
+    backdrop-filter: blur(6px);
   }
   .circuit-grid-dark {
     background-image:
@@ -247,6 +329,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mesh-soft::before, .aurora::before { animation: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

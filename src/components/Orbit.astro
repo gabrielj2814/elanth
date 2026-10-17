@@ -15,9 +15,15 @@ const nodes = [
   { icon: 'box', label: 'Despacho' },
 ] as const;
 const step = 360 / nodes.length;
+
+interface Props {
+  /** Versión para fondo azul marino: tonos apagados que no compiten con el fondo */
+  dark?: boolean;
+}
+const { dark = false } = Astro.props;
 ---
 <div
-  class="orbit"
+  class:list={['orbit', { dark }]}
   role="img"
   aria-label={`E-Commerce 360°: ${nodes.map((n) => n.label.toLowerCase()).join(', ')}, conectados alrededor de Elanth.`}
 >
@@ -56,7 +62,7 @@ const step = 360 / nodes.length;
   </div>
 
   <div class="core" aria-hidden="true">
-    <img src={asset('brand/elanth-mark.svg')} alt="" width="1940" height="1110" loading="lazy" />
+    <img src={asset(dark ? 'brand/elanth-mark-light.svg' : 'brand/elanth-mark.svg')} alt="" width="1940" height="1110" />
     <span class="core-label">E-COMMERCE 360°</span>
   </div>
 </div>
@@ -172,6 +178,24 @@ const step = 360 / nodes.length;
     letter-spacing: 0.06em;
     color: var(--color-navy);
   }
+
+  /* Sobre azul marino: sin blancos ni bordes fuertes, todo en la gama del fondo */
+  .dark .blob { background: radial-gradient(circle at 40% 38%, rgb(107 187 224 / 0.2), rgb(37 144 190 / 0.1) 55%, transparent 75%); }
+  .dark .inner { stroke: var(--color-sky); stroke-opacity: 0.28; }
+  .dark .spoke { stroke: var(--color-sky); stroke-opacity: 0.22; }
+  .dark .packet { stroke: var(--color-sky); }
+  .dark .sat-b::before { background: var(--color-teal); }
+  .dark .node-in {
+    background: #0f2840;
+    color: var(--color-sky);
+    box-shadow: 0 0 0 0.8cqw var(--color-navy), inset 0 0 0 1px rgb(107 187 224 / 0.3), 0 10px 20px -10px rgb(0 0 0 / 0.6);
+  }
+  .dark .core {
+    border: 0.5cqw solid rgb(107 187 224 / 0.45);
+    background: #0f2840;
+    box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.7), inset 0 0 0 1px rgb(255 255 255 / 0.04);
+  }
+  .dark .core-label { color: var(--color-fog); }
 
   @keyframes spin { to { rotate: 360deg; } }
   @keyframes packet {

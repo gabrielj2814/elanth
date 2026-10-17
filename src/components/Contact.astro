@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import RingNum from './RingNum.astro';
 import { contact, whatsappUrl } from '../config';
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
@@ -51,8 +52,8 @@ const niches = [
         <h3 class="mt-14 text-xl font-bold text-paper [font-stretch:108%]">Qué pasa después</h3>
         <ol class="mt-6">
           {steps.map((s, i) => (
-            <li class="step relative grid grid-cols-[2.25rem_1fr] gap-4 pb-7 last:pb-0">
-              <span class="step-pad tabular grid size-9 place-items-center rounded-lg font-mono text-[0.8125rem] font-semibold text-sky [font-stretch:82%]">{i + 1}</span>
+            <li class="step relative grid grid-cols-[2.75rem_1fr] gap-4 pb-7 last:pb-0">
+              <RingNum value={i + 1} progress={(i + 1) / steps.length} size={44} dark />
               <span>
                 <span class="block font-semibold text-paper [font-stretch:104%]">{s.title}</span>
                 <span class="mt-1 block text-fog">{s.body}</span>
@@ -211,8 +212,8 @@ const niches = [
   .step:not(:last-child)::before {
     content: '';
     position: absolute;
-    left: 17px;
-    top: 2.5rem;
+    left: 21px;
+    top: 3rem;
     bottom: 0.25rem;
     width: 2px;
     background: rgb(107 187 224 / 0.3);

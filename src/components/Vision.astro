@@ -4,15 +4,15 @@ import { asset } from '../config';
 
 // Departamentos alrededor del hub: dos a la izquierda y dos a la derecha.
 const depts = [
-  { pos: 'l1', code: 'E360', name: 'E-Commerce 360°', body: 'Tiendas, omnicanalidad, B2B, gestión delegada y marketing.', live: true },
-  { pos: 'l2', code: 'CODE', name: 'Elanth Code', body: 'Desarrollo avanzado de software, integraciones complejas y aplicaciones a la medida.', live: true, href: 'elanth-code/', cta: 'Conocer Elanth Code' },
-  { pos: 'r1', code: 'MEDIA', name: 'Elanth Media', body: 'Producción de contenido, diseño, branding y estrategias de comunicación visual.', live: true, href: 'elanth-media/', cta: 'Ver paquetes de Media' },
-  { pos: 'r2', code: 'IND', name: 'Elanth Industry', body: 'Desarrollo de software y soluciones avanzadas para la industria.' },
+  { pos: 'l1', icon: 'store', code: 'E360', name: 'E-Commerce 360°', body: 'Tiendas, omnicanalidad, B2B, gestión delegada y marketing.', live: true },
+  { pos: 'l2', icon: 'layers', code: 'CODE', name: 'Elanth Code', body: 'Desarrollo avanzado de software, integraciones complejas y aplicaciones a la medida.', live: true, href: 'elanth-code/', cta: 'Conocer Elanth Code' },
+  { pos: 'r1', icon: 'megaphone', code: 'MEDIA', name: 'Elanth Media', body: 'Producción de contenido, diseño, branding y estrategias de comunicación visual.', live: true, href: 'elanth-media/', cta: 'Ver paquetes de Media' },
+  { pos: 'r2', icon: 'building', code: 'IND', name: 'Elanth Industry', body: 'Desarrollo de software y soluciones avanzadas para la industria.' },
 ];
 const left = depts.filter((d) => d.pos.startsWith('l'));
 const right = depts.filter((d) => d.pos.startsWith('r'));
 ---
-<section id="ecosistema" class="circuit-grid bg-ice text-ink">
+<section id="ecosistema" class="mesh-soft text-ink">
   <div class="mx-auto max-w-[90rem] px-4 py-24 sm:px-8 sm:py-32 lg:px-12">
     <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
       <h2 class="display text-[clamp(2.1rem,5.6vw,4rem)] text-navy lg:col-span-7">
@@ -31,7 +31,10 @@ const right = depts.filter((d) => d.pos.startsWith('r'));
           <div class:list={['cell', `cell-${d.pos}`, { live: d.live }]}>
             <article class="dept">
               <div class="flex items-center justify-between gap-3">
-                <span class="ic-chip">{d.code}</span>
+                <span class="flex items-center gap-3">
+                  <span class="hex hex-sm"><Icon name={d.icon} class="size-4" /></span>
+                  <span class="tag-label">{d.code}</span>
+                </span>
                 {d.live ? (
                   <span class="status flex items-center gap-1.5 text-navy"><Icon name="check" class="size-3.5" />En servicio</span>
                 ) : (
@@ -127,6 +130,7 @@ const right = depts.filter((d) => d.pos.startsWith('r'));
     background: #fff;
   }
   .cell.live .dept { border: 1.5px solid var(--color-navy); box-shadow: 0 14px 28px -18px rgb(11 31 51 / 0.5); }
+  .hex-sm { width: 2.25rem; height: 2.5rem; }
   .status {
     font-family: var(--font-mono);
     font-stretch: 82%;

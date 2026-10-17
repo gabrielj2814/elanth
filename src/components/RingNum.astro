@@ -1,0 +1,47 @@
+---
+// Número dentro de un anillo de progreso (p. ej. el nivel 2 de 4 llena medio anillo).
+interface Props {
+  value: string | number;
+  /** Fracción del anillo que se llena, de 0 a 1 */
+  progress: number;
+  size?: number;
+  /** Sobre fondo oscuro */
+  dark?: boolean;
+  class?: string;
+}
+const { value, progress, size = 48, dark = false, class: className } = Astro.props;
+const r = 20;
+const c = 2 * Math.PI * r;
+---
+<span class:list={['ring', { 'ring-dark': dark }, className]} style={`--s:${size}px`} aria-hidden="true">
+  <svg viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r={r} class="track" />
+    <circle cx="24" cy="24" r={r} class="arc" stroke-dasharray={`${(c * progress).toFixed(2)} ${c.toFixed(2)}`} />
+  </svg>
+  <span class="val">{value}</span>
+</span>
+
+<style>
+  .ring {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--s);
+    height: var(--s);
+  }
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; }
+  circle { fill: none; stroke-width: 4; }
+  .track { stroke: rgb(11 31 51 / 0.1); }
+  .arc { stroke: var(--color-blue-ink); stroke-linecap: round; transition: stroke-dasharray 600ms var(--ease-out-quart); }
+  .val {
+    font-weight: 800;
+    font-stretch: 112%;
+    font-size: calc(var(--s) * 0.36);
+    line-height: 1;
+    color: var(--color-navy);
+  }
+  .ring-dark .track { stroke: rgb(159 179 198 / 0.22); }
+  .ring-dark .arc { stroke: var(--color-sky); }
+  .ring-dark .val { color: var(--color-paper); }
+</style>

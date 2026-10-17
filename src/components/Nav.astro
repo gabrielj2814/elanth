@@ -1,12 +1,15 @@
 ---
 import Icon from './Icon.astro';
 import { asset } from '../config';
-// Rutas absolutas a la portada para que funcionen también desde «Sobre nosotros»
+// Rutas absolutas a la portada para que funcionen también desde las otras páginas.
+// «Servicios» agrupa las tres líneas de Elanth en un desplegable.
+const services = [
+  { href: asset('#servicios'), label: 'E-Commerce 360°', note: 'Tiendas online y canales de venta', mark: 'brand/elanth-mark.svg' },
+  { href: asset('elanth-code/'), label: 'Elanth Code', note: 'Software, integraciones y apps', mark: 'brand/elanth-code-mark.svg' },
+  { href: asset('elanth-media/'), label: 'Elanth Media', note: 'Redes sociales y contenido', mark: 'brand/elanth-media-mark.svg' },
+];
 const links = [
-  { href: asset('#servicios'), label: 'Servicios' },
   { href: asset('#soluciones'), label: 'Soluciones' },
-  { href: asset('elanth-code/'), label: 'Elanth Code' },
-  { href: asset('elanth-media/'), label: 'Elanth Media' },
   { href: asset('sobre-nosotros/'), label: 'Sobre nosotros' },
   { href: asset('#asesoria'), label: 'Contacto' },
 ];
@@ -16,7 +19,34 @@ const links = [
     <a href={asset('')} class="shrink-0" aria-label="Elanth, ir al inicio">
       <img src={asset("brand/elanth-logo-light.svg")} alt="Elanth Technology Solutions" width="3260" height="1268" class="h-11 w-auto sm:h-14" />
     </a>
-    <ul class="hidden items-center gap-6 text-sm font-medium text-fog xl:flex 2xl:gap-8">
+    <ul class="hidden items-center gap-7 text-sm font-medium text-fog lg:flex xl:gap-8">
+      <li class="relative" data-dropdown>
+        <button
+          type="button"
+          class="flex items-center gap-1.5 transition-colors hover:text-paper aria-expanded:text-paper"
+          aria-expanded="false"
+          aria-controls="menu-servicios"
+          data-dropdown-btn
+        >
+          Servicios
+          <svg class="chev size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+        </button>
+        <div id="menu-servicios" class="dropdown" hidden data-dropdown-panel>
+          <ul>
+            {services.map((s) => (
+              <li>
+                <a href={s.href} class="drop-item">
+                  <img src={asset(s.mark)} alt="" width="1940" height="1110" />
+                  <span>
+                    <span class="block text-[0.9375rem] font-bold text-navy [font-stretch:106%]">{s.label}</span>
+                    <span class="mt-0.5 block text-[0.8125rem] font-normal text-muted">{s.note}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </li>
       {links.map((l) => (
         <li><a href={l.href} class="transition-colors hover:text-paper">{l.label}</a></li>
       ))}
@@ -33,7 +63,7 @@ const links = [
       {/* Menú para pantallas pequeñas */}
       <button
         type="button"
-        class="menu-btn grid size-10 place-items-center rounded-[5px] text-paper sm:size-11 xl:hidden"
+        class="menu-btn grid size-10 place-items-center rounded-[5px] text-paper sm:size-11 lg:hidden"
         aria-expanded="false"
         aria-controls="menu-movil"
         aria-label="Abrir menú"
@@ -48,17 +78,30 @@ const links = [
     </div>
   </nav>
 
-  <div id="menu-movil" class="menu-panel xl:hidden" hidden data-menu>
-    <ul class="mx-auto flex max-w-[90rem] flex-col px-4 pb-5 sm:px-8">
-      {links.map((l) => (
-        <li>
-          <a href={l.href} class="flex min-h-13 items-center justify-between border-b border-white/10 text-base font-semibold text-paper">
-            {l.label}
-            <Icon name="arrow" class="size-4 text-sky" />
-          </a>
-        </li>
-      ))}
-    </ul>
+  <div id="menu-movil" class="menu-panel lg:hidden" hidden data-menu>
+    <div class="mx-auto max-w-[90rem] px-4 pb-5 sm:px-8">
+      <p class="pt-2 pb-1 text-xs font-semibold tracking-[0.12em] text-fog uppercase">Servicios</p>
+      <ul class="border-b border-white/10 pb-2">
+        {services.map((s) => (
+          <li>
+            <a href={s.href} class="flex min-h-12 items-center gap-3 text-base font-semibold text-paper">
+              <img src={asset(s.mark.replace('.svg', '-light.svg'))} alt="" width="1940" height="1110" class="w-9 shrink-0" />
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a href={l.href} class="flex min-h-13 items-center justify-between border-b border-white/10 text-base font-semibold text-paper">
+              {l.label}
+              <Icon name="arrow" class="size-4 text-sky" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </header>
 
@@ -77,6 +120,33 @@ const links = [
   .open .bar-3 { transform: translateY(-5px) rotate(-45deg); }
   .menu-panel:not([hidden]) { animation: drop 250ms var(--ease-out-quart); }
   @keyframes drop { from { opacity: 0; transform: translateY(-6px); } }
+
+  /* Desplegable de servicios */
+  .chev { transition: rotate 250ms var(--ease-out-quart); }
+  [aria-expanded='true'] > .chev { rotate: 180deg; }
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: -1.25rem;
+    width: 21rem;
+    padding: 0.5rem;
+    border-radius: 14px;
+    border: 1px solid rgb(11 31 51 / 0.08);
+    background: #fff;
+    box-shadow: 0 24px 48px -20px rgb(3 10 18 / 0.55);
+  }
+  .dropdown:not([hidden]) { animation: drop 220ms var(--ease-out-quart); }
+  .drop-item {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    transition: background-color 200ms;
+  }
+  .drop-item:hover,
+  .drop-item:focus-visible { background: var(--color-ice); }
+  .drop-item img { width: 2.75rem; height: auto; flex-shrink: 0; }
 </style>
 
 <script>
@@ -86,6 +156,7 @@ const links = [
     update();
     window.addEventListener('scroll', update, { passive: true });
 
+    // Menú móvil
     const btn = nav.querySelector<HTMLButtonElement>('[data-menu-btn]')!;
     const panel = nav.querySelector<HTMLElement>('[data-menu]')!;
     const setOpen = (open: boolean) => {
@@ -96,14 +167,42 @@ const links = [
     };
     btn.addEventListener('click', () => setOpen(panel.hidden));
     panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+    // Desplegable «Servicios»: se abre al pasar el cursor o al hacer clic
+    const drop = nav.querySelector<HTMLElement>('[data-dropdown]')!;
+    const dropBtn = drop.querySelector<HTMLButtonElement>('[data-dropdown-btn]')!;
+    const dropPanel = drop.querySelector<HTMLElement>('[data-dropdown-panel]')!;
+    let closeTimer: number | undefined;
+    const setDrop = (open: boolean) => {
+      window.clearTimeout(closeTimer);
+      dropPanel.hidden = !open;
+      dropBtn.setAttribute('aria-expanded', String(open));
+    };
+    dropBtn.addEventListener('click', () => setDrop(dropPanel.hidden));
+    const hover = window.matchMedia('(hover: hover)');
+    drop.addEventListener('mouseenter', () => hover.matches && setDrop(true));
+    drop.addEventListener('mouseleave', () => {
+      if (hover.matches) closeTimer = window.setTimeout(() => setDrop(false), 180);
+    });
+    drop.addEventListener('focusout', (e) => {
+      if (!drop.contains(e.relatedTarget as Node)) setDrop(false);
+    });
+    dropPanel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setDrop(false)));
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !panel.hidden) {
+      if (e.key !== 'Escape') return;
+      if (!panel.hidden) {
         setOpen(false);
         btn.focus();
+      }
+      if (!dropPanel.hidden) {
+        setDrop(false);
+        dropBtn.focus();
       }
     });
     document.addEventListener('click', (e) => {
       if (!panel.hidden && !nav.contains(e.target as Node)) setOpen(false);
+      if (!dropPanel.hidden && !drop.contains(e.target as Node)) setDrop(false);
     });
   }
 </script>
