@@ -245,6 +245,8 @@ const priceRows = [
     .panel .watermark { font-size: 7rem; }
   }
   .tab {
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     gap: 0.875rem;
@@ -259,6 +261,19 @@ const priceRows = [
   }
   .tab:hover { background: #fff; box-shadow: 0 12px 24px -18px rgb(11 31 51 / 0.45); }
   .tab[aria-selected='true'] { background: var(--color-navy); color: var(--color-paper); border-color: var(--color-navy); }
+  /* Cambio automático: una línea que se llena muestra cuánto falta para el siguiente nivel */
+  .tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 0;
+    background: var(--color-sky);
+  }
+  .levels.autoplay .tab[aria-selected='true']::after { animation: tab-progress var(--dwell, 6s) linear forwards; }
+  .levels.autoplay.paused .tab[aria-selected='true']::after { animation-play-state: paused; }
+  @keyframes tab-progress { to { width: 100%; } }
   .tab[aria-selected='true'] .tab-label { color: var(--color-sky); }
   .tab[aria-selected='true'] :global(.track) { stroke: rgb(159 179 198 / 0.22); }
   .tab[aria-selected='true'] :global(.arc) { stroke: var(--color-sky); }
@@ -310,6 +325,7 @@ const priceRows = [
     const wide = window.matchMedia('(min-width: 1024px)');
 
     const select = (i: number, focus = false) => {
+      current = i;
       tabs.forEach((t, n) => {
         const on = n === i;
         t.setAttribute('aria-selected', String(on));
@@ -324,20 +340,91 @@ const priceRows = [
     sync();
     wide.addEventListener('change', sync);
 
+    // Cambio automático de nivel en escritorio: avanza solo, se pausa con el cursor encima,
+    // al recibir el foco o fuera de pantalla, y no corre si el usuario prefiere menos movimiento
+    const DWELL = 6000;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    root.style.setProperty('--dwell', `${DWELL}ms`);
+    let current = 0;
+    let timer: number | undefined;
+    let visible = false;
+    let hovering = false;
+    let focused = false;
+
+    const canRun = () => wide.matches && !reduce.matches && visible && !hovering && !focused && !document.hidden;
+    const restartBar = () => {
+      // Reinicia la animación de la línea de progreso en la pestaña activa
+      root.classList.remove('autoplay');
+      void root.offsetWidth;
+      if (wide.matches && !reduce.matches) root.classList.add('autoplay');
+    };
+    const schedule = () => {
+      window.clearTimeout(timer);
+      timer = undefined;
+      root.classList.toggle('paused', !canRun());
+      if (!canRun()) return;
+      timer = window.setTimeout(() => {
+        remaining = DWELL;
+        select((current + 1) % tabs.length);
+        restartBar();
+        schedule();
+      }, remaining);
+      startedAt = Date.now();
+    };
+    let remaining = DWELL;
+    let startedAt = Date.now();
+    const pause = () => {
+      if (timer) remaining = Math.max(0, remaining - (Date.now() - startedAt));
+      window.clearTimeout(timer);
+      timer = undefined;
+      root.classList.add('paused');
+    };
+    const resume = () => {
+      if (canRun() && !timer) schedule();
+    };
+
+    root.addEventListener('mouseenter', () => { hovering = true; pause(); });
+    root.addEventListener('mouseleave', () => { hovering = false; resume(); });
+    root.addEventListener('focusin', () => { focused = true; pause(); });
+    root.addEventListener('focusout', (e) => {
+      if (root.contains(e.relatedTarget as Node)) return;
+      focused = false;
+      resume();
+    });
+    document.addEventListener('visibilitychange', () => (document.hidden ? pause() : resume()));
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      visible ? resume() : pause();
+    }, { threshold: 0.35 }).observe(root);
+    wide.addEventListener('change', () => {
+      restartBar();
+      wide.matches ? resume() : pause();
+    });
+
+    // Al elegir un nivel a mano, el conteo vuelve a empezar desde ese nivel
+    const choose = (i: number, focus = false) => {
+      select(i, focus);
+      remaining = DWELL;
+      restartBar();
+      pause();
+      resume();
+    };
+    restartBar();
+
     tabs.forEach((t, i) => {
-      t.addEventListener('click', () => select(i));
+      t.addEventListener('click', () => choose(i));
       t.addEventListener('keydown', (e) => {
         const dir = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
         if (!dir) return;
         e.preventDefault();
-        select((i + dir + tabs.length) % tabs.length, true);
+        choose((i + dir + tabs.length) % tabs.length, true);
       });
     });
 
     // Los enlaces a #nivel-N (p. ej. desde «Soluciones») abren ese nivel
     const openFromHash = () => {
       const m = location.hash.match(/^#nivel-(\d)$/);
-      if (m) select(Number(m[1]) - 1);
+      if (m) choose(Number(m[1]) - 1);
     };
     openFromHash();
     window.addEventListener('hashchange', openFromHash);
