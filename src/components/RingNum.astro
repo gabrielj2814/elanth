@@ -12,8 +12,10 @@ interface Props {
 const { value, progress, size = 48, dark = false, class: className } = Astro.props;
 const r = 20;
 const c = 2 * Math.PI * r;
+// Los valores largos (p. ej. «360») usan una letra más chica para quedar dentro del anillo
+const scale = String(value).length > 2 ? 0.27 : 0.36;
 ---
-<span class:list={['ring', { 'ring-dark': dark }, className]} style={`--s:${size}px`} aria-hidden="true">
+<span class:list={['ringnum', { 'ringnum-dark': dark }, className]} style={`--s:${size}px;--f:${scale}`} aria-hidden="true">
   <svg viewBox="0 0 48 48">
     <circle cx="24" cy="24" r={r} class="track" />
     <circle cx="24" cy="24" r={r} class="arc" stroke-dasharray={`${(c * progress).toFixed(2)} ${c.toFixed(2)}`} />
@@ -22,7 +24,8 @@ const c = 2 * Math.PI * r;
 </span>
 
 <style>
-  .ring {
+  /* «ringnum» y no «ring»: «ring» es una utilidad de Tailwind que dibuja un borde */
+  .ringnum {
     position: relative;
     display: inline-grid;
     place-items: center;
@@ -37,11 +40,11 @@ const c = 2 * Math.PI * r;
   .val {
     font-weight: 800;
     font-stretch: 112%;
-    font-size: calc(var(--s) * 0.36);
+    font-size: calc(var(--s) * var(--f));
     line-height: 1;
     color: var(--color-navy);
   }
-  .ring-dark .track { stroke: rgb(159 179 198 / 0.22); }
-  .ring-dark .arc { stroke: var(--color-sky); }
-  .ring-dark .val { color: var(--color-paper); }
+  .ringnum-dark .track { stroke: rgb(159 179 198 / 0.22); }
+  .ringnum-dark .arc { stroke: var(--color-sky); }
+  .ringnum-dark .val { color: var(--color-paper); }
 </style>
