@@ -29,7 +29,8 @@ export const mediaWhatsappMessage =
 export const legal = {
   /** Razón social tal como aparece en el registro */
   name: 'Elanth Technology Solutions',
-  /** Número de registro fiscal o mercantil (p. ej. RIF) */
+  /** Número de registro fiscal o mercantil (p. ej. RIF). Elanth aún no está constituida:
+   *  completar cuando la empresa se registre. Mientras esté vacío, no se muestra. */
   registry: '',
   /** Correo para avisos legales y solicitudes sobre datos personales */
   email: 'elanth.solution@gmail.com',

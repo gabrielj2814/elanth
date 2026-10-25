@@ -1,0 +1,136 @@
+---
+// Estructura común de las páginas legales: encabezado, índice lateral y texto.
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+import WhatsApp from './WhatsApp.astro';
+import { legal } from '../config';
+
+interface Props {
+  /** Título de la pestaña y de Google */
+  title: string;
+  description: string;
+  /** Titular en dos partes: la segunda va en celeste */
+  heading: [string, string];
+  intro: string;
+  sections: { id: string; title: string }[];
+  tocLabel: string;
+}
+const { title, description, heading, intro, sections, tocLabel } = Astro.props;
+---
+<Base title={title} description={description}>
+  <Nav />
+  <main id="contenido">
+    <header class="circuit-grid-dark bg-navy pt-28 pb-14 sm:pt-36 sm:pb-20">
+      <div class="mx-auto max-w-[90rem] px-4 sm:px-8 lg:px-12">
+        <h1 class="display text-[clamp(2.4rem,6.4vw,4.5rem)] text-paper">
+          {heading[0]} <span class="text-sky">{heading[1]}</span>
+        </h1>
+        <p class="mt-6 max-w-[40rem] text-lg leading-relaxed text-fog">{intro}</p>
+        <p class="mt-6 font-mono text-xs text-fog [font-stretch:85%]">Última actualización: {legal.updated}</p>
+      </div>
+    </header>
+
+    <div class="bg-paper text-ink">
+      <div class="mx-auto grid max-w-[90rem] gap-12 px-4 py-16 sm:px-8 sm:py-20 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <nav class="lg:col-span-4 xl:col-span-3" aria-label={tocLabel}>
+          <div class="toc lg:sticky lg:top-24">
+            <p class="tag-label">Contenido</p>
+            <ol class="mt-4 grid gap-1">
+              {sections.map((s, i) => (
+                <li>
+                  <a href={`#${s.id}`} class="toc-link">
+                    <span class="tabular font-mono text-xs text-muted [font-stretch:85%]">{String(i + 1).padStart(2, '0')}</span>
+                    <span>{s.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </nav>
+
+        <article class="legal lg:col-span-8 xl:col-span-7">
+          <slot />
+        </article>
+      </div>
+    </div>
+  </main>
+  <Footer />
+  <WhatsApp />
+</Base>
+
+<style>
+  /* El texto llega por <slot>: los estilos del contenido van con :global */
+  .toc-link {
+    display: grid;
+    grid-template-columns: 1.75rem 1fr;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0.625rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    transition: background-color 200ms, color 200ms;
+  }
+  .toc-link:hover { background: var(--color-ice); color: var(--color-navy); }
+  .toc-link.active { background: var(--color-navy); color: var(--color-paper); }
+  .toc-link.active span:first-child { color: var(--color-sky); }
+
+  .legal { max-width: 46rem; }
+  :global(.legal section) { scroll-margin-top: 5.5rem; padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgb(11 31 51 / 0.08); }
+  :global(.legal section:last-child) { border-bottom: 0; margin-bottom: 0; }
+  :global(.legal h2) {
+    display: flex;
+    align-items: baseline;
+    gap: 0.875rem;
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+    line-height: 1.15;
+    font-weight: 800;
+    font-stretch: 112%;
+    letter-spacing: -0.01em;
+    color: var(--color-navy);
+  }
+  :global(.legal h2 span) {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-blue-ink);
+  }
+  :global(.legal p),
+  :global(.legal li) { font-size: 1.0625rem; line-height: 1.75; color: rgb(31 42 51 / 0.88); }
+  :global(.legal p) { margin-top: 1rem; }
+  :global(.legal ul) { margin-top: 1rem; display: grid; gap: 0.625rem; padding-left: 1.25rem; list-style: none; }
+  :global(.legal li) { position: relative; }
+  :global(.legal li::before) {
+    content: '';
+    position: absolute;
+    left: -1.25rem;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 2px;
+    background: var(--color-blue-ink);
+  }
+  :global(.legal strong) { color: var(--color-navy); font-weight: 700; }
+  :global(.legal a) { color: var(--color-blue-ink); font-weight: 600; text-decoration: underline; text-decoration-color: rgb(23 105 143 / 0.35); }
+  :global(.legal a:hover) { text-decoration-color: currentColor; }
+</style>
+
+<script>
+  // Resalta en el índice la sección que se está leyendo
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc-link')];
+  const byId = new Map(links.map((a) => [a.getAttribute('href')!.slice(1), a]));
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((a) => a.classList.remove('active'));
+        byId.get(e.target.id)?.classList.add('active');
+      });
+    },
+    { rootMargin: '-30% 0px -60% 0px' },
+  );
+  document.querySelectorAll('.legal section[id]').forEach((s) => io.observe(s));
+</script>

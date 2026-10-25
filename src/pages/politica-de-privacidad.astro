@@ -1,0 +1,169 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { asset, legal, whatsappUrl } from '../config';
+
+// Política de privacidad: describe solo los datos que este sitio recoge de verdad.
+// Borrador redactado para Elanth: debe revisarlo un abogado antes de publicarse como definitivo.
+const sections = [
+  { id: 'responsable', title: 'Quién es responsable de tus datos' },
+  { id: 'datos', title: 'Qué datos recopilamos' },
+  { id: 'finalidad', title: 'Para qué usamos tus datos' },
+  { id: 'consentimiento', title: 'Tu consentimiento' },
+  { id: 'compartir', title: 'Con quién compartimos tus datos' },
+  { id: 'conservacion', title: 'Cuánto tiempo los conservamos' },
+  { id: 'cookies', title: 'Cookies y analítica' },
+  { id: 'seguridad', title: 'Cómo protegemos tus datos' },
+  { id: 'derechos', title: 'Tus derechos' },
+  { id: 'clientes', title: 'Datos de los clientes de tu negocio' },
+  { id: 'menores', title: 'Menores de edad' },
+  { id: 'cambios', title: 'Cambios en esta política' },
+  { id: 'contacto', title: 'Contacto' },
+];
+const n = (id: string) => String(sections.findIndex((s) => s.id === id) + 1).padStart(2, '0');
+---
+<LegalPage
+  title="Política de privacidad | Elanth Technology Solutions"
+  description="Cómo Elanth recopila, usa y protege los datos que compartes en este sitio, en el formulario de asesoría y por WhatsApp, y cómo ejercer tus derechos."
+  heading={['Política de', 'privacidad']}
+  intro="Qué datos recibimos cuando nos contactas, para qué los usamos y cómo puedes controlarlos."
+  sections={sections}
+  tocLabel="Contenido de la política de privacidad"
+>
+  <section id="responsable">
+    <h2><span>{n('responsable')}</span>Quién es responsable de tus datos</h2>
+    <p>
+      El responsable de los datos que recibimos a través de este sitio es {legal.name} («Elanth»). Puedes escribirnos
+      sobre cualquier tema de privacidad
+      {legal.email ? <>a <a href={`mailto:${legal.email}`}>{legal.email}</a>.</> : <>por los canales indicados al final.</>}
+    </p>
+    {legal.registry && <p>Registro: {legal.registry}.</p>}
+  </section>
+
+  <section id="datos">
+    <h2><span>{n('datos')}</span>Qué datos recopilamos</h2>
+    <p><strong>Cuando llenas el formulario de asesoría</strong> recibimos:</p>
+    <ul>
+      <li>Datos obligatorios: tu nombre y apellido, el nombre de tu negocio, tu WhatsApp o teléfono y tu correo electrónico.</li>
+      <li>
+        Datos opcionales, solo si decides compartirlos: el nicho de tu negocio, si ya vendes por internet, si usas un
+        sistema administrativo o ERP y cuál, y la descripción de lo que hace tu empresa.
+      </li>
+    </ul>
+    <p>
+      <strong>Cuando nos escribes por WhatsApp o por correo</strong> recibimos tu número o tu dirección y el contenido de
+      tus mensajes.
+    </p>
+    <p>
+      <strong>Cuando visitas el sitio</strong>, el servidor que lo aloja registra datos técnicos básicos, como la dirección
+      IP, el navegador y las páginas solicitadas, para mantenerlo funcionando y protegerlo frente a abusos. No usamos esos
+      datos para identificarte ni para hacer publicidad.
+    </p>
+  </section>
+
+  <section id="finalidad">
+    <h2><span>{n('finalidad')}</span>Para qué usamos tus datos</h2>
+    <ul>
+      <li>Responder tu solicitud y ponernos en contacto contigo.</li>
+      <li>Preparar tu asesoría y tu demo gratuita según tu negocio.</li>
+      <li>Enviarte propuestas y dar seguimiento comercial a la conversación que iniciaste.</li>
+      <li>Prestar los servicios que contrates y comunicarnos contigo durante el proyecto.</li>
+    </ul>
+    <p><strong>No vendemos ni alquilamos tus datos</strong>, y no los usamos para fines distintos a los descritos aquí.</p>
+  </section>
+
+  <section id="consentimiento">
+    <h2><span>{n('consentimiento')}</span>Tu consentimiento</h2>
+    <p>
+      Al enviar el formulario o escribirnos, nos autorizas a usar tus datos para los fines anteriores. Puedes retirar esa
+      autorización cuando quieras escribiéndonos; eso no afecta el uso que hayamos hecho antes de tu solicitud.
+    </p>
+  </section>
+
+  <section id="compartir">
+    <h2><span>{n('compartir')}</span>Con quién compartimos tus datos</h2>
+    <p>Solo compartimos tus datos con los proveedores que necesitamos para funcionar:</p>
+    <ul>
+      <li>El servicio que recibe los envíos del formulario de este sitio.</li>
+      <li>WhatsApp (Meta) y el proveedor de nuestro correo electrónico (Google), cuando nos contactas por esos medios.</li>
+      <li>El proveedor que aloja este sitio.</li>
+    </ul>
+    <p>
+      Cada proveedor trata los datos según sus propias políticas. También podemos entregar datos a una autoridad cuando una
+      ley u orden competente nos lo exija.
+    </p>
+  </section>
+
+  <section id="conservacion">
+    <h2><span>{n('conservacion')}</span>Cuánto tiempo los conservamos</h2>
+    <p>
+      Guardamos tus datos mientras sean necesarios para atender tu solicitud, dar seguimiento a la conversación y, si nos
+      contratas, prestar el servicio y cumplir nuestras obligaciones. Si nos pides eliminarlos, los borramos salvo que una
+      obligación legal nos exija conservarlos.
+    </p>
+  </section>
+
+  <section id="cookies">
+    <h2><span>{n('cookies')}</span>Cookies y analítica</h2>
+    <p>
+      Este sitio <strong>no usa cookies de seguimiento, píxeles publicitarios ni herramientas de analítica</strong>. Las
+      tipografías y los recursos del sitio se sirven desde nuestro propio servidor. Si en el futuro incorporamos alguna de
+      estas herramientas, actualizaremos esta política antes de hacerlo.
+    </p>
+  </section>
+
+  <section id="seguridad">
+    <h2><span>{n('seguridad')}</span>Cómo protegemos tus datos</h2>
+    <p>
+      El sitio se sirve con conexión cifrada (HTTPS) y el acceso a los datos que recibimos está limitado a las personas del
+      equipo que los necesitan para atenderte. Ningún sistema es completamente seguro, pero aplicamos medidas razonables para
+      proteger tu información.
+    </p>
+  </section>
+
+  <section id="derechos">
+    <h2><span>{n('derechos')}</span>Tus derechos</h2>
+    <p>En cualquier momento puedes pedirnos:</p>
+    <ul>
+      <li>Saber qué datos tuyos tenemos.</li>
+      <li>Corregirlos o actualizarlos.</li>
+      <li>Eliminarlos.</li>
+      <li>Dejar de recibir mensajes comerciales de nuestra parte.</li>
+    </ul>
+    <p>Escríbenos por los canales del final y te responderemos lo antes posible.</p>
+  </section>
+
+  <section id="clientes">
+    <h2><span>{n('clientes')}</span>Datos de los clientes de tu negocio</h2>
+    <p>
+      Cuando operamos tu tienda, tus integraciones o tus redes, podemos manejar datos de tus propios clientes, como pedidos,
+      contactos o mensajes. En ese caso los tratamos por cuenta tuya y solo para prestar el servicio, según lo acordado en la
+      propuesta o el contrato. Tu negocio sigue siendo el responsable de esos datos frente a sus clientes.
+    </p>
+  </section>
+
+  <section id="menores">
+    <h2><span>{n('menores')}</span>Menores de edad</h2>
+    <p>
+      Nuestros servicios están dirigidos a negocios y empresas. No buscamos recopilar datos de menores de edad; si detectamos
+      que recibimos datos de un menor, los eliminaremos.
+    </p>
+  </section>
+
+  <section id="cambios">
+    <h2><span>{n('cambios')}</span>Cambios en esta política</h2>
+    <p>
+      Podemos actualizar esta política para reflejar cambios en el sitio, en nuestros servicios o en la normativa. La versión
+      vigente es siempre la publicada en esta página, con su fecha de última actualización.
+    </p>
+  </section>
+
+  <section id="contacto">
+    <h2><span>{n('contacto')}</span>Contacto</h2>
+    <p>Para cualquier consulta o solicitud sobre tus datos:</p>
+    <ul>
+      {legal.email && <li>Correo: <a href={`mailto:${legal.email}`}>{legal.email}</a></li>}
+      {whatsappUrl && <li>WhatsApp: <a href={whatsappUrl} target="_blank" rel="noopener">escríbenos aquí</a></li>}
+    </ul>
+    <p>Consulta también nuestros <a href={asset('terminos-y-condiciones/')}>términos y condiciones</a>.</p>
+  </section>
+</LegalPage>
