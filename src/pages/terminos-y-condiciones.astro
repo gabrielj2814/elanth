@@ -1,0 +1,337 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import { asset, legal, whatsappUrl } from '../config';
+
+// Términos y condiciones de uso del sitio y condiciones generales de los servicios.
+// Borrador redactado para Elanth: debe revisarlo un abogado antes de publicarse como definitivo.
+const name = legal.name;
+
+const sections = [
+  { id: 'aceptacion', title: 'Aceptación de los términos' },
+  { id: 'quienes-somos', title: 'Quiénes somos' },
+  { id: 'uso-del-sitio', title: 'Uso del sitio web' },
+  { id: 'informacion', title: 'Información, demostraciones y precios' },
+  { id: 'formulario', title: 'Formulario de contacto y WhatsApp' },
+  { id: 'contratacion', title: 'Contratación de servicios' },
+  { id: 'cliente', title: 'Compromisos del cliente' },
+  { id: 'terceros', title: 'Plataformas y servicios de terceros' },
+  { id: 'propiedad', title: 'Propiedad intelectual' },
+  { id: 'resultados', title: 'Resultados' },
+  { id: 'responsabilidad', title: 'Limitación de responsabilidad' },
+  { id: 'enlaces', title: 'Enlaces a otros sitios' },
+  { id: 'cambios', title: 'Cambios en estos términos' },
+  { id: 'ley', title: 'Ley aplicable y resolución de diferencias' },
+  { id: 'contacto', title: 'Contacto' },
+];
+const n = (id: string) => String(sections.findIndex((s) => s.id === id) + 1).padStart(2, '0');
+---
+<Base
+  title="Términos y condiciones | Elanth Technology Solutions"
+  description="Términos y condiciones de uso del sitio web de Elanth y condiciones generales para la contratación de sus servicios de E-Commerce 360°, Elanth Code y Elanth Media."
+>
+  <Nav />
+  <main id="contenido">
+    <header class="circuit-grid-dark bg-navy pt-28 pb-14 sm:pt-36 sm:pb-20">
+      <div class="mx-auto max-w-[90rem] px-4 sm:px-8 lg:px-12">
+        <h1 class="display text-[clamp(2.4rem,6.4vw,4.5rem)] text-paper">
+          Términos y <span class="text-sky">condiciones</span>
+        </h1>
+        <p class="mt-6 max-w-[40rem] text-lg leading-relaxed text-fog">
+          Las reglas para usar este sitio y las condiciones generales con las que trabajamos con tu negocio.
+        </p>
+        <p class="mt-6 font-mono text-xs text-fog [font-stretch:85%]">Última actualización: {legal.updated}</p>
+      </div>
+    </header>
+
+    <div class="bg-paper text-ink">
+      <div class="mx-auto grid max-w-[90rem] gap-12 px-4 py-16 sm:px-8 sm:py-20 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <!-- Índice -->
+        <nav class="lg:col-span-4 xl:col-span-3" aria-label="Contenido de los términos">
+          <div class="toc lg:sticky lg:top-24">
+            <p class="tag-label">Contenido</p>
+            <ol class="mt-4 grid gap-1">
+              {sections.map((s, i) => (
+                <li>
+                  <a href={`#${s.id}`} class="toc-link">
+                    <span class="tabular font-mono text-xs text-muted [font-stretch:85%]">{String(i + 1).padStart(2, '0')}</span>
+                    <span>{s.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </nav>
+
+        <!-- Texto -->
+        <article class="legal lg:col-span-8 xl:col-span-7">
+          <section id="aceptacion">
+            <h2><span>{n('aceptacion')}</span>Aceptación de los términos</h2>
+            <p>
+              Estos términos regulan el uso de este sitio web y establecen las condiciones generales con las que {name}
+              (en adelante, «Elanth») presta sus servicios. Al navegar por el sitio, enviar el formulario de contacto o
+              escribirnos por WhatsApp, aceptas estos términos. Si no estás de acuerdo con ellos, te pedimos no usar el sitio.
+            </p>
+          </section>
+
+          <section id="quienes-somos">
+            <h2><span>{n('quienes-somos')}</span>Quiénes somos</h2>
+            <p>
+              Elanth es una agencia de soluciones tecnológicas B2B. A través de este sitio presentamos tres líneas de
+              servicio: <strong>E-Commerce 360°</strong> (tiendas online, automatización, sincronización de canales y
+              comercio B2B), <strong>Elanth Code</strong> (software, integraciones y aplicaciones a la medida) y
+              <strong>Elanth Media</strong> (gestión de redes sociales, producción audiovisual, estrategia y diseño).
+            </p>
+            {legal.registry && <p>Registro: {legal.registry}.</p>}
+          </section>
+
+          <section id="uso-del-sitio">
+            <h2><span>{n('uso-del-sitio')}</span>Uso del sitio web</h2>
+            <p>Te comprometes a usar el sitio de forma lícita y de buena fe. En particular, no está permitido:</p>
+            <ul>
+              <li>Intentar acceder sin autorización a sus sistemas, alterar su funcionamiento o afectar su seguridad.</li>
+              <li>Enviar información falsa, de terceros sin su consentimiento o con fines fraudulentos.</li>
+              <li>Usar el formulario o los canales de contacto para enviar publicidad no solicitada o contenido ofensivo.</li>
+              <li>Copiar, extraer de forma automatizada o reutilizar el contenido del sitio con fines comerciales sin permiso.</li>
+            </ul>
+          </section>
+
+          <section id="informacion">
+            <h2><span>{n('informacion')}</span>Información, demostraciones y precios</h2>
+            <p>
+              El contenido del sitio describe nuestros servicios de forma general y tiene carácter informativo. Los pedidos,
+              productos, cifras, conversaciones y fragmentos de código que aparecen en las animaciones e ilustraciones son
+              <strong>ejemplos de demostración</strong>: no corresponden a clientes ni a operaciones reales.
+            </p>
+            <p>
+              La información publicada no constituye una oferta vinculante. Los precios, alcances y plazos de cada servicio se
+              definen en una propuesta o cotización personalizada para tu negocio.
+            </p>
+          </section>
+
+          <section id="formulario">
+            <h2><span>{n('formulario')}</span>Formulario de contacto y WhatsApp</h2>
+            <p>
+              Cuando nos escribes por el formulario o por WhatsApp, recibimos los datos que decides compartir: tu nombre, el
+              nombre de tu negocio, tu teléfono, tu correo y, si los llenas, los datos opcionales sobre tu negocio.
+            </p>
+            <ul>
+              <li>Usamos esos datos para responder tu solicitud, preparar tu asesoría y demo, y darle seguimiento comercial.</li>
+              <li>Eres responsable de que la información que nos envías sea veraz y de que tengas derecho a compartirla.</li>
+              <li>
+                Puedes pedirnos en cualquier momento que actualicemos o eliminemos tus datos escribiéndonos por los canales de
+                contacto indicados al final.
+              </li>
+              <li>
+                Las conversaciones por WhatsApp también se rigen por las condiciones y la política de privacidad de WhatsApp.
+              </li>
+            </ul>
+            <p>La asesoría y la demo gratuitas no te obligan a contratar ningún servicio.</p>
+          </section>
+
+          <section id="contratacion">
+            <h2><span>{n('contratacion')}</span>Contratación de servicios</h2>
+            <p>
+              Los servicios se contratan mediante una propuesta o cotización aceptada por ambas partes y, cuando corresponda, un
+              contrato específico. Ese documento define el alcance, los entregables, los plazos, el precio y la forma de pago,
+              y <strong>prevalece sobre estos términos</strong> en todo lo que regule de forma distinta.
+            </p>
+            <ul>
+              <li>
+                Los servicios de E-Commerce 360° se ofrecen por niveles: cada nivel se contrata por separado y puede ampliarse
+                después.
+              </li>
+              <li>
+                Los planes mensuales, como los de Elanth Media, se prestan por el período acordado en la propuesta.
+              </li>
+              <li>
+                Los costos de terceros no están incluidos salvo que la propuesta diga lo contrario: inversión publicitaria,
+                comisiones de marketplaces y pasarelas de pago, dominios, alojamiento, licencias y suscripciones a plataformas.
+              </li>
+              <li>Los cambios de alcance solicitados después de aprobada la propuesta pueden requerir una cotización adicional.</li>
+            </ul>
+          </section>
+
+          <section id="cliente">
+            <h2><span>{n('cliente')}</span>Compromisos del cliente</h2>
+            <p>Para que podamos prestar el servicio, el cliente se compromete a:</p>
+            <ul>
+              <li>Entregar a tiempo la información, los accesos y los materiales que acordemos.</li>
+              <li>Contar con los derechos sobre las marcas, imágenes, textos y demás materiales que nos entregue.</li>
+              <li>Revisar y aprobar los entregables en los plazos acordados.</li>
+              <li>
+                Cumplir las normas aplicables a sus productos, precios, promociones y ventas, así como las políticas de las
+                plataformas donde vende o se anuncia.
+              </li>
+            </ul>
+          </section>
+
+          <section id="terceros">
+            <h2><span>{n('terceros')}</span>Plataformas y servicios de terceros</h2>
+            <p>
+              Nuestros servicios pueden integrarse con plataformas de terceros, como Mercado Libre, Amazon, eBay, Facebook,
+              Instagram, WhatsApp, Google, pasarelas de pago o el sistema administrativo (ERP) del cliente. Cada plataforma se
+              rige por sus propias condiciones. Elanth no controla sus cambios de políticas, precios, funciones, aprobaciones de
+              anuncios ni suspensiones de cuentas, y no responde por ellos.
+            </p>
+          </section>
+
+          <section id="propiedad">
+            <h2><span>{n('propiedad')}</span>Propiedad intelectual</h2>
+            <p>
+              La marca Elanth, sus logotipos, el diseño de este sitio, sus textos, ilustraciones y código pertenecen a Elanth o
+              se usan con autorización, y no pueden reproducirse sin permiso por escrito.
+            </p>
+            <p>
+              La titularidad y las licencias de uso sobre los entregables de cada proyecto (tiendas, software, diseños, piezas
+              audiovisuales y otros) se definen en la propuesta o el contrato correspondiente. Los materiales que el cliente nos
+              entrega siguen siendo suyos.
+            </p>
+          </section>
+
+          <section id="resultados">
+            <h2><span>{n('resultados')}</span>Resultados</h2>
+            <p>
+              Trabajamos para que tu negocio venda más y opere mejor, pero los resultados comerciales dependen también de
+              factores que no controlamos: el mercado, la competencia, tus productos y precios, el presupuesto publicitario y el
+              funcionamiento de las plataformas de terceros. Por eso no garantizamos niveles específicos de ventas, tráfico,
+              alcance, seguidores ni posicionamiento en buscadores o asistentes de inteligencia artificial.
+            </p>
+          </section>
+
+          <section id="responsabilidad">
+            <h2><span>{n('responsabilidad')}</span>Limitación de responsabilidad</h2>
+            <p>
+              Procuramos que el sitio esté disponible y que su información sea correcta, pero no garantizamos que funcione sin
+              interrupciones ni errores. En la medida permitida por la ley, Elanth no responde por daños indirectos, lucro
+              cesante o pérdidas derivadas del uso del sitio o de la imposibilidad de usarlo. La responsabilidad de Elanth por
+              cada servicio contratado se rige por lo establecido en su propuesta o contrato.
+            </p>
+          </section>
+
+          <section id="enlaces">
+            <h2><span>{n('enlaces')}</span>Enlaces a otros sitios</h2>
+            <p>
+              El sitio puede incluir enlaces a sitios o aplicaciones de terceros, como WhatsApp. No somos responsables de su
+              contenido ni de sus prácticas de privacidad.
+            </p>
+          </section>
+
+          <section id="cambios">
+            <h2><span>{n('cambios')}</span>Cambios en estos términos</h2>
+            <p>
+              Podemos actualizar estos términos para reflejar cambios en nuestros servicios o en la normativa. La versión
+              vigente es siempre la publicada en esta página, con su fecha de última actualización. Los cambios no afectan las
+              propuestas o contratos ya aceptados.
+            </p>
+          </section>
+
+          <section id="ley">
+            <h2><span>{n('ley')}</span>Ley aplicable y resolución de diferencias</h2>
+            {/* UBICACIÓN OCULTA: cláusula con país. Para mostrarla, reemplaza el párrafo de abajo por este:
+            <p>
+              Estos términos se rigen por las leyes de la República Bolivariana de Venezuela. Las partes procurarán resolver
+              cualquier diferencia de forma amistosa; si no fuera posible, se someterán a los tribunales competentes de la
+              República Bolivariana de Venezuela, salvo que la propuesta o el contrato establezcan otra cosa.
+            </p>
+            */}
+            <p>
+              Estos términos se rigen por la legislación aplicable en el domicilio de Elanth. Las partes procurarán resolver
+              cualquier diferencia de forma amistosa; si no fuera posible, se someterán a los tribunales competentes de ese
+              domicilio, salvo que la propuesta o el contrato establezcan otra cosa.
+            </p>
+          </section>
+
+          <section id="contacto">
+            <h2><span>{n('contacto')}</span>Contacto</h2>
+            <p>Si tienes preguntas sobre estos términos o sobre tus datos, escríbenos:</p>
+            <ul>
+              {legal.email && <li>Correo: <a href={`mailto:${legal.email}`}>{legal.email}</a></li>}
+              {whatsappUrl && <li>WhatsApp: <a href={whatsappUrl} target="_blank" rel="noopener">escríbenos aquí</a></li>}
+              <li>Formulario: <a href={asset('#asesoria')}>formulario de asesoría</a></li>
+            </ul>
+          </section>
+        </article>
+      </div>
+    </div>
+  </main>
+  <Footer />
+  <WhatsApp />
+</Base>
+
+<style>
+  .toc-link {
+    display: grid;
+    grid-template-columns: 1.75rem 1fr;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0.625rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    transition: background-color 200ms, color 200ms;
+  }
+  .toc-link:hover { background: var(--color-ice); color: var(--color-navy); }
+  .toc-link.active { background: var(--color-navy); color: var(--color-paper); }
+  .toc-link.active span:first-child { color: var(--color-sky); }
+
+  .legal { max-width: 46rem; }
+  .legal section { scroll-margin-top: 5.5rem; padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid rgb(11 31 51 / 0.08); }
+  .legal section:last-child { border-bottom: 0; margin-bottom: 0; }
+  .legal h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.875rem;
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+    line-height: 1.15;
+    font-weight: 800;
+    font-stretch: 112%;
+    letter-spacing: -0.01em;
+    color: var(--color-navy);
+  }
+  .legal h2 span {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-stretch: 82%;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-blue-ink);
+  }
+  .legal p,
+  .legal li { font-size: 1.0625rem; line-height: 1.75; color: rgb(31 42 51 / 0.88); }
+  .legal p { margin-top: 1rem; }
+  .legal ul { margin-top: 1rem; display: grid; gap: 0.625rem; padding-left: 1.25rem; list-style: none; }
+  .legal li { position: relative; }
+  .legal li::before {
+    content: '';
+    position: absolute;
+    left: -1.25rem;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 2px;
+    background: var(--color-blue-ink);
+  }
+  .legal strong { color: var(--color-navy); font-weight: 700; }
+  .legal a { color: var(--color-blue-ink); font-weight: 600; text-decoration: underline; text-decoration-color: rgb(23 105 143 / 0.35); }
+  .legal a:hover { text-decoration-color: currentColor; }
+</style>
+
+<script>
+  // Resalta en el índice la sección que se está leyendo
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc-link')];
+  const byId = new Map(links.map((a) => [a.getAttribute('href')!.slice(1), a]));
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((a) => a.classList.remove('active'));
+        byId.get(e.target.id)?.classList.add('active');
+      });
+    },
+    { rootMargin: '-30% 0px -60% 0px' },
+  );
+  document.querySelectorAll('.legal section[id]').forEach((s) => io.observe(s));
+</script>

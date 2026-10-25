@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import RingNum from './RingNum.astro';
-import { contact, whatsappUrl } from '../config';
+import { asset, contact, whatsappUrl } from '../config';
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
 const whatsappHref = whatsappUrl;
@@ -172,6 +172,9 @@ const niches = [
                 <Icon name="arrow" class="size-5" />
               </button>
               <p class="mt-4 text-center text-sm text-fog">Te contactaremos por WhatsApp o por correo.</p>
+              <p class="mt-2 text-center text-xs text-fog">
+                Al enviar aceptas los <a href={asset('terminos-y-condiciones/')} class="font-semibold text-sky underline underline-offset-4">términos y condiciones</a>.
+              </p>
               {(whatsappHref || emailHref) && (
                 <p class="mt-2 text-center text-sm text-fog">
                   ¿Prefieres escribirnos directo?

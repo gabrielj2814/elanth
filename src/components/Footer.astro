@@ -22,7 +22,10 @@ const year = new Date().getFullYear();
           <li><a href={asset('#asesoria')} class="text-teal hover:text-teal-bright">Asesoría gratuita</a></li>
         </ul>
       </nav>
-      <p class="tabular">© {year} Elanth Technology Solutions</p>
+      <p class="tabular flex flex-wrap gap-x-4 gap-y-1 md:justify-end">
+        <span>© {year} Elanth Technology Solutions</span>
+        <a href={asset('terminos-y-condiciones/')} class="underline decoration-fog/40 underline-offset-4 hover:text-paper">Términos y condiciones</a>
+      </p>
     </div>
   </div>
 </footer>
