@@ -1,0 +1,304 @@
+---
+// Implementación de Odoo (ERP y CRM) con módulos personalizados a medida.
+// Tono: Elanth conoce Odoo a fondo y lo implementa; no se presenta como experto ni socio oficial.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import RingNum from '../components/RingNum.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import { asset, whatsappLink } from '../config';
+
+const message = 'Hola, me interesa implementar Odoo en mi empresa. Me gustaría recibir una asesoría.';
+
+// Aplicaciones estándar de Odoo que suelen usar las empresas (nombres genéricos, sin logos de Odoo)
+const apps = [
+  { icon: 'tag', name: 'Ventas' },
+  { icon: 'team', name: 'CRM' },
+  { icon: 'box', name: 'Inventario' },
+  { icon: 'bag', name: 'Compras' },
+  { icon: 'chart', name: 'Facturación' },
+  { icon: 'store', name: 'Tienda online' },
+  { icon: 'printer', name: 'Punto de venta' },
+  { icon: 'calendar', name: 'Proyectos' },
+] as const;
+
+const erp = [
+  'Ventas, cotizaciones y pedidos',
+  'Inventario y almacenes',
+  'Compras y proveedores',
+  'Facturación y cuentas por cobrar',
+];
+const crm = [
+  'Registro de clientes y contactos',
+  'Oportunidades de venta en un tablero por etapas',
+  'Seguimiento de llamadas, correos y reuniones',
+  'Cotizaciones enviadas desde la misma oportunidad',
+];
+
+const custom = [
+  'Campos y pantallas con la información que tu empresa necesita',
+  'Flujos de aprobación según cómo se toman las decisiones en tu equipo',
+  'Reportes con los números que realmente revisas',
+  'Integraciones con tu tienda online, marketplaces u otros sistemas',
+];
+
+const steps = [
+  { title: 'Diagnóstico de tus procesos', body: 'Entendemos cómo vendes, compras, facturas y atiendes a tus clientes hoy.' },
+  { title: 'Configuración de Odoo', body: 'Activamos y ajustamos los módulos que tu empresa necesita, nada más.' },
+  { title: 'Módulos personalizados a medida', body: 'Si algún proceso no encaja con lo estándar, desarrollamos el módulo que lo resuelve.' },
+  { title: 'Tus datos y tu equipo', body: 'Cargamos tu información y capacitamos a las personas que van a usar el sistema.' },
+  { title: 'Acompañamiento', body: 'Seguimos contigo después del arranque para ajustar lo que haga falta.' },
+];
+
+const home = new URL(asset(''), Astro.site).href;
+const url = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site).href;
+const schema = [
+  {
+    '@type': 'Service',
+    name: 'Implementación de Odoo',
+    serviceType: 'Implementación de ERP y CRM Odoo con módulos personalizados',
+    description:
+      'Implementación de Odoo como ERP y CRM para empresas, con configuración de módulos estándar y desarrollo de módulos personalizados a medida.',
+    url,
+    provider: { '@id': `${home}#organizacion` },
+    areaServed: { '@type': 'Country', name: 'Venezuela' },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: home },
+      { '@type': 'ListItem', position: 2, name: 'Implementación de Odoo', item: url },
+    ],
+  },
+];
+---
+<Base
+  title="Implementación de Odoo ERP y CRM | Elanth"
+  description="Implementamos Odoo en tu empresa: ERP y CRM en un solo sistema, con módulos personalizados a medida para que Odoo se adapte a tu negocio. Asesoría gratis."
+  schema={schema}
+>
+  <Nav />
+  <main id="contenido">
+    <!-- Encabezado -->
+    <section class="circuit-grid-dark relative overflow-hidden bg-navy pt-28 pb-20 sm:pt-36 lg:pb-24">
+      <div class="mx-auto grid max-w-[90rem] items-center gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <div class="min-w-0 lg:col-span-7">
+          <nav aria-label="Ruta de navegación">
+            <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-fog">
+              <li><a href={asset('')} class="hover:text-paper">Inicio</a></li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" class="text-paper">Implementación de Odoo</li>
+            </ol>
+          </nav>
+          <h1 class="display mt-8 text-[clamp(2.3rem,6vw,4.5rem)] text-paper">
+            Implementación de Odoo: <span class="text-sky">un sistema que se adapta a tu empresa.</span>
+          </h1>
+          <p class="mt-7 max-w-[38rem] text-lg leading-relaxed text-fog sm:text-xl">
+            Conocemos Odoo a fondo y lo implementamos para que gestiones tu negocio desde un solo lugar: ventas, inventario,
+            compras, facturación y la relación con tus clientes. Si algo no encaja con tu forma de trabajar, desarrollamos
+            módulos personalizados a tu medida.
+          </p>
+          <div class="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-7">
+            <a href={asset('#asesoria')} class="btn-lit w-full text-base sm:w-auto sm:text-lg">
+              Obtener asesoría gratuita
+              <Icon name="arrow" class="size-5" />
+            </a>
+            <a href={whatsappLink(message)} target="_blank" rel="noopener" class="link-quiet text-paper">Escribir por WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- Módulos de Odoo y el módulo a tu medida -->
+        <div class="min-w-0 lg:col-span-5">
+          <div class="apps" aria-hidden="true">
+            <div class="apps-bar"><span></span><span></span><span></span><i>Tu empresa en Odoo</i></div>
+            <div class="apps-grid">
+              {apps.map((a) => (
+                <div class="app">
+                  <span class="app-icon"><Icon name={a.icon} class="size-5" /></span>
+                  <span class="app-name">{a.name}</span>
+                </div>
+              ))}
+              <div class="app app-custom">
+                <span class="app-icon"><Icon name="spark" class="size-5" /></span>
+                <span class="app-name">A tu medida</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERP y CRM -->
+    <section class="mesh-soft text-ink">
+      <div class="mx-auto max-w-[90rem] px-4 py-20 sm:px-8 sm:py-24 lg:px-12">
+        <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(2rem,5vw,3.75rem)] text-navy lg:col-span-7">ERP y CRM en un mismo sistema</h2>
+          <p class="max-w-[36rem] text-lg leading-relaxed text-muted lg:col-span-5 lg:pb-1">
+            Odoo es un software de gestión empresarial que reúne en un solo lugar la operación de tu empresa y la relación con
+            tus clientes, así la información no se repite ni se pierde entre sistemas.
+          </p>
+        </div>
+        <div class="mt-12 grid gap-5 lg:grid-cols-2">
+          <article class="card-soft p-6 sm:p-8">
+            <span class="watermark" aria-hidden="true">ERP</span>
+            <span class="hex"><Icon name="layers" class="size-5" /></span>
+            <h3 class="mt-5 text-[1.5rem] leading-tight font-[800] text-navy [font-stretch:112%]">ERP: la operación de tu empresa</h3>
+            <p class="mt-3 text-ink/85">Todo lo que pasa dentro de tu negocio, conectado.</p>
+            <ul class="mt-5 grid gap-3">
+              {erp.map((i) => (
+                <li class="flex items-start gap-3"><Icon name="check" class="mt-0.5 size-5 shrink-0 text-blue-ink" /><span class="text-[1.0625rem] text-ink">{i}</span></li>
+              ))}
+            </ul>
+          </article>
+          <article class="card-soft p-6 sm:p-8">
+            <span class="watermark" aria-hidden="true">CRM</span>
+            <span class="hex"><Icon name="team" class="size-5" /></span>
+            <h3 class="mt-5 text-[1.5rem] leading-tight font-[800] text-navy [font-stretch:112%]">CRM: la relación con tus clientes</h3>
+            <p class="mt-3 text-ink/85">Cada cliente y cada oportunidad de venta, con su historial.</p>
+            <ul class="mt-5 grid gap-3">
+              {crm.map((i) => (
+                <li class="flex items-start gap-3"><Icon name="check" class="mt-0.5 size-5 shrink-0 text-blue-ink" /><span class="text-[1.0625rem] text-ink">{i}</span></li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Odoo se adapta a tu empresa -->
+    <section class="circuit-grid-dark bg-navy">
+      <div class="mx-auto grid max-w-[90rem] gap-12 px-4 py-20 sm:px-8 sm:py-24 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <div class="lg:col-span-5">
+          <h2 class="display text-[clamp(2rem,5vw,3.75rem)] text-paper">
+            Odoo se adapta a tu empresa, <span class="text-sky">no al revés.</span>
+          </h2>
+          <p class="mt-6 max-w-[34rem] text-lg leading-relaxed text-fog">
+            Muchos sistemas obligan a la empresa a cambiar su forma de trabajar. Con Odoo partimos de sus módulos estándar y,
+            donde no se ajustan del todo a tu negocio, desarrollamos módulos personalizados a medida.
+          </p>
+        </div>
+        <div class="lg:col-span-7">
+          <div class="custom">
+            <p class="tag-label text-sky!">Módulos personalizados a medida</p>
+            <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+              {custom.map((c) => (
+                <li class="custom-item">
+                  <Icon name="check" class="mt-0.5 size-5 shrink-0 text-teal" />
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo lo implementamos -->
+    <section class="mesh-soft text-ink">
+      <div class="mx-auto max-w-[90rem] px-4 py-20 sm:px-8 sm:py-24 lg:px-12">
+        <h2 class="display text-[clamp(2rem,5vw,3.75rem)] text-navy">Cómo lo implementamos</h2>
+        <ol class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          {steps.map((s, i) => (
+            <li class="card-soft flex flex-col p-6">
+              <RingNum value={i + 1} progress={(i + 1) / steps.length} size={44} />
+              <h3 class="mt-5 text-[1.1875rem] leading-tight font-[800] text-navy [font-stretch:110%]">{s.title}</h3>
+              <p class="mt-2 text-[0.9875rem] leading-relaxed text-ink/85">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <a href={asset('servicios/integracion-erp-marketplaces/')} class="link-card card-soft mt-8">
+          <span class="hex"><Icon name="sync" class="size-5" /></span>
+          <span class="min-w-0">
+            <span class="block text-[1.125rem] font-[800] text-navy [font-stretch:110%]">Conecta Odoo con tu tienda online y tus marketplaces</span>
+            <span class="mt-1 block text-ink/80">Odoo puede ser el ERP que integramos con tu tienda, Mercado Libre, Amazon y más, con un inventario central.</span>
+          </span>
+          <Icon name="arrow" class="size-5 shrink-0 text-blue-ink" />
+        </a>
+      </div>
+    </section>
+
+    <!-- Cierre -->
+    <section class="bg-navy">
+      <div class="mx-auto flex max-w-[90rem] flex-col items-start gap-8 px-4 py-20 sm:px-8 sm:py-24 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+        <div>
+          <h2 class="display max-w-[42rem] text-[clamp(1.9rem,4.4vw,3.25rem)] text-paper">
+            ¿Odoo es para tu empresa? <span class="text-sky">Lo vemos juntos.</span>
+          </h2>
+          <p class="mt-4 max-w-[36rem] text-lg text-fog">En la asesoría gratuita revisamos tus procesos y te decimos qué módulos necesitas y qué habría que hacer a la medida.</p>
+        </div>
+        <a href={asset('#asesoria')} class="btn-lit w-full shrink-0 text-base sm:w-auto sm:text-lg">
+          Obtener asesoría gratuita
+          <Icon name="arrow" class="size-5" />
+        </a>
+      </div>
+      <p class="mx-auto max-w-[90rem] px-4 pb-10 text-xs text-fog/80 sm:px-8 lg:px-12">Odoo es una marca registrada de Odoo S.A.</p>
+    </section>
+  </main>
+  <Footer />
+  <WhatsApp message={message} />
+</Base>
+
+<style>
+  .apps {
+    max-width: 30rem;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--color-paper);
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+  .apps-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgb(11 31 51 / 0.08);
+  }
+  .apps-bar span { width: 8px; height: 8px; border-radius: 50%; background: rgb(11 31 51 / 0.18); }
+  .apps-bar i { margin-left: 0.5rem; font-style: normal; font-size: 0.8125rem; font-weight: 600; color: var(--color-muted); }
+  .apps-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.625rem; padding: 1rem; }
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 0.5rem;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid rgb(11 31 51 / 0.07);
+  }
+  .app-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 10px; background: var(--color-navy); color: var(--color-sky); }
+  .app-name { min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.8125rem; font-weight: 600; color: var(--color-navy); }
+  .app-custom { border: 1.5px dashed var(--color-teal-ink); background: rgb(25 195 177 / 0.08); }
+  .app-custom .app-icon { background: var(--color-teal); color: var(--color-navy); }
+
+  .custom {
+    padding: 1.75rem 1.5rem;
+    border-radius: 18px;
+    border: 1px solid rgb(107 187 224 / 0.18);
+    background: rgb(7 20 31 / 0.45);
+  }
+  .custom-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.04);
+    color: var(--color-paper);
+    line-height: 1.5;
+  }
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    transition: transform 250ms var(--ease-out-quart);
+  }
+  .link-card:hover { transform: translateY(-2px); }
+  @media (min-width: 640px) {
+    .custom { padding: 2.25rem; }
+  }
+</style>

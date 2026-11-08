@@ -9,6 +9,7 @@ const services = [
   { href: asset('#servicios'), label: 'E-Commerce 360°', note: 'Tiendas online y canales de venta', mark: 'brand/elanth-mark.svg' },
   { href: asset('elanth-code/'), label: 'Elanth Code', note: 'Software, integraciones y apps', mark: 'brand/elanth-code-mark.svg' },
   { href: asset('elanth-media/'), label: 'Elanth Media', note: 'Redes sociales y contenido', mark: 'brand/elanth-media-mark.svg' },
+  { href: asset('implementacion-odoo/'), label: 'Implementación de Odoo', note: 'ERP y CRM a la medida de tu empresa', icon: 'database' },
 ];
 const links = [
   { href: asset('#soluciones'), label: 'Soluciones' },
@@ -57,7 +58,11 @@ const links = [
             {services.slice(1).map((s) => (
               <li>
                 <a href={s.href} class="drop-item">
-                  <img src={asset(s.mark)} alt="" width="1940" height="1110" loading="lazy" decoding="async" />
+                  {s.mark ? (
+                    <img src={asset(s.mark)} alt="" width="1940" height="1110" loading="lazy" decoding="async" />
+                  ) : (
+                    <span class="drop-icon"><Icon name={s.icon as any} class="size-5" /></span>
+                  )}
                   <span>
                     <span class="block text-[0.9375rem] font-bold text-navy [font-stretch:106%]">{s.label}</span>
                     <span class="mt-0.5 block text-[0.8125rem] font-normal text-muted">{s.note}</span>
@@ -106,7 +111,11 @@ const links = [
         {services.map((s, i) => (
           <li>
             <a href={s.href} class="flex min-h-12 items-center gap-3 text-base font-semibold text-paper">
-              <img src={asset(s.mark.replace('.svg', '-light.svg'))} alt="" width="1940" height="1110" loading="lazy" decoding="async" class="w-9 shrink-0" />
+              {s.mark ? (
+                <img src={asset(s.mark.replace('.svg', '-light.svg'))} alt="" width="1940" height="1110" loading="lazy" decoding="async" class="w-9 shrink-0" />
+              ) : (
+                <span class="grid w-9 shrink-0 place-items-center text-sky"><Icon name={s.icon as any} class="size-5" /></span>
+              )}
               {s.label}
             </a>
             {i === 0 && (
@@ -184,6 +193,14 @@ const links = [
   .drop-item:focus-visible { background: var(--color-ice); }
   .drop-item img { width: 2.75rem; height: auto; flex-shrink: 0; }
   .drop-col { display: grid; align-content: start; gap: 0.125rem; }
+  .drop-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 1.75rem;
+    color: var(--color-blue-ink);
+  }
   .drop-col + .drop-col { padding-left: 0.5rem; border-left: 1px solid rgb(11 31 51 / 0.08); }
   .drop-levels { display: grid; gap: 0.125rem; margin: 0 0 0.25rem 1.625rem; padding-left: 0.875rem; border-left: 1px solid rgb(11 31 51 / 0.1); }
   .drop-level {

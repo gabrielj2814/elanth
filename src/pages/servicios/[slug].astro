@@ -114,6 +114,21 @@ const schema = [
       </div>
     </section>
 
+    {level.slug === 'integracion-erp-marketplaces' && (
+      <section class="mesh-soft text-ink">
+        <div class="mx-auto max-w-[90rem] px-4 pb-4 sm:px-8 lg:px-12">
+          <a href={asset('implementacion-odoo/')} class="odoo-card card-soft">
+            <span class="hex"><Icon name="database" class="size-5" /></span>
+            <span class="min-w-0">
+              <span class="block text-[1.125rem] font-[800] text-navy [font-stretch:110%]">¿Aún no tienes un ERP? Implementamos Odoo</span>
+              <span class="mt-1 block text-ink/80">ERP y CRM en un solo sistema, con módulos personalizados a la medida de tu empresa.</span>
+            </span>
+            <Icon name="arrow" class="size-5 shrink-0 text-blue-ink" />
+          </a>
+        </div>
+      </section>
+    )}
+
     <!-- Los cuatro niveles -->
     <section class="mesh-soft border-t border-ink/5 text-ink">
       <div class="mx-auto max-w-[90rem] px-4 py-20 sm:px-8 sm:py-24 lg:px-12">
@@ -190,5 +205,7 @@ const schema = [
     transition: transform 250ms var(--ease-out-quart), box-shadow 250ms;
   }
   .step-link:hover { transform: translateY(-2px); }
+  .odoo-card { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem; transition: transform 250ms var(--ease-out-quart); }
+  .odoo-card:hover { transform: translateY(-2px); }
   .step-link.current { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-paper); }
 </style>

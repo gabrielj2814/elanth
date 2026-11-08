@@ -95,10 +95,18 @@ const support = [
                   <Icon name="arrow" class="mt-[0.2em] size-4 shrink-0" />
                   {l.result}
                 </p>
-                <a href={asset(`servicios/${l.slug}/`)} class="level-more mt-5">
-                  Ver más sobre este nivel
-                  <Icon name="arrow" class="size-4" />
-                </a>
+                <span class="mt-5 flex flex-wrap gap-x-6 gap-y-1">
+                  <a href={asset(`servicios/${l.slug}/`)} class="level-more">
+                    Ver más sobre este nivel
+                    <Icon name="arrow" class="size-4" />
+                  </a>
+                  {l.slug === 'integracion-erp-marketplaces' && (
+                    <a href={asset('implementacion-odoo/')} class="level-more">
+                      ¿Sin ERP? Implementamos Odoo
+                      <Icon name="arrow" class="size-4" />
+                    </a>
+                  )}
+                </span>
 
                 {/* Ilustración del nivel */}
                 <LevelIllustration level={l.level} class="mt-7" />

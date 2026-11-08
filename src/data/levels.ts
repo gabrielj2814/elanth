@@ -61,6 +61,7 @@ export const levels = [
         'Un inventario central que se actualiza en todos tus canales a la vez.',
         'Venta simultánea en Mercado Libre, Amazon, eBay, Facebook Marketplace y más.',
         'Un único panel de control para todos tus canales, sin cargar nada dos veces.',
+        '¿Aún no tienes un ERP? Implementamos Odoo como el sistema de gestión de tu empresa.',
       ],
       forWho:
         'Para negocios que ya usan un sistema administrativo y quieren vender en varios canales sin descuadrar su inventario.',
