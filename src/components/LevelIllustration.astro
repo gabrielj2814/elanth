@@ -55,7 +55,7 @@ const priceRows = [
           <span class="tabular block text-xl font-bold text-paper">142</span>
         </span>
       </div>
-      <div class="grid flex-1 grid-cols-2 gap-2">
+      <div class="chans">
         {channels.map((c) => (
           <div class="chan">
             <span class="text-[0.75rem] text-muted">{c}</span>
@@ -77,7 +77,7 @@ const priceRows = [
 
 <style>
   /* Ilustraciones */
-  .illus { position: relative; max-width: 30rem; }
+  .illus { position: relative; max-width: 30rem; container-type: inline-size; }
   .win { overflow: hidden; border-radius: 12px; border: 1px solid rgb(11 31 51 / 0.1); background: #f7fafc; }
   .win-bar { display: flex; align-items: center; gap: 5px; padding: 0.5rem 0.75rem; border-bottom: 1px solid rgb(11 31 51 / 0.08); }
   .win-bar span { width: 7px; height: 7px; border-radius: 50%; background: rgb(11 31 51 / 0.18); }
@@ -104,9 +104,15 @@ const priceRows = [
   .bubble.in { justify-self: start; background: #fff; color: var(--color-ink); border-bottom-left-radius: 4px; }
   .bubble.out { justify-self: end; background: var(--color-navy); color: var(--color-paper); border-bottom-right-radius: 4px; }
   .bubble.short { max-width: 60%; }
-  .sync { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; background: var(--color-ice); }
+  /* Angosto: el inventario arriba a todo el ancho y los canales debajo; con espacio, lado a lado */
+  .sync { display: grid; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; background: var(--color-ice); }
   .hub-box { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border-radius: 10px; background: var(--color-navy); }
-  .chan { display: flex; flex-direction: column; gap: 0.125rem; padding: 0.5rem 0.75rem; border-radius: 9px; background: #fff; }
+  .chans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+  .chan { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; padding: 0.5rem 0.75rem; border-radius: 9px; background: #fff; }
+  .chan > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  @container (min-width: 26rem) {
+    .sync { grid-template-columns: auto 1fr; align-items: stretch; }
+  }
   .prices { overflow: hidden; border-radius: 12px; border: 1px solid rgb(11 31 51 / 0.1); background: #fff; font-size: 0.875rem; }
   .prices .row { display: grid; grid-template-columns: 1.4fr 1fr 0.7fr; gap: 0.75rem; padding: 0.625rem 1rem; border-top: 1px solid rgb(11 31 51 / 0.07); color: var(--color-muted); }
   .prices .row.head { border-top: 0; background: var(--color-ice); font-size: 0.75rem; font-weight: 600; }
