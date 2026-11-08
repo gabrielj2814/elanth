@@ -9,7 +9,13 @@ export default defineConfig({
   base: process.env.BASE_PATH || '/',
   devToolbar: { enabled: false },
   // Solo URLs con barra final, iguales a las canónicas (evita duplicar la portada)
-  integrations: [sitemap({ filter: (page) => page.endsWith('/') })],
+  integrations: [
+    sitemap({
+      filter: (page) => page.endsWith('/'),
+      // Fecha de la última compilación, para que los buscadores sepan cuándo cambió el sitio
+      lastmod: new Date(),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
