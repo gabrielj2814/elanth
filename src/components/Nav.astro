@@ -1,8 +1,10 @@
 ---
 import Icon from './Icon.astro';
 import { asset } from '../config';
+import { levels } from '../data/levels';
 // Rutas absolutas a la portada para que funcionen también desde las otras páginas.
-// «Servicios» agrupa las tres líneas de Elanth en un desplegable.
+// «Servicios» agrupa las tres líneas de Elanth en un desplegable; E-Commerce 360° muestra además sus niveles.
+const levelLinks = levels.map((l) => ({ href: asset(`servicios/${l.slug}/`), level: l.level, label: l.title }));
 const services = [
   { href: asset('#servicios'), label: 'E-Commerce 360°', note: 'Tiendas online y canales de venta', mark: 'brand/elanth-mark.svg' },
   { href: asset('elanth-code/'), label: 'Elanth Code', note: 'Software, integraciones y apps', mark: 'brand/elanth-code-mark.svg' },
@@ -32,8 +34,27 @@ const links = [
           <svg class="chev size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
         </button>
         <div id="menu-servicios" class="dropdown" hidden data-dropdown-panel>
-          <ul>
-            {services.map((s) => (
+          <div class="drop-col">
+            <a href={services[0].href} class="drop-item">
+              <img src={asset(services[0].mark)} alt="" width="1940" height="1110" loading="lazy" decoding="async" />
+              <span>
+                <span class="block text-[0.9375rem] font-bold text-navy [font-stretch:106%]">{services[0].label}</span>
+                <span class="mt-0.5 block text-[0.8125rem] font-normal text-muted">{services[0].note}</span>
+              </span>
+            </a>
+            <ul class="drop-levels" aria-label="Niveles de E-Commerce 360°">
+              {levelLinks.map((l) => (
+                <li>
+                  <a href={l.href} class="drop-level">
+                    <span class="lvl">{l.level}</span>
+                    <span>{l.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <ul class="drop-col">
+            {services.slice(1).map((s) => (
               <li>
                 <a href={s.href} class="drop-item">
                   <img src={asset(s.mark)} alt="" width="1940" height="1110" loading="lazy" decoding="async" />
@@ -82,12 +103,24 @@ const links = [
     <div class="mx-auto max-w-[90rem] px-4 pb-5 sm:px-8">
       <p class="pt-2 pb-1 text-xs font-semibold tracking-[0.12em] text-fog uppercase">Servicios</p>
       <ul class="border-b border-white/10 pb-2">
-        {services.map((s) => (
+        {services.map((s, i) => (
           <li>
             <a href={s.href} class="flex min-h-12 items-center gap-3 text-base font-semibold text-paper">
               <img src={asset(s.mark.replace('.svg', '-light.svg'))} alt="" width="1940" height="1110" loading="lazy" decoding="async" class="w-9 shrink-0" />
               {s.label}
             </a>
+            {i === 0 && (
+              <ul class="mb-2 ml-[1.125rem] border-l border-white/15 pl-6" aria-label="Niveles de E-Commerce 360°">
+                {levelLinks.map((l) => (
+                  <li>
+                    <a href={l.href} class="flex min-h-11 items-center gap-2.5 text-[0.9375rem] text-fog hover:text-paper">
+                      <span class="font-mono text-xs text-sky [font-stretch:85%]">{l.level}</span>
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
@@ -128,7 +161,10 @@ const links = [
     position: absolute;
     top: calc(100% + 1rem);
     left: -1.25rem;
-    width: 21rem;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 0.25rem;
+    width: 40rem;
     padding: 0.5rem;
     border-radius: 14px;
     border: 1px solid rgb(11 31 51 / 0.08);
@@ -147,6 +183,34 @@ const links = [
   .drop-item:hover,
   .drop-item:focus-visible { background: var(--color-ice); }
   .drop-item img { width: 2.75rem; height: auto; flex-shrink: 0; }
+  .drop-col { display: grid; align-content: start; gap: 0.125rem; }
+  .drop-col + .drop-col { padding-left: 0.5rem; border-left: 1px solid rgb(11 31 51 / 0.08); }
+  .drop-levels { display: grid; gap: 0.125rem; margin: 0 0 0.25rem 1.625rem; padding-left: 0.875rem; border-left: 1px solid rgb(11 31 51 / 0.1); }
+  .drop-level {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    transition: background-color 200ms, color 200ms;
+  }
+  .drop-level:hover,
+  .drop-level:focus-visible { background: var(--color-ice); color: var(--color-navy); }
+  .lvl {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px var(--color-blue-ink);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-blue-ink);
+  }
 </style>
 
 <script>
