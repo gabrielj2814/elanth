@@ -39,7 +39,7 @@ Primary conversion: **"Obtener asesoría y demo gratuita"** — a simple contact
 
 - Name: Elanth — "Technology Solutions". Logo: circuit-board elephant whose trunk becomes a rising arrow (`Visuales/Logo/Svg/elanth_logo.svg`, `Visuales/Logo/Png/elanth_logo_transparente.png`).
 - Official palette (`Visuales/Paleta de colores/Paleta_de_colores_elanth.xlsx`): #0B1F33 navy, #2590BE blue, #19C3B1 teal, #F4F7FA off-white, #263445 slate; secondary values in the file: #1769FF, #1F2A33, #E8F1F6, #F5A623, #FF6B6B.
-- Language: neutral Spanish. The site must not state or imply where Elanth is based (no country, city, local idioms or locale codes); the only exception is the WhatsApp number the user provided.
+- Language: Spanish for Venezuela. The site states that Elanth is based in Venezuela (footer, vision, legal terms, es-VE locale, schema.org areaServed) so Venezuelan businesses can find it.
 
 ## Evidence on Hand
 
