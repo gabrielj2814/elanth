@@ -156,8 +156,8 @@ const schema = [
 ];
 ---
 <Base
-  title="Elanth Media | Redes sociales, producción audiovisual y estrategia de marca"
-  description="Convertimos tu visión en campañas de marketing funcionales según tu nicho: gestión de redes, producción audiovisual, estrategia de marca y diseño. Recibe una propuesta sin compromiso."
+  title="Elanth Media | Redes sociales, contenido y estrategia"
+  description="Gestión de redes, producción audiovisual, estrategia de marca y diseño para que los likes se conviertan en ventas. Pide tu propuesta sin compromiso."
   schema={schema}
   ogImage="brand/og-elanth-media.png"
   ogImageAlt="Elanth Media: tu visión. Mil formas de contarla."
@@ -226,7 +226,7 @@ const schema = [
                     <span class:list={['hex', { 'hex-coral': featured }]}><Icon name={p.icon} class="size-5" /></span>
                     <span>
                       <span class:list={['tag-label block', { 'text-sky!': featured }]}>Plan mensual</span>
-                      <span class:list={['mt-1 block text-[2.25rem] leading-none font-[820] tracking-[-0.02em] [font-stretch:118%]', featured ? 'text-paper' : 'text-navy']}>{p.name}</span>
+                      <h3 class:list={['mt-1 block text-[2.25rem] leading-none font-[820] tracking-[-0.02em] [font-stretch:118%]', featured ? 'text-paper' : 'text-navy']}>{p.name}</h3>
                     </span>
                   </span>
                   {featured && <span class="badge">{p.badge}</span>}
@@ -278,7 +278,7 @@ const schema = [
 
         <div class="card-soft mt-5 p-6 sm:p-7">
           <p class="flex flex-wrap items-baseline justify-between gap-2">
-            <span class="text-[1.125rem] font-[800] text-navy [font-stretch:110%]">Incluido en los dos planes</span>
+            <h3 class="text-[1.125rem] font-[800] text-navy [font-stretch:110%]">Incluido en los dos planes</h3>
             <span class="tag-label">Señal y Pulso</span>
           </p>
           <ul class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
@@ -424,7 +424,7 @@ const schema = [
 
         <div class="lg:col-span-6">
           <div class="proposal">
-            <img src={asset('brand/elanth-media-mark-light.svg')} alt="" width="1940" height="1110" class="w-24" />
+            <img src={asset('brand/elanth-media-mark-light.svg')} alt="" width="1940" height="1110" loading="lazy" decoding="async" class="w-24" />
             <h2 class="mt-6 text-[clamp(1.75rem,3.6vw,2.5rem)] leading-[1.02] font-[820] tracking-[-0.02em] text-paper [font-stretch:118%]">
               Tu visión. <span class="text-coral">Mil formas de contarla.</span>
             </h2>
