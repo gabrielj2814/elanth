@@ -1,0 +1,194 @@
+---
+// Una página por nivel de E-Commerce 360° (/servicios/<slug>/), para que cada servicio
+// pueda aparecer en Google con su propia búsqueda.
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import RingNum from '../../components/RingNum.astro';
+import WhatsApp from '../../components/WhatsApp.astro';
+import LevelIllustration from '../../components/LevelIllustration.astro';
+import { levels, type Level } from '../../data/levels';
+import { asset, whatsappLink } from '../../config';
+
+export function getStaticPaths() {
+  return levels.map((level) => ({ params: { slug: level.slug }, props: { level } }));
+}
+
+const { level } = Astro.props as { level: Level };
+const total = levels.length;
+const page = level.page;
+const home = new URL(asset(''), Astro.site).href;
+const url = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site).href;
+const message = `Hola, me interesa el nivel «${level.title}» de E-Commerce 360°. Me gustaría recibir una asesoría.`;
+
+const schema = [
+  {
+    '@type': 'Service',
+    name: level.title,
+    serviceType: page.seoTitle.split(' | ')[0],
+    description: page.description,
+    url,
+    provider: { '@id': `${home}#organizacion` },
+    isRelatedTo: { '@type': 'Service', name: 'E-Commerce 360°' },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: home },
+      { '@type': 'ListItem', position: 2, name: 'E-Commerce 360°', item: `${home}#servicios` },
+      { '@type': 'ListItem', position: 3, name: level.title, item: url },
+    ],
+  },
+];
+---
+<Base title={page.seoTitle} description={page.description} schema={schema}>
+  <Nav />
+  <main id="contenido">
+    <!-- Encabezado -->
+    <section class="circuit-grid-dark relative overflow-hidden bg-navy pt-28 pb-20 sm:pt-36 lg:pb-24">
+      <div class="mx-auto grid max-w-[90rem] items-center gap-12 px-4 sm:px-8 lg:grid-cols-12 lg:gap-10 lg:px-12">
+        <div class="min-w-0 lg:col-span-7">
+          <nav aria-label="Ruta de navegación">
+            <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-fog">
+              <li><a href={asset('')} class="hover:text-paper">Inicio</a></li>
+              <li aria-hidden="true">/</li>
+              <li><a href={asset('#servicios')} class="hover:text-paper">E-Commerce 360°</a></li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" class="text-paper">Nivel {level.level}</li>
+            </ol>
+          </nav>
+
+          <div class="mt-8 flex items-center gap-3">
+            <RingNum value={level.level} progress={level.level / total} size={44} dark />
+            <span class="tag-label text-sky!">Nivel {level.level} de {total} · {level.title}</span>
+          </div>
+          <h1 class="display mt-5 text-[clamp(2.3rem,6vw,4.5rem)] text-paper">
+            {page.heading[0]} <span class="text-sky">{page.heading[1]}</span>
+          </h1>
+          <p class="mt-7 max-w-[38rem] text-lg leading-relaxed text-fog sm:text-xl">{level.body}</p>
+
+          <div class="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-7">
+            <a href={asset('#asesoria')} class="btn-lit w-full text-base sm:w-auto sm:text-lg">
+              Obtener asesoría y demo gratuita
+              <Icon name="arrow" class="size-5" />
+            </a>
+            <a href={whatsappLink(message)} target="_blank" rel="noopener" class="link-quiet text-paper">Escribir por WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="min-w-0 lg:col-span-5">
+          <div class="illus-frame">
+            <LevelIllustration level={level.level} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué incluye y para quién -->
+    <section class="mesh-soft text-ink">
+      <div class="mx-auto grid max-w-[90rem] gap-6 px-4 py-20 sm:px-8 sm:py-24 lg:grid-cols-12 lg:gap-8 lg:px-12">
+        <div class="card-soft p-6 sm:p-8 lg:col-span-7">
+          <h2 class="text-[clamp(1.6rem,3vw,2.25rem)] leading-tight font-[820] tracking-[-0.02em] text-navy [font-stretch:116%]">Qué incluye</h2>
+          <ul class="mt-6 grid gap-4">
+            {page.includes.map((item) => (
+              <li class="flex items-start gap-3">
+                <Icon name="check" class="mt-0.5 size-5 shrink-0 text-blue-ink" />
+                <span class="text-[1.0625rem] leading-relaxed text-ink">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="grid gap-6 lg:col-span-5">
+          <div class="card-soft p-6 sm:p-8">
+            <span class="hex"><Icon name="target" class="size-5" /></span>
+            <h2 class="mt-5 text-[1.375rem] leading-tight font-[800] text-navy [font-stretch:112%]">Para quién es</h2>
+            <p class="mt-3 text-[1.0625rem] leading-relaxed text-ink/85">{page.forWho}</p>
+          </div>
+          <div class="result p-6 sm:p-8">
+            <span class="tag-label text-sky!">El resultado</span>
+            <p class="mt-3 text-[1.375rem] leading-snug font-[800] text-paper [font-stretch:110%]">{level.result}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Los cuatro niveles -->
+    <section class="mesh-soft border-t border-ink/5 text-ink">
+      <div class="mx-auto max-w-[90rem] px-4 py-20 sm:px-8 sm:py-24 lg:px-12">
+        <div class="grid gap-4 lg:grid-cols-12 lg:items-end">
+          <h2 class="display text-[clamp(1.9rem,4.4vw,3.25rem)] text-navy lg:col-span-7">Avanza por niveles</h2>
+          <p class="max-w-[34rem] text-lg leading-relaxed text-muted lg:col-span-5 lg:pb-1">
+            Contrata lo que tu negocio necesita hoy y sube de nivel cuando quieras.
+          </p>
+        </div>
+        <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {levels.map((l) => {
+            const current = l.slug === level.slug;
+            return (
+              <li>
+                <a
+                  href={asset(`servicios/${l.slug}/`)}
+                  class:list={['step-link card-soft', { current }]}
+                  aria-current={current ? 'page' : undefined}
+                >
+                  <RingNum value={l.level} progress={l.level / total} size={44} dark={current} />
+                  <span class="min-w-0">
+                    <span class:list={['tag-label block', { 'text-sky!': current }]}>Nivel {l.level}</span>
+                    <span class="mt-1 block font-bold leading-snug [font-stretch:106%]">{l.title}</span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Cierre -->
+    <section class="bg-navy">
+      <div class="mx-auto flex max-w-[90rem] flex-col items-start gap-8 px-4 py-20 sm:px-8 sm:py-24 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+        <div>
+          <h2 class="display max-w-[40rem] text-[clamp(1.9rem,4.4vw,3.25rem)] text-paper">
+            Empieza con una <span class="text-sky">asesoría gratuita.</span>
+          </h2>
+          <p class="mt-4 max-w-[36rem] text-lg text-fog">Revisamos tu caso y te mostramos cómo se vería tu negocio en este nivel, sin costo.</p>
+        </div>
+        <a href={asset('#asesoria')} class="btn-lit w-full shrink-0 text-base sm:w-auto sm:text-lg">
+          Obtener asesoría y demo gratuita
+          <Icon name="arrow" class="size-5" />
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsApp message={message} />
+</Base>
+
+<style>
+  .illus-frame {
+    max-width: 32rem;
+    margin-inline: auto;
+    padding: 1.25rem;
+    border-radius: 18px;
+    background: var(--color-paper);
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+  .result {
+    border-radius: 14px;
+    background: var(--color-navy);
+    box-shadow: 0 18px 36px -24px rgb(11 31 51 / 0.6);
+  }
+  .step-link {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    height: 100%;
+    padding: 1.125rem;
+    color: var(--color-navy);
+    transition: transform 250ms var(--ease-out-quart), box-shadow 250ms;
+  }
+  .step-link:hover { transform: translateY(-2px); }
+  .step-link.current { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-paper); }
+</style>

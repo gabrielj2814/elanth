@@ -1,0 +1,113 @@
+---
+// Ilustración de cada nivel de E-Commerce 360° (tienda, chat con IA, inventario sincronizado y precios B2B).
+// La usan la sección de niveles de la portada y las páginas de cada servicio.
+import Icon from './Icon.astro';
+
+interface Props {
+  level: number;
+  class?: string;
+}
+const { level: lv, class: className } = Astro.props;
+const l = { level: lv };
+const channels = ['Tienda', 'M. Libre', 'Amazon', 'Marketplace'];
+const priceRows = [
+  { client: 'Ferretería Centro', list: 'Mayorista A', price: '−12%' },
+  { client: 'Constructora Norte', list: 'Mayorista B', price: '−8%' },
+  { client: 'Cliente final', list: 'Minorista', price: 'Base' },
+];
+---
+<div class:list={['illus', className]} aria-hidden="true">
+  {l.level === 1 && (
+    <div class="win">
+      <div class="win-bar"><span></span><span></span><span></span><i></i></div>
+      <div class="flex items-center justify-between px-4 pt-3.5">
+        <span class="h-2.5 w-24 rounded-full bg-navy"></span>
+        <span class="grid size-7 place-items-center rounded-full bg-blue-ink text-paper"><Icon name="bag" class="size-3.5" /></span>
+      </div>
+      <div class="grid grid-cols-3 gap-2.5 p-4">
+        {['circle', 'tri', 'square'].map((shape) => (
+          <div class="product">
+            <div class="thumb"><span class={`shape ${shape}`}></span></div>
+            <span class="mt-2 block h-1.5 w-4/5 rounded-full bg-navy/15"></span>
+            <span class="mt-1 block h-1.5 w-1/2 rounded-full bg-navy/10"></span>
+            <span class="buy">Agregar</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+  {l.level === 2 && (
+    <div class="chat">
+      <p class="bubble in">¿Tienen el cable THW 12 en rollo de 100 m?</p>
+      <p class="bubble out">
+        <span class="flex items-center gap-1.5 text-[0.6875rem] font-semibold text-sky"><Icon name="spark" class="size-3.5" />Asistente IA · al instante</span>
+        <span class="mt-1 block">Sí, quedan 142 rollos. ¿Te reservo 2 y te envío el enlace de pago?</span>
+      </p>
+      <p class="bubble in short">Sí, por favor.</p>
+    </div>
+  )}
+  {l.level === 3 && (
+    <div class="sync">
+      <div class="hub-box">
+        <Icon name="sync" class="size-5 text-sky" />
+        <span>
+          <span class="block text-[0.6875rem] text-fog">Inventario central</span>
+          <span class="tabular block text-xl font-bold text-paper">142</span>
+        </span>
+      </div>
+      <div class="grid flex-1 grid-cols-2 gap-2">
+        {channels.map((c) => (
+          <div class="chan">
+            <span class="text-[0.75rem] text-muted">{c}</span>
+            <span class="tabular flex items-center gap-1.5 font-bold text-navy"><Icon name="check" class="size-3.5 text-blue-ink" />142</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+  {l.level === 4 && (
+    <div class="prices">
+      <div class="row head"><span>Cliente</span><span>Lista</span><span>Precio</span></div>
+      {priceRows.map((r) => (
+        <div class="row"><span class="font-semibold text-navy">{r.client}</span><span>{r.list}</span><span class="tabular font-bold text-blue-ink">{r.price}</span></div>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  /* Ilustraciones */
+  .illus { position: relative; max-width: 30rem; }
+  .win { overflow: hidden; border-radius: 12px; border: 1px solid rgb(11 31 51 / 0.1); background: #f7fafc; }
+  .win-bar { display: flex; align-items: center; gap: 5px; padding: 0.5rem 0.75rem; border-bottom: 1px solid rgb(11 31 51 / 0.08); }
+  .win-bar span { width: 7px; height: 7px; border-radius: 50%; background: rgb(11 31 51 / 0.18); }
+  .win-bar i { flex: 1; height: 0.625rem; margin-left: 0.5rem; border-radius: 999px; background: rgb(11 31 51 / 0.07); }
+  .product { padding: 0.5rem; border-radius: 9px; background: #fff; border: 1px solid rgb(11 31 51 / 0.07); }
+  .thumb { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: 6px; background: var(--color-ice); }
+  .shape { display: block; width: 32%; aspect-ratio: 1; background: var(--color-blue); }
+  .shape.circle { border-radius: 50%; }
+  .shape.tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .shape.square { border-radius: 4px; background: var(--color-blue-ink); }
+  .buy {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0;
+    border-radius: 999px;
+    background: var(--color-blue-ink);
+    color: var(--color-paper);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .chat { display: grid; gap: 0.5rem; padding: 1rem; border-radius: 12px; background: var(--color-ice); }
+  .bubble { max-width: 85%; padding: 0.625rem 0.875rem; border-radius: 14px; font-size: 0.875rem; line-height: 1.45; }
+  .bubble.in { justify-self: start; background: #fff; color: var(--color-ink); border-bottom-left-radius: 4px; }
+  .bubble.out { justify-self: end; background: var(--color-navy); color: var(--color-paper); border-bottom-right-radius: 4px; }
+  .bubble.short { max-width: 60%; }
+  .sync { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.5rem; padding: 0.75rem; border-radius: 12px; background: var(--color-ice); }
+  .hub-box { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border-radius: 10px; background: var(--color-navy); }
+  .chan { display: flex; flex-direction: column; gap: 0.125rem; padding: 0.5rem 0.75rem; border-radius: 9px; background: #fff; }
+  .prices { overflow: hidden; border-radius: 12px; border: 1px solid rgb(11 31 51 / 0.1); background: #fff; font-size: 0.875rem; }
+  .prices .row { display: grid; grid-template-columns: 1.4fr 1fr 0.7fr; gap: 0.75rem; padding: 0.625rem 1rem; border-top: 1px solid rgb(11 31 51 / 0.07); color: var(--color-muted); }
+  .prices .row.head { border-top: 0; background: var(--color-ice); font-size: 0.75rem; font-weight: 600; }
+</style>

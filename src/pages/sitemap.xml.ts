@@ -1,11 +1,13 @@
 import type { APIRoute } from 'astro';
+import { levels } from '../data/levels';
 
 // /sitemap.xml con todas las páginas del sitio, listadas directamente.
 // (@astrojs/sitemap genera además sitemap-index.xml y sitemap-0.xml con el mismo contenido.)
 // Las páginas salen de los archivos .astro de src/pages, así que una página nueva entra sola.
 const pages = Object.keys(import.meta.glob('./**/*.astro'))
   .map((file) => file.replace(/^\.\//, '').replace(/\.astro$/, ''))
-  .filter((name) => name !== '404')
+  .filter((name) => name !== '404' && !name.includes('['))
+  .concat(levels.map((l) => `servicios/${l.slug}`))
   .map((name) => (name === 'index' ? '' : `${name.replace(/\/index$/, '')}/`))
   .sort();
 
