@@ -33,7 +33,7 @@ const files: { name: string; lines: Line[]; log: string[] }[] = [
   },
 ];
 ---
-<div class="editor mx-auto w-full max-w-[34rem]" data-editor>
+<div class="editor mx-auto w-full max-w-[34rem] min-w-0" data-editor>
   <div class="win">
     <div class="bar">
       <span class="lights" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -61,7 +61,9 @@ const files: { name: string; lines: Line[]; log: string[] }[] = [
 </div>
 
 <style>
+  /* El código largo se desplaza dentro de la ventana, sin ensanchar la página */
   .win {
+    max-width: 100%;
     overflow: hidden;
     border-radius: 14px;
     border: 1px solid rgb(107 187 224 / 0.22);
